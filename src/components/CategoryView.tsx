@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { categoryProfile, type Filters, type GraphIndex } from '../../shared/graph'
 import { SECTION_LABELS, type Section } from '../../shared/profile'
+import { categoryCellExplanation, categoryLegendExplanation } from '../explanations'
+import { useExplain } from '../explain'
 
 const pct = (n: number) => `${Math.round(n * 100)}%`
 const sectionLabel = (s: string | null) => (s === null ? 'Values' : (SECTION_LABELS[s as Section] ?? s))
@@ -11,6 +13,7 @@ const sectionLabel = (s: string | null) => (s === null ? 'Values' : (SECTION_LAB
  */
 export function CategoryView({ index, filters }: { index: GraphIndex; filters: Filters }) {
   const people = index.data.people
+  const explain = useExplain()
   const profile = useMemo(() => categoryProfile(index, filters), [index, filters])
 
   const model = useMemo(() => {
@@ -54,7 +57,9 @@ export function CategoryView({ index, filters }: { index: GraphIndex; filters: F
               group.rows.reduce((sum, r) => sum + (profile.counts.get(personId)?.get(r.key) ?? 0), 0)
             return [
               <tr key={`s-${group.section}`} className="domain-row">
-                <th scope="rowgroup">{sectionLabel(group.section)}</th>
+                <th scope="rowgroup" data-section={group.section ?? 'values'}>
+                  {sectionLabel(group.section)}
+                </th>
                 {people.map((p) => (
                   <td key={p.id} data-person={p.id} data-subtotal aria-label={`${p.name}: ${subtotal(p.id)} in ${sectionLabel(group.section)}`}>
                     {subtotal(p.id) || ''}
@@ -76,6 +81,8 @@ export function CategoryView({ index, filters }: { index: GraphIndex; filters: F
                           data-level={level(p.id, n)}
                           aria-label={`${p.name}: ${n} ${n === 1 ? 'term' : 'terms'} in ${r.category}`}
                           title={`${p.name}: ${n} in ${r.category}`}
+                          tabIndex={0}
+                          {...explain.props(categoryCellExplanation(p.name, r.category, n))}
                         >
                           {n || ''}
                         </td>
@@ -89,7 +96,7 @@ export function CategoryView({ index, filters }: { index: GraphIndex; filters: F
           })}
         </tbody>
       </table>
-      <p className="legend" style={{ padding: '0 0.5rem' }}>
+      <p className="legend" style={{ padding: '0 0.5rem' }} tabIndex={0} {...explain.props(categoryLegendExplanation)}>
         Numbers are how many of a person’s terms fall in each category; darker is a bigger share of that person’s own
         profile. “People” counts who has anything there.
       </p>

@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type KeyboardEvent } from 'react'
 import { termsOf, type Filters, type GraphIndex, type Role } from '../../shared/graph'
 import { SECTION_LABELS, type Section } from '../../shared/profile'
+import { bipartitePersonExplanation, bipartiteTermExplanation } from '../explanations'
+import { useExplain } from '../explain'
 
 const ROW = 24
 const W = 820
@@ -17,6 +19,7 @@ type Focus = { kind: 'person' | 'term'; id: number } | null
  * what the group has in common; a term with one line is a niche strength.
  */
 export function BipartiteView({ index, filters }: { index: GraphIndex; filters: Filters }) {
+  const explain = useExplain()
   const [focus, setFocus] = useState<Focus>(null)
   const [showSingles, setShowSingles] = useState(false)
   const role = roleOf(filters)
@@ -75,6 +78,18 @@ export function BipartiteView({ index, filters }: { index: GraphIndex; filters: 
   const active = (l: { person: number; term: number }) =>
     !focus || (focus.kind === 'person' ? l.person === focus.id : l.term === focus.id)
   const toggle = (f: NonNullable<Focus>) => setFocus(focus?.kind === f.kind && focus.id === f.id ? null : f)
+  // The element's own Enter key, with "?" and Shift+F10 left to the explanation.
+  const withEnter = (ex: ReturnType<typeof explain.props>, f: NonNullable<Focus>) => ({
+    ...ex,
+    onKeyDown: (e: KeyboardEvent<Element>) => {
+      ex.onKeyDown?.(e)
+      if (!e.defaultPrevented && e.key === 'Enter') toggle(f)
+    },
+  })
+  const personEx = (p: { id: number; name: string }) =>
+    withEnter(explain.props(bipartitePersonExplanation(p.name, termsOf(index, p.id, role, filters).length)), { kind: 'person', id: p.id })
+  const termEx = (t: (typeof index.data.terms)[number]) =>
+    withEnter(explain.props(bipartiteTermExplanation(t, model.count.get(t.id) ?? 0)), { kind: 'term', id: t.id })
 
   return (
     <div className="viz-canvas">
@@ -111,7 +126,7 @@ export function BipartiteView({ index, filters }: { index: GraphIndex; filters: 
             aria-pressed={focus?.kind === 'person' && focus.id === p.id}
             aria-label={`${p.name}: ${termsOf(index, p.id, role, filters).length} terms. Highlight their terms`}
             onClick={() => toggle({ kind: 'person', id: p.id })}
-            onKeyDown={(e) => e.key === 'Enter' && toggle({ kind: 'person', id: p.id })}
+            {...personEx(p)}
             style={{ cursor: 'pointer' }}
           >
             <text className="node-label" x={LEFT - 14} y={model.personY.get(p.id)! + 4} textAnchor="end">
@@ -131,7 +146,7 @@ export function BipartiteView({ index, filters }: { index: GraphIndex; filters: 
               aria-pressed={focus?.kind === 'term' && focus.id === r.term.id}
               aria-label={`${r.term.name}: ${model.count.get(r.term.id)} ${model.count.get(r.term.id) === 1 ? 'person' : 'people'}. Highlight them`}
               onClick={() => toggle({ kind: 'term', id: r.term.id })}
-              onKeyDown={(e) => e.key === 'Enter' && toggle({ kind: 'term', id: r.term.id })}
+              {...termEx(r.term)}
               style={{ cursor: 'pointer' }}
             >
               <rect className="node-shape group-2" x={RIGHT - 5} y={r.y - 9} width={10} height={10} rx={2} />

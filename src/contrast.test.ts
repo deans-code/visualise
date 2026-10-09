@@ -63,3 +63,41 @@ describe('dark theme', () => {
     expect(darkMediaOverrides).toEqual(darkOverrides)
   })
 })
+
+describe.each(['values', 'technical', 'engineering', 'interpersonal', 'ai'])('section accent %s', (section) => {
+  const lightVars = vars(block(`[data-section='${section}'] {`))
+  const darkVars = vars(block(`:root[data-theme='dark'] [data-section='${section}'] {`))
+  const darkMediaVars = vars(block(`  :root:where(:not([data-theme='light'])) [data-section='${section}'] {`))
+
+  it.each([
+    ['light', lightVars, light],
+    ['dark', darkVars, dark],
+  ])('is readable in %s mode', (_mode, accent, base) => {
+    // Text on the filled accent (buttons), accent as text on the surface (headings), and body text on the tint.
+    expect(contrast(accent['accent-text'], accent.accent)).toBeGreaterThanOrEqual(4.5)
+    expect(contrast(accent.accent, base['surface-1'])).toBeGreaterThanOrEqual(4.5)
+    expect(contrast(base['text-primary'], accent.tint)).toBeGreaterThanOrEqual(7)
+  })
+
+  it('is declared identically for the OS setting and the manual toggle', () => {
+    expect(darkMediaVars).toEqual(darkVars)
+  })
+})
+
+describe('default accent', () => {
+  it.each([
+    ['light', light],
+    ['dark', dark],
+  ])('is readable in %s mode', (_mode, v) => {
+    expect(contrast(v['accent-text'], v.accent)).toBeGreaterThanOrEqual(4.5)
+    expect(contrast(v.accent, v['surface-1'])).toBeGreaterThanOrEqual(4.5)
+    expect(contrast(v['text-primary'], v.tint)).toBeGreaterThanOrEqual(7)
+  })
+})
+
+describe('layout', () => {
+  it('fills the width instead of a fixed narrow column', () => {
+    expect(block('main {')).toContain('min(100% - 2rem, 120rem)')
+    expect(block('main {')).not.toContain('max-width')
+  })
+})

@@ -1,14 +1,17 @@
 import { helpLinks, similarityEdges, softOverlap, termsOf, type Filters, type GraphIndex, type Role } from '../../shared/graph'
 import type { Selection } from '../graph/selection'
+import { accentOf, termExplanation } from '../explanations'
+import { useExplain } from '../explain'
 
 const pct = (n: number) => `${Math.round(n * 100)}%`
 
 /** A term that expands to show its definition and where it sits in the catalogue. */
 function TermDef({ index, id }: { index: GraphIndex; id: number }) {
+  const explain = useExplain()
   const t = index.term.get(id)
   if (!t) return null
   return (
-    <details className="term-def">
+    <details className="term-def" data-section={accentOf(t)} {...explain.props(termExplanation(t))}>
       <summary>{t.name}</summary>
       <p>{t.definition ?? 'No definition yet.'}</p>
       {t.category && <small>{t.section ? `${t.section} · ` : ''}{t.category}</small>}
@@ -31,7 +34,7 @@ export function DetailsPanel({
 
   return (
     <aside className="viz-side" aria-label="Details" aria-live="polite">
-      {!selection && <p>Select a person or a connection to see what links them.</p>}
+      {!selection && <p>Select a person or a connection to see what links them. Right-click a term to read its definition.</p>}
       {selection?.kind === 'person' && <PersonDetails index={index} filters={filters} id={selection.id} name={name} />}
       {selection?.kind === 'edge' && <EdgeDetails index={index} filters={filters} a={selection.a} b={selection.b} name={name} />}
       {selection?.kind === 'help' && <HelpDetails index={index} filters={filters} from={selection.from} to={selection.to} name={name} />}

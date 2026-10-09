@@ -1,13 +1,63 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 import { helpLinks, similarityEdges, type Filters, type GraphIndex } from '../../shared/graph'
 import { detectGroups, type Group } from '../graph/communities'
 import { computeLayout } from '../graph/layout'
 import { sameSelection, type Selection } from '../graph/selection'
 import { groupClass, ShapeMark } from '../graph/Shape'
+import {
+  edgeExplanation,
+  groupExplanation,
+  helpEdgeExplanation,
+  nodeExplanation,
+  ungroupedExplanation,
+} from '../explanations'
+import { useExplain, type ExplainProps } from '../explain'
 
-const W = 800
+const DEFAULT_W = 800
 const H = 520
+/** A press that moves less than this many screen pixels is a click, not a drag. */
+export const DRAG_THRESHOLD = 4
+const KEY_STEP = 10
+const KEY_STEP_BIG = 40
+const MARGIN = 20
 const pct = (n: number) => `${Math.round(n * 100)}%`
+
+type Point = { x: number; y: number }
+const EMPTY: Map<number, Point> = new Map()
+
+/**
+ * The drawing's coordinate width. It follows the canvas's shape so a wide screen gets a wide picture rather
+ * than a narrow one with empty gutters; it moves in steps of 100 so a small resize does not re-lay everything.
+ */
+function useCanvasWidth(ref: React.RefObject<HTMLElement | null>) {
+  const [w, setW] = useState(DEFAULT_W)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const update = () => {
+      const cw = el.clientWidth
+      if (!cw) return
+      const targetHeight = Math.min(900, Math.max(420, window.innerHeight * 0.7))
+      setW(Math.max(600, Math.round(((cw / targetHeight) * H) / 100) * 100))
+    }
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [ref])
+  return w
+}
+
+/** Explanation handlers plus a component's own keys; "?" and Shift+F10 win, so they never also act. */
+const withKeys = (ex: ExplainProps, onKey: (ev: KeyboardEvent<SVGGElement>) => void): ExplainProps => ({
+  ...ex,
+  onKeyDown: (ev) => {
+    ex.onKeyDown?.(ev)
+    if (!ev.defaultPrevented) onKey(ev as KeyboardEvent<SVGGElement>)
+  },
+})
+
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
 export function NetworkView({
   index,
@@ -22,6 +72,14 @@ export function NetworkView({
 }) {
   const complementary = filters.basis === 'complementary'
   const people = index.data.people
+  const explain = useExplain()
+  const canvas = useRef<HTMLDivElement>(null)
+  const W = useCanvasWidth(canvas)
+  // Manual positions belong to the layout they were made on: new data, filters or width start afresh.
+  const [dragged, setDragged] = useState<{ model: unknown; pos: Map<number, Point> } | null>(null)
+  const active = useRef<{ id: number; pointer: number; startX: number; startY: number; from: Point; scale: number; moving: boolean } | null>(null)
+  const justDragged = useRef(false)
+  const [draggingId, setDraggingId] = useState<number | null>(null)
 
   const model = useMemo(() => {
     const sim = complementary ? [] : similarityEdges(index, filters)
@@ -48,18 +106,88 @@ export function NetworkView({
       grouping: detectGroups(ids, ties),
       connected: new Set(ties.flatMap((t) => [t.a, t.b])),
     }
-  }, [index, filters, complementary, people])
+  }, [index, filters, complementary, people, W])
 
   const { sim, help, maxHelp, layout, grouping, connected } = model
   const name = (id: number) => index.person.get(id)?.name ?? String(id)
-  const pos = (id: number) => layout.get(id)!
+  const moved = dragged?.model === model ? dragged.pos : EMPTY
+  const pos = (id: number): Point => moved.get(id) ?? layout.get(id)!
+  const moveTo = (id: number, p: Point) =>
+    setDragged((d) => {
+      const pos = new Map(d?.model === model ? d.pos : EMPTY)
+      pos.set(id, { x: clamp(p.x, MARGIN, W - MARGIN), y: clamp(p.y, MARGIN + 6, H - MARGIN) })
+      return { model, pos }
+    })
+
+  const onNodeDown = (e: PointerEvent<SVGGElement>, id: number) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+    const rect = e.currentTarget.ownerSVGElement?.getBoundingClientRect()
+    active.current = {
+      id,
+      pointer: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      from: pos(id),
+      // Screen pixels to drawing units; 1 where there is no layout (tests).
+      scale: rect && rect.width ? W / rect.width : 1,
+      moving: false,
+    }
+  }
+  const onNodeMove = (e: PointerEvent<SVGGElement>) => {
+    const a = active.current
+    if (!a || a.pointer !== e.pointerId) return
+    const dx = e.clientX - a.startX
+    const dy = e.clientY - a.startY
+    if (!a.moving) {
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return
+      a.moving = true
+      // Moving means this is a drag, so it can no longer become a touch long-press.
+      explain.cancelPress()
+      setDraggingId(a.id)
+      e.currentTarget.setPointerCapture?.(e.pointerId)
+    }
+    moveTo(a.id, { x: a.from.x + dx * a.scale, y: a.from.y + dy * a.scale })
+  }
+  const onNodeUp = (e: PointerEvent<SVGGElement>) => {
+    const a = active.current
+    if (!a || a.pointer !== e.pointerId) return
+    active.current = null
+    setDraggingId(null)
+    if (a.moving) {
+      // The click that follows a drag must not select.
+      justDragged.current = true
+      window.setTimeout(() => (justDragged.current = false), 0)
+      e.currentTarget.releasePointerCapture?.(e.pointerId)
+    }
+  }
+  const onNodeKey = (ev: KeyboardEvent<SVGGElement>, id: number) => {
+    if (ev.key === 'Enter') return onSelect({ kind: 'person', id })
+    const step = ev.shiftKey ? KEY_STEP_BIG : KEY_STEP
+    const delta: Record<string, Point> = {
+      ArrowLeft: { x: -step, y: 0 },
+      ArrowRight: { x: step, y: 0 },
+      ArrowUp: { x: 0, y: -step },
+      ArrowDown: { x: 0, y: step },
+    }
+    const d = delta[ev.key]
+    if (!d) return
+    ev.preventDefault()
+    const p = pos(id)
+    moveTo(id, { x: p.x + d.x, y: p.y + d.y })
+  }
   const connectionCount = complementary ? help.length : sim.length
   // Draw strengths relative to the strongest visible connection, so the spread is legible whatever the data.
   const maxSim = Math.max(0.01, ...sim.map((e) => e.similarity))
 
   return (
     <div>
-      <div className="viz-canvas">
+      <div className="viz-canvas" ref={canvas}>
+        <div className="toolbar">
+          <button type="button" className="secondary" onClick={() => setDragged(null)} disabled={moved.size === 0}>
+            Reset layout
+          </button>
+          <p className="hint">Drag a person, or focus one and use the arrow keys, to move them. Reset layout puts everyone back.</p>
+        </div>
         <svg
           viewBox={`0 0 ${W} ${H}`}
           role="group"
@@ -77,6 +205,9 @@ export function NetworkView({
             const b = pos(e.b)
             const selected = sameSelection(selection, { kind: 'edge', a: e.a, b: e.b })
             const label = `${name(e.a)} and ${name(e.b)}: ${pct(e.similarity)} similar`
+            const ex = withKeys(explain.props(edgeExplanation(name(e.a), name(e.b), e.similarity)), (ev) => {
+              if (ev.key === 'Enter') onSelect({ kind: 'edge', a: e.a, b: e.b })
+            })
             return (
               <g
                 key={`${e.a}-${e.b}`}
@@ -85,7 +216,7 @@ export function NetworkView({
                 aria-label={label}
                 aria-pressed={selected}
                 onClick={() => onSelect({ kind: 'edge', a: e.a, b: e.b })}
-                onKeyDown={(ev) => ev.key === 'Enter' && onSelect({ kind: 'edge', a: e.a, b: e.b })}
+                {...ex}
               >
                 <line
                   className="edge"
@@ -112,6 +243,9 @@ export function NetworkView({
             const ex = b.x - ((b.x - a.x) / len) * 16
             const ey = b.y - ((b.y - a.y) / len) * 16
             const selected = sameSelection(selection, { kind: 'help', from: h.from, to: h.to })
+            const xp = withKeys(explain.props(helpEdgeExplanation(name(h.from), name(h.to), h.items.length)), (ev) => {
+              if (ev.key === 'Enter') onSelect({ kind: 'help', from: h.from, to: h.to })
+            })
             return (
               <g
                 key={`${h.from}>${h.to}`}
@@ -120,7 +254,7 @@ export function NetworkView({
                 aria-label={`${name(h.from)} could help ${name(h.to)} with ${h.items.length} ${h.items.length === 1 ? 'skill' : 'skills'}`}
                 aria-pressed={selected}
                 onClick={() => onSelect({ kind: 'help', from: h.from, to: h.to })}
-                onKeyDown={(ev) => ev.key === 'Enter' && onSelect({ kind: 'help', from: h.from, to: h.to })}
+                {...xp}
               >
                 <line
                   className="help-edge"
@@ -142,10 +276,17 @@ export function NetworkView({
             const { x, y } = pos(p.id)
             const group = grouping.of.get(p.id)
             const selected = sameSelection(selection, { kind: 'person', id: p.id })
+            const ex = withKeys(
+              explain.props(
+                nodeExplanation(p.name, group?.label ?? null, sim.filter((e) => e.a === p.id || e.b === p.id).length + help.filter((h) => h.from === p.id || h.to === p.id).length),
+              ),
+              (ev) => onNodeKey(ev, p.id),
+            )
             return (
               <g
                 key={p.id}
                 className="node"
+                data-dragging={draggingId === p.id}
                 data-person={p.id}
                 data-group={group?.index ?? ''}
                 data-connected={connected.has(p.id)}
@@ -155,9 +296,26 @@ export function NetworkView({
                 tabIndex={0}
                 aria-label={`${p.name}${group ? `, ${group.label}` : ', not connected'}`}
                 aria-pressed={selected}
-                onClick={() => onSelect({ kind: 'person', id: p.id })}
-                onKeyDown={(ev) => ev.key === 'Enter' && onSelect({ kind: 'person', id: p.id })}
+                onClick={() => {
+                  if (!justDragged.current) onSelect({ kind: 'person', id: p.id })
+                }}
+                {...ex}
+                onPointerDown={(e) => {
+                  ex.onPointerDown?.(e)
+                  onNodeDown(e, p.id)
+                }}
+                onPointerMove={onNodeMove}
+                onPointerUp={(e) => {
+                  ex.onPointerUp?.()
+                  onNodeUp(e)
+                }}
+                onPointerCancel={(e) => {
+                  ex.onPointerCancel?.()
+                  onNodeUp(e)
+                }}
               >
+                {/* A larger invisible target, so a node is easy to grab with a finger or a shaky mouse. */}
+                <circle r={18} fill="transparent" />
                 <ShapeMark shape={group?.shape ?? 'circle'} r={11} className={`node-shape ${groupClass(group?.slot)}`} />
                 <text className="node-label" x={0} y={-17} textAnchor="middle">
                   {p.name}
@@ -175,10 +333,16 @@ export function NetworkView({
 }
 
 function Legend({ groups, ungrouped, index }: { groups: Group[]; ungrouped: number; index: GraphIndex }) {
+  const explain = useExplain()
   return (
     <ul className="legend" aria-label="Groups">
       {groups.map((g) => (
-        <li key={g.index} data-group={g.index}>
+        <li
+          key={g.index}
+          data-group={g.index}
+          tabIndex={0}
+          {...explain.props(groupExplanation(g.label, g.members.map((m) => index.person.get(m)?.name ?? String(m))))}
+        >
           <svg width="20" height="20" viewBox="-12 -12 24 24" aria-hidden="true">
             <ShapeMark shape={g.shape} r={9} className={`node-shape ${groupClass(g.slot)}`} />
           </svg>
@@ -186,7 +350,7 @@ function Legend({ groups, ungrouped, index }: { groups: Group[]; ungrouped: numb
         </li>
       ))}
       {ungrouped > 0 && (
-        <li>
+        <li tabIndex={0} {...explain.props(ungroupedExplanation(ungrouped))}>
           <svg width="20" height="20" viewBox="-12 -12 24 24" aria-hidden="true">
             <circle r={9} className="node-shape group-other" />
           </svg>

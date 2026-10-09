@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Api, Individual, Resolution, UploadResult } from '../api'
+import { personListExplanation } from '../explanations'
+import { useExplain } from '../explain'
+import { HelpPanel } from './HelpPanel'
 import { ReviewTerms } from './ReviewTerms'
 
 interface PendingFile {
@@ -23,6 +26,7 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
   const [editing, setEditing] = useState<number | null>(null)
   const [draft, setDraft] = useState('')
   const input = useRef<HTMLInputElement>(null)
+  const explain = useExplain()
 
   const refresh = useCallback(async () => {
     try {
@@ -79,6 +83,20 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
   return (
     <section aria-labelledby="people-h">
       <h2 id="people-h">People</h2>
+      <HelpPanel id="people" title="How to use People">
+        <p>
+          <strong>1. Upload.</strong> Choose one or more profile files exported from the profile tool. Each{' '}
+          <code>.json</code> file is one person, named after the file.
+        </p>
+        <p>
+          <strong>2. Review.</strong> Anything you wrote that is not in the built-in dictionary is offered back with a
+          proposed definition for you to accept, edit or reject.
+        </p>
+        <p>
+          <strong>3. Explore.</strong> Open the <strong>Explore</strong> tab to see how the people relate. Rename or
+          delete people below.
+        </p>
+      </HelpPanel>
       <label>
         Upload profile JSON files
         <input
@@ -89,6 +107,10 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
           onChange={(e) => void onFiles(e.target.files)}
         />
       </label>
+      <p className="hint">
+        Each <code>.json</code> file is one person’s exported profile, and the file name becomes their name. You can
+        select several files at once.
+      </p>
 
       {error && <p role="alert">{error}</p>}
 
@@ -111,27 +133,37 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
       {result && result.conflicts.length > 0 && (
         <div role="group" aria-label="Duplicate names">
           <p>Already uploaded: {result.conflicts.map((c) => c.name).join(', ')}</p>
+          <p className="hint">
+            <strong>Replace existing</strong> overwrites that person’s profile with the new file;{' '}
+            <strong>Keep both</strong> adds the new file as a separate person.
+          </p>
           <button onClick={() => resolveAll('replace')}>Replace existing</button>{' '}
           <button onClick={() => resolveAll('keep')}>Keep both</button>
         </div>
       )}
 
       {people.length === 0 ? (
-        <p>No profiles uploaded yet.</p>
+        <p className="empty-state">
+          No profiles uploaded yet. Use <strong>Upload profile JSON files</strong> above to add the profiles exported
+          from the profile tool.
+        </p>
       ) : (
         <ul aria-label="Individuals">
           {people.map((p) => (
-            <li key={p.id}>
+            <li key={p.id} tabIndex={0} {...explain.props(personListExplanation(p.name, p.termCount))}>
               {editing === p.id ? (
                 <>
                   <input aria-label="Display name" value={draft} onChange={(e) => setDraft(e.target.value)} />{' '}
                   <button onClick={() => void saveName(p.id)}>Save</button>{' '}
-                  <button onClick={() => setEditing(null)}>Cancel</button>
+                  <button className="secondary" onClick={() => setEditing(null)}>
+                    Cancel
+                  </button>
                 </>
               ) : (
                 <>
                   <span>{p.name}</span> <small>({p.termCount} terms)</small>{' '}
                   <button
+                    className="secondary"
                     onClick={() => {
                       setEditing(p.id)
                       setDraft(p.name)
@@ -139,7 +171,9 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
                   >
                     Rename
                   </button>{' '}
-                  <button onClick={() => void remove(p)}>Delete</button>
+                  <button className="secondary" onClick={() => void remove(p)}>
+                    Delete
+                  </button>
                 </>
               )}
             </li>

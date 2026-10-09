@@ -93,6 +93,27 @@ test('upload, review a custom term, find it in the dictionary, and explore the g
   await shared.getByText('TypeScript', { exact: true }).click()
   await expect(shared.getByText(/JavaScript with static types/)).toBeVisible()
 
+  // Right-click explains: a term gets its definition, and the browser's own menu is replaced.
+  await network.locator('g.node', { hasText: 'sam-ai' }).click({ button: 'right' })
+  await expect(page.getByRole('dialog', { name: 'sam-ai' })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+
+  // People can be dragged: the node moves, and releasing it does not select it.
+  const priya = network.locator('g.node', { hasText: 'priya-frontend' })
+  await priya.click() // select Priya so a stray selection would show
+  const start = await priya.locator('.node-shape').boundingBox()
+  await page.mouse.move(start!.x + start!.width / 2, start!.y + start!.height / 2)
+  await page.mouse.down()
+  await page.mouse.move(start!.x + start!.width / 2 + 60, start!.y + start!.height / 2 + 30, { steps: 5 })
+  await page.mouse.up()
+  const end = await priya.locator('.node-shape').boundingBox()
+  expect(Math.abs(end!.x - start!.x)).toBeGreaterThan(20)
+  await expect(details.getByRole('heading', { name: 'priya-frontend' })).toBeVisible()
+  await page.getByRole('button', { name: 'Reset layout' }).click()
+  const reset = await priya.locator('.node-shape').boundingBox()
+  expect(Math.abs(reset!.x - start!.x)).toBeLessThan(2)
+
   // The same data is available as a matrix and as a table.
   await page.getByRole('button', { name: 'Matrix' }).click()
   await expect(page.getByRole('table', { name: 'People by term' })).toBeVisible()
@@ -113,4 +134,42 @@ test('built-in terms need no review, and invalid files are reported without bloc
   await expect(page.getByRole('list', { name: 'Import errors' })).toContainText('skills must be an object')
   await expect(page.getByRole('heading', { name: 'Review new terms' })).toHaveCount(0)
   await expect(page.getByRole('list', { name: 'Individuals' })).toContainText('tom-techlead')
+})
+
+test('the help panel explains each page and remembers being collapsed', async ({ page }) => {
+  await page.goto('/')
+  const help = page.getByRole('complementary', { name: /how to use: how to use people/i })
+  await expect(help).toContainText('Each .json file is one person')
+  await expect(help).toContainText('right-click')
+  await help.getByRole('button', { name: 'Hide help' }).click()
+  await expect(help.getByRole('button', { name: 'Show help' })).toBeVisible()
+
+  const nav = page.getByRole('navigation', { name: 'Sections' })
+  await nav.getByRole('button', { name: 'Explore' }).click()
+  await nav.getByRole('button', { name: 'People' }).click()
+  await expect(page.getByRole('complementary', { name: /how to use people/i }).getByRole('button', { name: 'Show help' })).toBeVisible()
+
+  await nav.getByRole('button', { name: 'Dictionary' }).click()
+  await expect(page.getByRole('complementary', { name: /how to use the dictionary/i })).toContainText('Undefined only')
+})
+
+test.describe('layout', () => {
+  test('uses a wide screen, and never scrolls sideways on a narrow one', async ({ page }) => {
+    await page.setViewportSize({ width: 1920, height: 1080 })
+    await page.goto('/')
+    await page.getByLabel(/upload profile/i).setInputFiles([sample('tom-techlead'), sample('lena-sre')])
+    await expect(page.getByRole('list', { name: 'Individuals' })).toContainText('lena-sre')
+    await page.getByRole('navigation', { name: 'Sections' }).getByRole('button', { name: 'Explore' }).click()
+    const canvas = page.locator('.viz-canvas').first()
+    await expect(canvas).toBeVisible()
+    expect((await canvas.boundingBox())!.width).toBeGreaterThan(1100) // was capped near 700 by the old column
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+
+    await page.setViewportSize({ width: 360, height: 740 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+    for (const tab of ['People', 'Dictionary', 'Explore']) {
+      await page.getByRole('navigation', { name: 'Sections' }).getByRole('button', { name: tab }).click()
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), tab).toBe(true)
+    }
+  })
 })

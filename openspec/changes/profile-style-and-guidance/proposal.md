@@ -10,6 +10,7 @@ The visualiser is the companion to the profile tool (github.com/deans-code/profi
 - Use the available screen width: replace the `72rem` main column with a fluid container (`min(100% - 2rem, 120rem)`) and make the Explore view, filters, tables and cards grow into the space instead of leaving gutters.
 - Add right-click explanations, matching the profile tool's behaviour (right-click, context-menu key, Shift+F10, `?`, touch long-press): an explanation panel for terms, people, edges, view names, filter controls and matrix cells/legend items.
 - Add usage guidance: a short "How to use this page" help panel at the top of People, Explore (per view) and Dictionary, plus concise inline descriptions beside key controls (upload, adjacency, filters, selection, term review), and a first-line explanation of what each view shows and how to read it.
+- Let users click and drag people (nodes) in the network view to rearrange them; edges follow, a plain click still selects, and a "Reset layout" control restores the computed arrangement.
 - Keep existing behaviour, data, API and colour-blind-safe encodings (shape plus colour). **No backend or API changes.**
 
 ## Capabilities
@@ -17,6 +18,7 @@ The visualiser is the companion to the profile tool (github.com/deans-code/profi
 ### New Capabilities
 - `profile-tool-styling`: the shared look and layout of the app (tokens, components, section accents, theming, full-width layout) so it matches the profile tool.
 - `concept-explanations`: on-demand explanation of terms and visualisation concepts via right-click, keyboard and long-press.
+- `network-interaction`: moving nodes in the network view by drag, keyboard and touch, without losing click-to-select or explanations.
 - `usage-guidance`: per-page help panels and short descriptions at key controls that tell a first-time user what to do and how to read the results.
 
 ### Modified Capabilities

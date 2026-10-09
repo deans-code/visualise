@@ -8,6 +8,9 @@ import { DetailsPanel } from './DetailsPanel'
 import { FilterBar } from './FilterBar'
 import { MatrixView } from './MatrixView'
 import { NetworkView } from './NetworkView'
+import { HelpPanel } from './HelpPanel'
+import { switcherExplanation, VIEW_GUIDE, viewExplanation } from '../explanations'
+import { useExplain } from '../explain'
 
 export type View = 'network' | 'matrix' | 'bipartite' | 'categories'
 
@@ -18,7 +21,8 @@ const VIEWS: { value: View; label: string }[] = [
   { value: 'categories', label: 'By category' },
 ]
 
-export function Explore({ api, refreshKey = 0 }: { api: Api; refreshKey?: number }) {
+export function Explore({ api, refreshKey = 0, onGoToPeople }: { api: Api; refreshKey?: number; onGoToPeople?: () => void }) {
+  const explain = useExplain()
   const [data, setData] = useState<GraphData | null>(null)
   const [error, setError] = useState<string | null>(null)
   // Filters and selection live here so every view reads the same ones.
@@ -44,19 +48,55 @@ export function Explore({ api, refreshKey = 0 }: { api: Api; refreshKey?: number
 
   const index = useMemo(() => (data ? buildIndex(data) : null), [data])
 
-  if (error) return <p role="alert">{error}</p>
+  if (error)
+    return (
+      <p role="alert">
+        {error} Check that the server is running, then reload the page.
+      </p>
+    )
   if (!index) return <p role="status">Loading…</p>
-  if (index.data.people.length === 0) return <p>Upload some profiles on the People tab to see how people relate.</p>
+  if (index.data.people.length === 0)
+    return (
+      <p className="empty-state">
+        Upload some profiles on the People tab to see how people relate.{' '}
+        {onGoToPeople && (
+          <button type="button" onClick={onGoToPeople}>
+            Go to People
+          </button>
+        )}
+      </p>
+    )
 
   return (
     <section aria-labelledby="explore-h">
       <h2 id="explore-h">Explore</h2>
-      <div role="group" aria-label="View">
+      <HelpPanel id="explore" title="How to use Explore">
+        <p>
+          Pick a <strong>view</strong>, then use the <strong>filters</strong> to decide what counts as a connection.
+          Everything updates as you change them, and the filters apply to every view.
+        </p>
+        <p>
+          In the network, <strong>click</strong> a person or a line to see what links them in the panel beside it, and{' '}
+          <strong>drag</strong> people to rearrange them.
+        </p>
+      </HelpPanel>
+      <div role="group" aria-label="View" {...explain.props(switcherExplanation)}>
         {VIEWS.map((v) => (
-          <button key={v.value} aria-pressed={view === v.value} onClick={() => setView(v.value)}>
+          <button
+            key={v.value}
+            aria-pressed={view === v.value}
+            onClick={() => setView(v.value)}
+            {...explain.props(viewExplanation(v.value))}
+          >
             {v.label}
           </button>
         ))}
+      </div>
+      <div className="help" data-testid="view-guide">
+        <p>
+          <strong>{VIEW_GUIDE[view].label}:</strong> {VIEW_GUIDE[view].summary}
+        </p>
+        <p className="help-alt">{VIEW_GUIDE[view].howToRead}</p>
       </div>
       <FilterBar index={index} filters={filters} onChange={setFilters} />
       {view === 'network' && (

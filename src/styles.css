@@ -15,6 +15,12 @@
   --border: rgba(11, 11, 11, 0.1);
   --focus: #2a78d6;
 
+  /* Profile tool vocabulary: the default accent, its text colour and a tint; sections override these. */
+  --radius: 10px;
+  --accent: #1d4ed8;
+  --accent-text: #ffffff;
+  --tint: #e8efff;
+
   --group-1: #2a78d6;
   --group-2: #eb6834;
   --group-3: #1baf7a;
@@ -49,6 +55,9 @@
     --baseline: #383835;
     --border: rgba(255, 255, 255, 0.1);
     --focus: #6da7ec;
+    --accent: #8fb0ff;
+    --accent-text: #0b1020;
+    --tint: #1f2f58;
 
     --group-1: #3987e5;
     --group-2: #d95926;
@@ -82,6 +91,9 @@
   --baseline: #383835;
   --border: rgba(255, 255, 255, 0.1);
   --focus: #6da7ec;
+  --accent: #8fb0ff;
+  --accent-text: #0b1020;
+  --tint: #1f2f58;
 
   --group-1: #3987e5;
   --group-2: #d95926;
@@ -104,6 +116,99 @@
   --seq-ink-5: #0b0b0b;
 }
 
+/* Section accents, as in the profile tool: set data-section on any element to colour what is inside it. */
+[data-section='values'] {
+  --accent: #1d4ed8;
+  --accent-text: #ffffff;
+  --tint: #e8efff;
+}
+
+[data-section='technical'] {
+  --accent: #0f766e;
+  --accent-text: #ffffff;
+  --tint: #dcf5f1;
+}
+
+[data-section='engineering'] {
+  --accent: #b45309;
+  --accent-text: #ffffff;
+  --tint: #fdf0dc;
+}
+
+[data-section='interpersonal'] {
+  --accent: #7e22ce;
+  --accent-text: #ffffff;
+  --tint: #f3e8ff;
+}
+
+[data-section='ai'] {
+  --accent: #be123c;
+  --accent-text: #ffffff;
+  --tint: #ffe4ea;
+}
+
+:root[data-theme='dark'] [data-section='values'] {
+  --accent: #8fb0ff;
+  --accent-text: #0b1020;
+  --tint: #1f2f58;
+}
+
+:root[data-theme='dark'] [data-section='technical'] {
+  --accent: #4dd4c6;
+  --accent-text: #0b1020;
+  --tint: #14403d;
+}
+
+:root[data-theme='dark'] [data-section='engineering'] {
+  --accent: #f5b04c;
+  --accent-text: #0b1020;
+  --tint: #4a3510;
+}
+
+:root[data-theme='dark'] [data-section='interpersonal'] {
+  --accent: #c9a0ff;
+  --accent-text: #0b1020;
+  --tint: #3a2760;
+}
+
+:root[data-theme='dark'] [data-section='ai'] {
+  --accent: #ff8fa6;
+  --accent-text: #0b1020;
+  --tint: #55202f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) [data-section='values'] {
+    --accent: #8fb0ff;
+    --accent-text: #0b1020;
+    --tint: #1f2f58;
+  }
+
+  :root:where(:not([data-theme='light'])) [data-section='technical'] {
+    --accent: #4dd4c6;
+    --accent-text: #0b1020;
+    --tint: #14403d;
+  }
+
+  :root:where(:not([data-theme='light'])) [data-section='engineering'] {
+    --accent: #f5b04c;
+    --accent-text: #0b1020;
+    --tint: #4a3510;
+  }
+
+  :root:where(:not([data-theme='light'])) [data-section='interpersonal'] {
+    --accent: #c9a0ff;
+    --accent-text: #0b1020;
+    --tint: #3a2760;
+  }
+
+  :root:where(:not([data-theme='light'])) [data-section='ai'] {
+    --accent: #ff8fa6;
+    --accent-text: #0b1020;
+    --tint: #55202f;
+  }
+}
+
 body {
   margin: 0;
   background: var(--page);
@@ -113,9 +218,17 @@ body {
 }
 
 main {
-  max-width: 72rem;
+  width: min(100% - 2rem, 120rem);
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 0 2rem;
+}
+
+header.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 a {
@@ -141,7 +254,8 @@ textarea:focus-visible,
   padding: 0.75rem;
   background: var(--surface-1);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius);
 }
 .filters fieldset {
   border: 0;
@@ -172,7 +286,7 @@ textarea:focus-visible,
 /* ---- Visualisation ---- */
 .viz {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 18rem;
+  grid-template-columns: minmax(0, 1fr) clamp(18rem, 24vw, 28rem);
   gap: 1rem;
 }
 @media (max-width: 48rem) {
@@ -183,18 +297,20 @@ textarea:focus-visible,
 .viz-canvas {
   background: var(--surface-1);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: auto;
 }
 .viz-canvas svg {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 90vh;
 }
 .viz-side {
   background: var(--surface-1);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius);
   padding: 0.75rem;
 }
 
@@ -313,4 +429,204 @@ textarea:focus-visible,
   color: var(--text-primary);
   font-weight: 600;
   border-top: 1px solid var(--baseline);
+}
+
+/* ---- Profile tool components: buttons, inputs, help, cards ---- */
+h1 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+}
+h2 {
+  margin: 1.25rem 0 0.25rem;
+  color: var(--accent);
+}
+h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.hint {
+  margin: 0.125rem 0 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.9rem;
+}
+button.secondary,
+button[aria-pressed='false'],
+button[aria-expanded='false'] {
+  background: transparent;
+  color: var(--accent);
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.chip button,
+button.remove {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+  padding: 0 0.4rem;
+}
+nav[aria-label='Sections'],
+[role='group'][aria-label='View'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0.5rem 0;
+}
+input[type='text'],
+input[type='search'],
+input:not([type]),
+select,
+textarea {
+  font: inherit;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--baseline);
+  border-radius: var(--radius);
+  background: var(--surface-1);
+  color: var(--text-primary);
+}
+kbd {
+  font: inherit;
+  font-size: 0.85em;
+  padding: 0 0.3em;
+  border: 1px solid var(--baseline);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface-1);
+}
+.help {
+  background: var(--tint);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  margin: 0.75rem 0 1.25rem;
+}
+.help-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.help-head strong {
+  color: var(--text-primary);
+}
+.help p {
+  margin: 0.25rem 0;
+}
+.help-alt {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+.empty-state {
+  padding: 1rem;
+  border: 1px dashed var(--baseline);
+  border-radius: var(--radius);
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+}
+.toolbar .hint {
+  margin: 0;
+}
+
+/* People and dictionary lists use the width as cards in a grid */
+ul[aria-label='Individuals'],
+ul[aria-label='Terms'] {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: 0.75rem;
+}
+ul[aria-label='Individuals'] > li,
+ul[aria-label='Terms'] > li {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.9rem;
+}
+.section-tag {
+  color: var(--accent);
+  font-weight: 600;
+}
+.filters label[data-section] {
+  border-left: 4px solid var(--accent);
+  padding-left: 0.4rem;
+}
+.matrix th[data-section] {
+  color: var(--accent);
+}
+
+/* Explanation panel: the right-click definition, as in the profile tool */
+[data-explainable],
+[aria-haspopup='dialog'] {
+  -webkit-touch-callout: none;
+}
+.explain {
+  position: fixed;
+  z-index: 20;
+  width: min(24rem, calc(100vw - 1rem));
+  max-height: calc(100vh - 1rem);
+  overflow: auto;
+  padding: 0.75rem 1rem;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+}
+.explain:focus {
+  outline: none;
+}
+.explain p {
+  margin: 0 0 0.5rem;
+}
+.explain-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-primary);
+}
+.explain-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+.explain ul {
+  margin: 0 0 0.5rem;
+  padding-left: 1.1rem;
+}
+
+/* Draggable network nodes */
+.node {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.node[data-dragging='true'] {
+  cursor: grabbing;
+}
+
+input[type='file'] {
+  margin-left: 0.5rem;
 }

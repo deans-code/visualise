@@ -28,7 +28,11 @@ The frontend is React + Vite with one global `src/styles.css` (tokens, `main { m
 6. **Help panels.** A `HelpPanel` component (`<aside aria-label>` around `<details open>`) keeps its state in `sessionStorage` per page key, inside try/catch. Control descriptions are plain `.hint` text, not tooltips.
 7. **Testing.** Extend component tests (right-click opens the panel, `?` and Shift+F10, long-press with fake timers, help collapse persistence), keep `contrast.test.ts` over the new tokens, update the Playwright flow, and add checks at 1920px (canvas fills width) and 360px (no horizontal scroll).
 
+8. **Draggable nodes.** Pointer events with pointer capture on each network node. Dragged positions live in an override map layered over the deterministic computed layout, so the base layout stays reproducible. A 4px movement threshold separates click from drag, and the same movement cancels the touch long-press from the explanation hook. Nodes get `touch-action: none`. The map is cleared when filters or data change, or on "Reset layout". Arrow keys move a focused node (Shift for larger steps) as the non-drag alternative. Alternatives: restarting a live force simulation on drag (rejected: jittery, non-deterministic); a drag library (rejected: not needed).
+
 ## Risks / Trade-offs
+
+- [Drag, long-press and click gestures conflict] → shared movement threshold and tests for each combination.
 
 - [Right-click suppression annoys users on non-explainable items] → only intercept on elements that have an explanation; everything else keeps the native menu.
 - [Section accents clash with the colour-blind-safe group palette] → section colour is used for chrome and group headings; chart groups keep `--group-*` and shape; the contrast test covers both.

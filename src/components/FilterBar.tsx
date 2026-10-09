@@ -1,6 +1,15 @@
 import { useId, useState } from 'react'
 import type { Basis, Filters, GraphIndex } from '../../shared/graph'
 import { SECTIONS, SECTION_LABELS, type Section } from '../../shared/profile'
+import {
+  adjacencyExplanation,
+  basisExplanation,
+  basisGroupExplanation,
+  focusExplanation,
+  sectionsExplanation,
+  thresholdExplanation,
+} from '../explanations'
+import { useExplain } from '../explain'
 
 const BASES: { value: Basis; label: string; hint: string }[] = [
   { value: 'values', label: 'Shared values', hint: 'People who chose the same or similar values' },
@@ -19,6 +28,7 @@ export function FilterBar({
   onChange: (f: Filters) => void
 }) {
   const id = useId()
+  const explain = useExplain()
   const [query, setQuery] = useState('')
   const set = (patch: Partial<Filters>) => onChange({ ...filters, ...patch })
   const valuesBasis = filters.basis === 'values'
@@ -38,11 +48,11 @@ export function FilterBar({
 
   return (
     <form className="filters" aria-label="Filters" onSubmit={(e) => e.preventDefault()}>
-      <fieldset>
+      <fieldset {...explain.props(basisGroupExplanation)}>
         <legend>Connect people by</legend>
         <div className="chips" role="radiogroup" aria-label="Connect people by">
           {BASES.map((b) => (
-            <label key={b.value} title={b.hint}>
+            <label key={b.value} title={b.hint} {...explain.props(basisExplanation(b.value))}>
               <input
                 type="radio"
                 name={`${id}-basis`}
@@ -55,11 +65,11 @@ export function FilterBar({
         </div>
       </fieldset>
 
-      <fieldset disabled={valuesBasis}>
+      <fieldset disabled={valuesBasis} {...explain.props(sectionsExplanation)}>
         <legend>Skill areas{valuesBasis ? ' (not used for values)' : ''}</legend>
         <div className="chips">
           {SECTIONS.map((s) => (
-            <label key={s}>
+            <label key={s} data-section={s}>
               <input type="checkbox" checked={filters.sections.includes(s)} onChange={() => toggleSection(s)} />{' '}
               {SECTION_LABELS[s]}
             </label>
@@ -67,7 +77,7 @@ export function FilterBar({
         </div>
       </fieldset>
 
-      <label>
+      <label {...explain.props(adjacencyExplanation)}>
         Related terms count{' '}
         <input
           type="range"
@@ -79,9 +89,12 @@ export function FilterBar({
           onChange={(e) => set({ adjacency: Number(e.target.value) })}
         />{' '}
         <output>{filters.adjacency === 0 ? 'exact only' : `${Math.round(filters.adjacency * 100)}%`}</output>
+        <span className="hint" style={{ display: 'block' }}>
+          How far a related term counts as a match.
+        </span>
       </label>
 
-      <label>
+      <label {...explain.props(thresholdExplanation)}>
         Hide weaker connections{' '}
         <input
           type="range"
@@ -92,9 +105,12 @@ export function FilterBar({
           onChange={(e) => set({ threshold: Number(e.target.value) })}
         />{' '}
         <output>{`below ${Math.round(filters.threshold * 100)}%`}</output>
+        <span className="hint" style={{ display: 'block' }}>
+          Drop lines weaker than this.
+        </span>
       </label>
 
-      <div>
+      <div {...explain.props(focusExplanation)}>
         <label>
           Focus on a term{' '}
           <input

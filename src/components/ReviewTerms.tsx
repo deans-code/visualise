@@ -65,6 +65,11 @@ export function ReviewTerms({
         {remaining.length} of {terms.length} still to review. Nothing is saved until you accept it. Skipped or rejected
         terms stay undefined and can be completed later from the dictionary.
       </p>
+      <p className="hint">
+        <strong>Accept</strong> saves the definition you see; <strong>Reject</strong> discards it; <strong>Skip</strong>{' '}
+        leaves the term undefined for later. If a term is just another spelling of an existing one, choose{' '}
+        <strong>Yes, use…</strong> to merge them.
+      </p>
       <ul aria-label="Terms to review">
         {terms.map((t) => (
           <li key={t.id}>
@@ -194,8 +199,12 @@ function TermCard({
         <button onClick={() => void accept()} disabled={!ready || !definition.trim()}>
           Accept
         </button>{' '}
-        <button onClick={() => onDecide('rejected')}>Reject</button>{' '}
-        <button onClick={() => onDecide('skipped')}>Skip</button>
+        <button className="secondary" onClick={() => onDecide('rejected')}>
+          Reject
+        </button>{' '}
+        <button className="secondary" onClick={() => onDecide('skipped')}>
+          Skip
+        </button>
       </div>
     </article>
   )

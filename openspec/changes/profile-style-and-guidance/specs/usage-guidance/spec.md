@@ -20,6 +20,10 @@ Each page (People, Explore, Dictionary) SHALL show a help panel near the top, in
 ### Requirement: View descriptions
 Each Explore view (network, matrix, bipartite, categories) SHALL show a short description of what it plots, how to read size, colour, shape, edge thickness and position, and what clicking does.
 
+#### Scenario: Network view
+- **WHEN** the network view is shown
+- **THEN** its description says nodes can be dragged to rearrange them and that Reset layout restores the original arrangement
+
 #### Scenario: Switching views
 - **WHEN** the user switches from network to matrix
 - **THEN** the description changes to explain rows, columns and cell shading

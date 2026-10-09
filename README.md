@@ -34,6 +34,25 @@ The end-to-end test starts its own API and web server on ports 3101 and 5273 wit
 never touches your dev data and does not need the language model or internet access. The same steps run on every
 push and pull request (`.github/workflows/ci.yml`).
 
+## Look, layout and help
+
+The interface follows the profile tool's look: the same buttons, rounded cards, tinted help panels and per-section
+accent colours (values blue, technical teal, engineering amber, interpersonal purple, AI rose), in light and dark.
+It fills the browser width up to 120rem, so the network, filters and cards use a wide screen rather than a narrow
+column, and stack on a phone.
+
+- **Help panels.** Each page opens with a "How to use" panel (what to do, how to read it). Hide it with **Hide
+  help**; it stays hidden for the browser session. Explore also describes the selected view and the key filters
+  beside their controls.
+- **Right-click to explain.** Right-click a term, person, connection, filter, view name, matrix cell or legend
+  entry to read what it means; a term shows its definition. From the keyboard, focus the item and press `?` or
+  `Shift`+`F10`; on touch, press and hold. `Esc` closes the panel. Anything without an explanation keeps the
+  browser's normal menu.
+- **Move people around.** In the network, drag a person to rearrange the picture; lines follow. A click that does
+  not move still selects. Focus a person and use the arrow keys (`Shift` for bigger steps) to move without a
+  mouse. **Reset layout** puts everyone back. Positions are not saved, and changing the filters starts the layout
+  afresh.
+
 ## Profile format
 
 Each uploaded file is one person, in the profile tool's export shape:

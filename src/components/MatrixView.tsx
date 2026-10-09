@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { effectiveScore, termsOf, type Filters, type GraphIndex, type Role } from '../../shared/graph'
 import { SECTION_LABELS, type Section } from '../../shared/profile'
+import { accentOf, matrixCellExplanation, matrixLegendExplanation, termExplanation } from '../explanations'
+import { useExplain } from '../explain'
 
 const pct = (n: number) => `${Math.round(n * 100)}%`
 
@@ -25,6 +27,7 @@ const level = (c: Cell) => (c.has ? 5 : c.related > 0 ? Math.min(4, Math.max(1, 
 export function MatrixView({ index, filters }: { index: GraphIndex; filters: Filters }) {
   const role = roleOf(filters)
   const people = index.data.people
+  const explain = useExplain()
 
   const model = useMemo(() => {
     const owned = new Map(people.map((p) => [p.id, new Set(termsOf(index, p.id, role, filters))]))
@@ -101,7 +104,9 @@ export function MatrixView({ index, filters }: { index: GraphIndex; filters: Fil
             const cells = people.map((p) => ({ p, c: model.cell(p.id, t.id) }))
             out.push(
               <tr key={t.id} data-term={t.id}>
-                <th scope="row">{t.name}</th>
+                <th scope="row" data-section={accentOf(t)} tabIndex={0} {...explain.props(termExplanation(t))}>
+                  {t.name}
+                </th>
                 {cells.map(({ p, c }) => {
                   const via = c.relatedVia !== null ? index.term.get(c.relatedVia)?.name : null
                   const label = c.has
@@ -117,6 +122,8 @@ export function MatrixView({ index, filters }: { index: GraphIndex; filters: Fil
                       data-has={c.has}
                       aria-label={c.wants ? `${label}; wants to learn it` : label}
                       title={label}
+                      tabIndex={0}
+                      {...explain.props(matrixCellExplanation(p.name, t.name, { has: c.has, related: c.related, via: via ?? null, wants: c.wants }))}
                     >
                       {c.has ? '●' : c.related > 0 ? '≈' : ''}
                       {c.wants ? <sup>W</sup> : null}
@@ -130,7 +137,7 @@ export function MatrixView({ index, filters }: { index: GraphIndex; filters: Fil
           })}
         </tbody>
       </table>
-      <p className="legend" style={{ padding: '0 0.5rem' }}>
+      <p className="legend" style={{ padding: '0 0.5rem' }} tabIndex={0} {...explain.props(matrixLegendExplanation(filters.basis === 'complementary'))}>
         ● has it · ≈ has a related term (darker is closer){filters.basis === 'complementary' ? ' · W wants to learn it' : ''}
       </p>
     </div>
