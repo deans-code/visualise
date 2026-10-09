@@ -23,7 +23,8 @@ const app = buildApp(db, {
     return embedderRef.current
   },
 })
-void loadLocalEmbedder().then(async (embedder) => {
+// DISABLE_EMBEDDINGS=1 skips the model download (relatedness then uses catalogue position only). Used by e2e tests.
+void (process.env.DISABLE_EMBEDDINGS ? Promise.resolve(null) : loadLocalEmbedder()).then(async (embedder) => {
   if (!embedder) return
   embedderRef.current = embedder
   const n = await ensureEmbeddings(db, embedder)

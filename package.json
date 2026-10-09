@@ -10,7 +10,8 @@
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "import-catalogue": "tsx scripts/import-catalogue.ts"
+    "import-catalogue": "tsx scripts/import-catalogue.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "d3-force": "^3.0.0",

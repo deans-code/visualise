@@ -39,5 +39,5 @@
 
 ## 6. Integration
 
-- [ ] 6.1 End-to-end test (Playwright): upload sample profiles with a custom term, confirm its definition, see it in the dictionary and graph; verify it passes in CI
-- [ ] 6.2 Write the README covering run instructions, privacy notes and sample profile files; verify a fresh clone follows it successfully
+- [x] 6.1 End-to-end test (Playwright): upload sample profiles with a custom term, confirm its definition, see it in the dictionary and graph; verify it passes in CI
+- [x] 6.2 Write the README covering run instructions, privacy notes and sample profile files; verify a fresh clone follows it successfully

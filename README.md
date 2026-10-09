@@ -8,11 +8,31 @@ values and skills they contain, and explore how the people behind them relate.
 ```bash
 npm install
 npm run dev     # web on http://localhost:5173, API on http://localhost:3001
-npm test        # unit and component tests
 ```
 
-Requires Node 22.13+ (the API uses the built-in `node:sqlite`). Data is stored in `data/profiles.db`
-(override with `DB_PATH`).
+Open http://localhost:5173, go to **People** and upload the files in `samples/` (six fictional profiles) to see
+it working, then try the **Explore** tab.
+
+Requires Node 22.13 or later (the API uses the built-in `node:sqlite`). Data is stored in `data/profiles.db`
+(override with `DB_PATH`; use `:memory:` for a throwaway database). On first start the server downloads a small
+language model (about 25 MB) in the background; the app works while it loads, and without it if it can't (see
+[Dictionary and catalogue](#dictionary-and-catalogue)). Set `DISABLE_EMBEDDINGS=1` to skip it.
+
+Other settings: `PORT` (API port, default 3001), `BRAVE_API_KEY` (optional search fallback, see below),
+`CATALOGUE_FILE` (default `catalogue/catalogue.json`).
+
+## Testing
+
+```bash
+npm test                          # unit and component tests (fast, no network, no browser)
+npx playwright install chromium   # once, for the end-to-end test
+npm run test:e2e                  # the whole journey in a real browser
+npm run build                     # type-check and production build
+```
+
+The end-to-end test starts its own API and web server on ports 3101 and 5273 with an in-memory database, so it
+never touches your dev data and does not need the language model or internet access. The same steps run on every
+push and pull request (`.github/workflows/ci.yml`).
 
 ## Profile format
 
@@ -108,3 +128,17 @@ Views, all sharing the same filters:
 Every connection is also available as a table (under the network). Try it with the six fictional profiles in `samples/`.
 
 The theme follows your system setting; use the **Theme** menu to force light or dark.
+
+## Privacy and your data
+
+Profiles describe people, so the app is built to keep them local.
+
+- **Stored on your machine.** People, their terms and the dictionary live in `data/profiles.db` (git-ignored).
+  Delete a person on the People tab to remove their links; delete the file to remove everything.
+- **What leaves the machine.** Only the text of an unknown custom term (plus a hint such as "software") is sent to
+  Wikipedia, and to Brave Search if you set `BRAVE_API_KEY`. Profile contents, names and file names are never sent.
+  The first start also downloads the language model from Hugging Face; after that the model runs locally.
+- **No sign-in.** The server listens on `127.0.0.1` only and has no authentication. Do not expose it to a network
+  without putting access control in front of it.
+- **Names.** The profile export has no name field, so people are named after their files. Rename them if file
+  names would identify someone you would rather not show.

@@ -63,3 +63,5 @@ data/*.db
 data/*.db-*
 *.tsbuildinfo
 .env
+test-results/
+playwright-report/
