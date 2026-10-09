@@ -40,6 +40,68 @@ function fakeApi(over: Partial<Api> = {}): Api {
 
 const card = (name: string) => screen.findByRole('article', { name })
 
+describe('ReviewTerms privacy', () => {
+  it('says what leaves the device where the user reviews terms', async () => {
+    render(<ReviewTerms api={fakeApi()} terms={[zig]} />)
+    expect(screen.getByTestId('privacy-note')).toHaveTextContent(/sent to Wikipedia/)
+    await card('Zig')
+  })
+})
+
+describe('ReviewTerms while the language model loads', () => {
+  const later = <T,>() => {
+    let resolve!: (v: T) => void
+    const promise = new Promise<T>((r) => (resolve = r))
+    return { promise, resolve }
+  }
+
+  it('shows the proposal at once and says a category suggestion is on its way', async () => {
+    const placement = later<{ section: string; category: string; confidence: number } | null>()
+    render(<ReviewTerms api={fakeApi({ placement: vi.fn().mockReturnValue(placement.promise) })} terms={[zig]} />)
+    const c = within(await card('Zig'))
+    expect(await c.findByDisplayValue('Zig is a systems language.')).toBeInTheDocument()
+    expect(c.getByText(/looking for a category suggestion/i)).toBeInTheDocument()
+    expect(c.getByRole('button', { name: 'Accept' })).toBeEnabled() // not held up by the model
+  })
+
+  it('fills in the suggested category when it arrives', async () => {
+    const placement = later<{ section: string; category: string; confidence: number } | null>()
+    render(<ReviewTerms api={fakeApi({ placement: vi.fn().mockReturnValue(placement.promise) })} terms={[zig]} />)
+    const c = within(await card('Zig'))
+    await c.findByDisplayValue('Zig is a systems language.')
+    placement.resolve({ section: 'technical', category: 'Languages', confidence: 0.7 })
+    expect(await c.findByDisplayValue('Languages')).toBeInTheDocument()
+    expect(c.getByText(/suggested from similar terms/i)).toBeInTheDocument()
+  })
+
+  it('does not overwrite a category the user typed while waiting', async () => {
+    const placement = later<{ section: string; category: string; confidence: number } | null>()
+    render(<ReviewTerms api={fakeApi({ placement: vi.fn().mockReturnValue(placement.promise) })} terms={[zig]} />)
+    const c = within(await card('Zig'))
+    await c.findByDisplayValue('Zig is a systems language.')
+    await userEvent.type(c.getByLabelText('Category'), 'Mine')
+    placement.resolve({ section: 'technical', category: 'Languages', confidence: 0.7 })
+    await waitFor(() => expect(c.queryByText(/looking for a category/i)).toBeNull())
+    expect(c.getByLabelText('Category')).toHaveValue('Mine')
+  })
+
+  it('says suggestions are unavailable when the model cannot load, and still lets the user accept', async () => {
+    const api = fakeApi({ placement: vi.fn().mockResolvedValue(null) })
+    render(<ReviewTerms api={api} terms={[zig]} />)
+    const c = within(await card('Zig'))
+    expect(await c.findByText(/no category suggestion is available/i)).toBeInTheDocument()
+    await userEvent.click(c.getByRole('button', { name: 'Accept' }))
+    await waitFor(() => expect(api.updateTerm).toHaveBeenCalled())
+  })
+
+  it('looks up the next term without waiting for the previous one’s suggestion', async () => {
+    const never = new Promise<null>(() => {})
+    const api = fakeApi({ placement: vi.fn().mockReturnValue(never) })
+    render(<ReviewTerms api={api} terms={[zig, nim]} />)
+    await waitFor(() => expect(api.lookup).toHaveBeenCalledWith('Nim', 'skill', 'technical'))
+  })
+})
+
 describe('ReviewTerms', () => {
   it('proposes a definition with its source and a suggested category, saving nothing yet', async () => {
     const api = fakeApi()

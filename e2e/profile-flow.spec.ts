@@ -1,32 +1,58 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const sample = (name: string) => resolve('samples', `${name}.json`)
 const asUpload = (name: string) => ({ name: `${name}.json`, mimeType: 'application/json', buffer: readFileSync(sample(name)) })
 
-/**
- * The whole journey against the real server and browser: upload profiles, confirm a definition for a custom
- * term, find it in the dictionary, and see the two people related in the graph. Only the web lookup is stubbed,
- * so the test does not depend on Wikipedia being reachable.
- */
-test('upload, review a custom term, find it in the dictionary, and explore the graph', async ({ page }) => {
-  // priya-frontend has the custom skill "Svelte"; sam-ai has the custom value "Stewardship".
-  await page.route('**/api/lookup', async (route) => {
-    const { term } = route.request().postDataJSON() as { term: string }
-    const proposal =
-      term === 'Svelte'
-        ? {
-            definition: 'Svelte is a component-based front-end framework that compiles to small, fast JavaScript.',
-            sourceUrl: 'https://en.wikipedia.org/wiki/Svelte',
-            sourceTitle: 'Svelte',
-            provider: 'Wikipedia',
-          }
-        : null
-    await route.fulfill({ json: { proposal, errors: [] } })
-  })
+/** Wikipedia answers cross-origin requests, so a stubbed answer must say the same. */
+const CORS = { 'access-control-allow-origin': '*' }
 
-  await page.goto('/')
+/**
+ * Stand-ins for the only outside services the app can reach, so the tests need no internet. Wikipedia is
+ * answered (Svelte has a page; nothing else does) and the language model hosts are refused, which is also what a
+ * visitor who is offline would see. Records every same-origin request so a test can check none went to an API.
+ */
+async function stubOutsideWorld(page: Page, baseURL: string) {
+  const sameOrigin: string[] = []
+  const outside: string[] = []
+  const origin = new URL(baseURL).origin
+  page.on('request', (r) => {
+    const url = new URL(r.url())
+    if (url.origin === origin) sameOrigin.push(url.pathname)
+    else if (url.protocol.startsWith('http')) outside.push(r.url())
+  })
+  await page.route('https://en.wikipedia.org/**', async (route) => {
+    const url = route.request().url()
+    if (url.includes('/page/summary/Svelte')) {
+      await route.fulfill({
+        headers: CORS,
+        json: {
+          type: 'standard',
+          title: 'Svelte',
+          extract: 'Svelte is a component-based front-end framework that compiles to small, fast JavaScript.',
+          content_urls: { desktop: { page: 'https://en.wikipedia.org/wiki/Svelte' } },
+        },
+      })
+    } else if (url.includes('list=search')) {
+      await route.fulfill({ headers: CORS, json: { query: { search: [] } } })
+    } else {
+      await route.fulfill({ headers: CORS, status: 404, json: {} })
+    }
+  })
+  await page.route(/huggingface\.co|jsdelivr\.net/, (route) => route.abort())
+  return { sameOrigin, outside }
+}
+
+/**
+ * The whole journey in a real browser against the production build, served as static files: upload profiles,
+ * confirm a definition for a custom term, find it in the dictionary, and see the two people related in the graph.
+ */
+test('upload, review a custom term, find it in the dictionary, and explore the graph', async ({ page, baseURL }) => {
+  // priya-frontend has the custom skill "Svelte"; sam-ai has the custom value "Stewardship".
+  const seen = await stubOutsideWorld(page, baseURL!)
+
+  await page.goto('./')
 
   // --- Upload ---------------------------------------------------------------------------------------------
   await page.getByLabel(/upload profile/i).setInputFiles([sample('priya-frontend'), sample('sam-ai')])
@@ -43,6 +69,8 @@ test('upload, review a custom term, find it in the dictionary, and explore the g
   const svelte = review.getByRole('article', { name: 'Svelte' })
   await expect(svelte.getByRole('link', { name: /Wikipedia: Svelte/ })).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Svelte')
   await expect(svelte.getByLabel('Definition for Svelte')).toHaveValue(/component-based front-end framework/)
+  // The language model host is unreachable here, so the category suggestion is skipped, not left hanging.
+  await expect(svelte.getByText(/no category suggestion is available/i)).toBeVisible()
   await svelte.getByRole('button', { name: 'Accept' }).click()
   await expect(review).toContainText('Svelte: accepted')
 
@@ -120,10 +148,18 @@ test('upload, review a custom term, find it in the dictionary, and explore the g
   await page.getByRole('button', { name: 'Network' }).click()
   await page.getByText('Show connections as a table').click()
   await expect(page.getByRole('table').filter({ hasText: 'Similarity' })).toContainText('priya-frontend')
+
+  // --- Nothing went to an application API, and nothing about the people left the browser -----------------
+  expect(seen.sameOrigin.filter((p) => p.includes('/api/'))).toEqual([])
+  const sentToWikipedia = seen.outside.filter((u) => u.includes('wikipedia.org'))
+  expect(sentToWikipedia.length).toBeGreaterThan(0)
+  for (const url of seen.outside) {
+    expect(url).not.toMatch(/priya|sam-ai|Individuals/i)
+  }
 })
 
 test('built-in terms need no review, and invalid files are reported without blocking the rest', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
   await page.getByLabel(/upload profile/i).setInputFiles([
     asUpload('tom-techlead'), // only built-in terms
     { name: 'broken.json', mimeType: 'application/json', buffer: Buffer.from('{"values": []}') },
@@ -137,7 +173,7 @@ test('built-in terms need no review, and invalid files are reported without bloc
 })
 
 test('the help panel explains each page and remembers being collapsed', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('./')
   const help = page.getByRole('complementary', { name: /how to use: how to use people/i })
   await expect(help).toContainText('Each .json file is one person')
   await expect(help).toContainText('right-click')
@@ -156,7 +192,7 @@ test('the help panel explains each page and remembers being collapsed', async ({
 test.describe('layout', () => {
   test('uses a wide screen, and never scrolls sideways on a narrow one', async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 })
-    await page.goto('/')
+    await page.goto('./')
     await page.getByLabel(/upload profile/i).setInputFiles([sample('tom-techlead'), sample('lena-sre')])
     await expect(page.getByRole('list', { name: 'Individuals' })).toContainText('lena-sre')
     await page.getByRole('navigation', { name: 'Sections' }).getByRole('button', { name: 'Explore' }).click()
@@ -172,4 +208,59 @@ test.describe('layout', () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), tab).toBe(true)
     }
   })
+})
+
+test('data survives a reload, and Clear all data removes it', async ({ page, baseURL }) => {
+  await stubOutsideWorld(page, baseURL!)
+  await page.goto('./')
+  await page.getByLabel(/upload profile/i).setInputFiles([sample('tom-techlead')])
+  await expect(page.getByRole('list', { name: 'Individuals' })).toContainText('tom-techlead')
+
+  await page.evaluate(() => window.dispatchEvent(new Event('pagehide'))) // what closing the tab does: save now
+  await page.reload()
+  await expect(page.getByRole('list', { name: 'Individuals' })).toContainText('tom-techlead')
+
+  page.once('dialog', (d) => d.dismiss())
+  await page.getByRole('button', { name: 'Clear all data' }).click()
+  await expect(page.getByRole('list', { name: 'Individuals' })).toContainText('tom-techlead')
+
+  page.once('dialog', (d) => d.accept())
+  await page.getByRole('button', { name: 'Clear all data' }).click()
+  await expect(page.getByText(/no profiles uploaded yet/i)).toBeVisible()
+  await page.evaluate(() => window.dispatchEvent(new Event('pagehide')))
+  await page.reload()
+  await expect(page.getByText(/no profiles uploaded yet/i)).toBeVisible()
+})
+
+test('a first-time visitor can load the sample profiles and explore them', async ({ page, baseURL }) => {
+  await stubOutsideWorld(page, baseURL!)
+  await page.goto('./')
+  await page.getByRole('button', { name: 'Load sample profiles' }).click()
+  await expect(page.getByRole('status').filter({ hasText: 'Imported 6 profile' })).toBeVisible()
+  await expect(page.getByRole('list', { name: 'Individuals' }).getByRole('listitem')).toHaveCount(6)
+
+  await page.getByRole('navigation', { name: 'Sections' }).getByRole('button', { name: 'Explore' }).click()
+  const network = page.getByTestId('network')
+  await expect(network.locator('g.node')).toHaveCount(6)
+  await page.getByLabel(/hide weaker/i).fill('0')
+  expect(await network.locator('[data-edge]').count()).toBeGreaterThan(0)
+})
+
+test('people with only built-in terms are related at once, and the language model is never requested', async ({ page, baseURL }) => {
+  const seen = await stubOutsideWorld(page, baseURL!)
+  await page.goto('./')
+  await page.getByLabel(/upload profile/i).setInputFiles([sample('aisha-data'), sample('tom-techlead')]) // no custom terms
+  await expect(page.getByRole('status').filter({ hasText: 'Imported 2 profile' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Review new terms' })).toHaveCount(0)
+
+  await page.getByRole('navigation', { name: 'Sections' }).getByRole('button', { name: 'Explore' }).click()
+  const network = page.getByTestId('network')
+  await expect(network.locator('g.node')).toHaveCount(2)
+  await page.getByLabel(/hide weaker/i).fill('0')
+  await page.getByLabel(/related terms count/i).fill('1') // full strength: relatedness from the shipped vectors
+  expect(await network.locator('[data-edge]').count()).toBeGreaterThan(0)
+
+  // The shipped vectors were fetched with the site; the model host and runtime never were.
+  expect(seen.outside.filter((u) => /huggingface|jsdelivr/.test(u))).toEqual([])
+  expect(seen.sameOrigin.some((p) => p.endsWith('/catalogue/embeddings.bin'))).toBe(true)
 })

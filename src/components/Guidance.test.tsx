@@ -122,3 +122,18 @@ describe('People guidance', () => {
     expect(within(screen.getByRole('list', { name: 'Individuals' })).queryByRole('dialog')).toBeNull()
   })
 })
+
+describe('privacy note', () => {
+  it('states exactly what leaves the device, on the People page', () => {
+    render(
+      <ExplainProvider>
+        <People api={makeApi()} />
+      </ExplainProvider>,
+    )
+    const note = screen.getByTestId('privacy-note')
+    expect(note).toHaveTextContent(/profile contents, names and file names never do/i)
+    expect(note).toHaveTextContent(/sent to Wikipedia/)
+    expect(note).toHaveTextContent(/huggingface\.co/)
+    expect(note).toHaveTextContent(/cdn\.jsdelivr\.net/)
+  })
+})

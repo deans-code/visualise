@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Api, LookupOutcome, Placement, UnresolvedTerm } from '../api'
+import { PrivacyNote } from './PrivacyNote'
 
 type Fetched =
   | { state: 'loading' }
-  | { state: 'done'; outcome: LookupOutcome; placement: Placement | null }
+  /** `placement` is 'pending' while the language model loads: the card is usable without waiting for it. */
+  | { state: 'done'; outcome: LookupOutcome; placement: Placement | null | 'pending' }
 
 type Decision = 'accepted' | 'merged' | 'rejected' | 'skipped'
 
@@ -39,9 +41,14 @@ export function ReviewTerms({
         } catch (e) {
           outcome = { proposal: null, errors: [{ provider: 'lookup', message: (e as Error).message }] }
         }
-        const placement = await api.placement(t.name, t.kind, outcome.proposal?.definition ?? null).catch(() => null)
-        if (cancelled) return
-        setFetched((f) => ({ ...f, [t.id]: { state: 'done', outcome, placement } }))
+        setFetched((f) => ({ ...f, [t.id]: { state: 'done', outcome, placement: 'pending' } }))
+        // The suggestion may need a model download, so it arrives in the background; the next lookup does not wait.
+        void api
+          .placement(t.name, t.kind, outcome.proposal?.definition ?? null)
+          .catch(() => null)
+          .then((placement) => {
+            if (!cancelled) setFetched((f) => ({ ...f, [t.id]: { state: 'done', outcome, placement } }))
+          })
       }
     })()
     return () => {
@@ -70,6 +77,7 @@ export function ReviewTerms({
         leaves the term undefined for later. If a term is just another spelling of an existing one, choose{' '}
         <strong>Yes, use…</strong> to merge them.
       </p>
+      <PrivacyNote />
       <ul aria-label="Terms to review">
         {terms.map((t) => (
           <li key={t.id}>
@@ -118,8 +126,14 @@ function TermCard({
     if (!ready || seeded) return
     setSeeded(true)
     setDefinition(ready.outcome.proposal?.definition ?? '')
-    setCategory(ready.placement?.category ?? '')
   }, [ready, seeded])
+
+  // A suggested category arrives later, without overwriting anything the user has typed.
+  const suggestion = ready && typeof ready.placement === 'object' && ready.placement ? ready.placement : null
+  const typedCategory = useRef(false)
+  useEffect(() => {
+    if (suggestion && !typedCategory.current) setCategory(suggestion.category)
+  }, [suggestion])
 
   const accept = async () => {
     setError(null)
@@ -128,7 +142,7 @@ function TermCard({
         definition: definition.trim(),
         ...(proposal ? { sourceUrl: proposal.sourceUrl } : {}),
         ...(category.trim() ? { category: category.trim() } : {}),
-        ...(ready?.placement?.section ? { section: ready.placement.section } : {}),
+        ...(suggestion?.section ? { section: suggestion.section } : {}),
       })
       onDecide('accepted')
     } catch (e) {
@@ -188,9 +202,21 @@ function TermCard({
           </label>
           <label>
             Category
-            <input value={category} onChange={(e) => setCategory(e.target.value)} />
+            <input
+              value={category}
+              onChange={(e) => {
+                typedCategory.current = true
+                setCategory(e.target.value)
+              }}
+            />
           </label>
-          {ready.placement && <small>Suggested from similar terms.</small>}
+          {ready.placement === 'pending' && (
+            <small role="status">Looking for a category suggestion… the first time, this loads a language model.</small>
+          )}
+          {suggestion && <small>Suggested from similar terms.</small>}
+          {ready.placement === null && (
+            <small>No category suggestion is available (the language model could not be loaded). Type a category if you like.</small>
+          )}
         </>
       )}
 

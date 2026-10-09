@@ -1,6 +1,6 @@
 /**
  * Reads the profile app's catalogue (values, skills, categories, definitions) and writes
- * catalogue/catalogue.json, the snapshot the server seeds its dictionary from.
+ * public/catalogue/catalogue.json, the snapshot the site seeds its dictionary from.
  *
  *   npm run import-catalogue [-- <path to profile app's src/data>]
  *
@@ -10,6 +10,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { buildCatalogue, type ProfileData } from '../shared/catalogue'
+import { embedCatalogue } from './embed-catalogue'
 
 const dataDir = resolve(process.argv[2] ?? process.env.CATALOGUE_PATH ?? '../profile/src/data')
 const load = (rel: string) => import(pathToFileURL(resolve(dataDir, rel)).href)
@@ -37,10 +38,13 @@ const data: ProfileData = {
 }
 
 const catalogue = buildCatalogue(data)
-const out = resolve('catalogue/catalogue.json')
+const out = resolve('public/catalogue/catalogue.json')
 mkdirSync(dirname(out), { recursive: true })
 writeFileSync(out, JSON.stringify(catalogue, null, 2) + '\n')
 
 const missing = catalogue.terms.filter((t) => !t.definition)
 console.log(`Wrote ${catalogue.terms.length} terms to ${out} (${missing.length} without a definition)`)
 if (missing.length) console.log('Missing definitions:', missing.map((t) => t.name).join(', '))
+
+// The shipped embeddings must match the catalogue, so refresh them together.
+await embedCatalogue()

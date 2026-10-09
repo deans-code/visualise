@@ -630,3 +630,11 @@ ul[aria-label='Terms'] > li {
 input[type='file'] {
   margin-left: 0.5rem;
 }
+
+.notice {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent);
+  border-left-width: 6px;
+  border-radius: var(--radius);
+  background: var(--tint);
+}

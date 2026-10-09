@@ -14,7 +14,6 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          # The API uses the built-in node:sqlite, which needs Node 22.13 or later.
           node-version: 22
           cache: npm
 
@@ -29,7 +28,7 @@ jobs:
       - name: Install browser for end-to-end tests
         run: npx playwright install --with-deps chromium
 
-      # Uses its own ports and an in-memory database, and skips the embedding model download.
+      # Builds the site and serves it with `vite preview` on its own port; no network access is needed.
       - name: End-to-end tests
         run: npm run test:e2e
 

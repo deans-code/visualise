@@ -1,8 +1,9 @@
 import { defineConfig } from '@playwright/test'
 
-// The e2e run gets its own ports and an in-memory database, so it never touches (or reuses) a dev server and its data.
-const API_PORT = 3101
+// The end-to-end run serves the production build (the same static files GitHub Pages serves, under the same
+// base path) on its own port, so it never reuses a dev server. There is no API server: the app runs in the browser.
 const WEB_PORT = 5273
+const BASE_PATH = '/visualise/'
 
 export default defineConfig({
   testDir: 'e2e',
@@ -11,23 +12,14 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
-    baseURL: `http://localhost:${WEB_PORT}`,
+    // The trailing slash matters: pages are opened with relative paths such as './'.
+    baseURL: `http://localhost:${WEB_PORT}${BASE_PATH}`,
     trace: 'retain-on-failure',
   },
-  webServer: [
-    {
-      command: 'npx tsx server/index.ts',
-      url: `http://127.0.0.1:${API_PORT}/api/health`,
-      env: { PORT: String(API_PORT), DB_PATH: ':memory:', DISABLE_EMBEDDINGS: '1' },
-      reuseExistingServer: false,
-      timeout: 60_000,
-    },
-    {
-      command: `npx vite --port ${WEB_PORT} --strictPort`,
-      url: `http://localhost:${WEB_PORT}`,
-      env: { API_URL: `http://127.0.0.1:${API_PORT}` },
-      reuseExistingServer: false,
-      timeout: 60_000,
-    },
-  ],
+  webServer: {
+    command: `npx vite build && npx vite preview --port ${WEB_PORT} --strictPort`,
+    url: `http://localhost:${WEB_PORT}${BASE_PATH}`,
+    reuseExistingServer: false,
+    timeout: 120_000,
+  },
 })

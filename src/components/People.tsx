@@ -3,6 +3,8 @@ import type { Api, Individual, Resolution, UploadResult } from '../api'
 import { personListExplanation } from '../explanations'
 import { useExplain } from '../explain'
 import { HelpPanel } from './HelpPanel'
+import { PrivacyNote } from './PrivacyNote'
+import { SAMPLE_FILES } from '../samples'
 import { ReviewTerms } from './ReviewTerms'
 
 interface PendingFile {
@@ -18,7 +20,7 @@ const readText = (f: File) =>
     r.readAsText(f)
   })
 
-export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
+export function People({ api, onChange, refreshKey = 0 }: { api: Api; onChange?: () => void; refreshKey?: number }) {
   const [people, setPeople] = useState<Individual[]>([])
   const [result, setResult] = useState<UploadResult | null>(null)
   const [pending, setPending] = useState<PendingFile[]>([])
@@ -38,7 +40,7 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
 
   useEffect(() => {
     void refresh()
-  }, [refresh])
+  }, [refresh, refreshKey])
 
   const submit = async (files: PendingFile[], resolutions?: Record<string, Resolution>) => {
     setError(null)
@@ -71,6 +73,24 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
     setEditing(null)
     await refresh()
     onChange?.()
+  }
+
+  const clearAll = async () => {
+    if (
+      !window.confirm(
+        'Remove every person and every custom term from this browser, and reset the dictionary to the built-in catalogue? This cannot be undone.',
+      )
+    )
+      return
+    try {
+      await api.clearAll()
+      setResult(null)
+      setPending([])
+      await refresh()
+      onChange?.()
+    } catch (e) {
+      setError((e as Error).message)
+    }
   }
 
   const remove = async (p: Individual) => {
@@ -111,6 +131,14 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
         Each <code>.json</code> file is one person’s exported profile, and the file name becomes their name. You can
         select several files at once.
       </p>
+      <PrivacyNote />
+      <p className="hint">
+        No profiles of your own to hand? <strong>Load sample profiles</strong> adds {SAMPLE_FILES.length} fictional people
+        so you can try the tool.
+      </p>
+      <button type="button" className="secondary" onClick={() => void submit(SAMPLE_FILES)}>
+        Load sample profiles
+      </button>
 
       {error && <p role="alert">{error}</p>}
 
@@ -180,6 +208,15 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
           ))}
         </ul>
       )}
+
+      <h3>Your data</h3>
+      <p className="hint">
+        Everything is kept in this browser only, and is never sent to a server. Clearing it removes every person and
+        custom term here, and cannot be undone. Your original profile files are not affected.
+      </p>
+      <button type="button" className="secondary" onClick={() => void clearAll()}>
+        Clear all data
+      </button>
     </section>
   )
 }

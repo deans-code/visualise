@@ -15,6 +15,7 @@ export function makeApi(over: Partial<Api> = {}): Api {
     listTerms: vi.fn().mockResolvedValue([]),
     updateTerm: vi.fn().mockResolvedValue({}),
     removeTerm: vi.fn().mockResolvedValue(undefined),
+    clearAll: vi.fn().mockResolvedValue(undefined),
     ...over,
   }
 }
