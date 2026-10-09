@@ -6,6 +6,35 @@ Maintains a persistent dictionary of values and skills so uploads are understood
 
 ## ADDED Requirements
 
+### Requirement: Import the profile catalogue
+The system SHALL load the profile app's catalogue (values, skills by section, their categories, and built-in definitions) from a configurable local path, and seed the dictionary with every built-in term, its category and its definition.
+
+#### Scenario: Seed from catalogue
+- **WHEN** the catalogue path points at the profile app's `src/data`
+- **THEN** every built-in value and skill exists in the dictionary with its category, section and definition
+
+#### Scenario: Catalogue changes
+- **WHEN** the profile app adds a term and the catalogue is re-imported
+- **THEN** the new term is added and existing entries, aliases and confirmed custom definitions are preserved
+
+### Requirement: Term relatedness
+The system SHALL compute a relatedness score between 0 and 1 for any two terms, combining category-hierarchy proximity (same category, same section, different) and similarity of their definitions.
+
+#### Scenario: Adjacent skills
+- **WHEN** comparing "React" and "Vue" (same category) versus "React" and "Kubernetes" (different categories)
+- **THEN** the React/Vue score is higher than the React/Kubernetes score
+
+#### Scenario: Explain a score
+- **WHEN** the user asks why two terms are related
+- **THEN** the system states the contributing reasons (e.g. same category "Web and frontend", similar definitions)
+
+### Requirement: Place custom terms
+The system SHALL suggest a category and section for each custom term, based on its confirmed definition and nearest catalogue terms, and the user MUST confirm or change the placement before it is persisted.
+
+#### Scenario: Custom term placement
+- **WHEN** the custom skill "Svelte" is confirmed with a definition about a frontend framework
+- **THEN** it is suggested for "Web and frontend" and relatedness to React and Vue is available once placed
+
 ### Requirement: Seed and grow dictionary
 The system SHALL store every distinct value and skill with its category (and domain for skills), definition, source and aliases, and reuse it for later uploads.
 
