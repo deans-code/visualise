@@ -23,10 +23,10 @@
 
 ## 4. Online definition lookup
 
-- [ ] 4.1 Implement the pluggable search provider interface with Wikipedia and one search-API adapter, API key via env var; verify adapter tests against recorded responses and a failure-path test
-- [ ] 4.2 Implement `POST /api/lookup` returning a proposal only (no persistence); verify a test asserts the DB is unchanged after a lookup
-- [ ] 4.3 Build the "Review new terms" step (de-duplicated across batch; Accept/Edit/Reject/Skip, manual entry on failed lookup); verify component tests for each action and that import completes when terms are skipped
-- [ ] 4.4 Persist confirmed definitions with source URL and status; verify rejected/skipped terms are saved as `undefined` without a definition, and document setup of the search key in the README
+- [x] 4.1 Implement the pluggable search provider interface with Wikipedia and one search-API adapter, API key via env var; verify adapter tests against recorded responses and a failure-path test
+- [x] 4.2 Implement `POST /api/lookup` returning a proposal only (no persistence); verify a test asserts the DB is unchanged after a lookup
+- [x] 4.3 Build the "Review new terms" step (de-duplicated across batch; Accept/Edit/Reject/Skip, manual entry on failed lookup); verify component tests for each action and that import completes when terms are skipped
+- [x] 4.4 Persist confirmed definitions with source URL and status; verify rejected/skipped terms are saved as `undefined` without a definition, and document setup of the search key in the README
 
 ## 5. Relationship visualisation
 

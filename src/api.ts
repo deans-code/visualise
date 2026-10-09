@@ -4,10 +4,37 @@ export interface Individual {
   termCount: number
 }
 
+export interface UnresolvedTerm {
+  id: number
+  name: string
+  kind: 'value' | 'skill'
+  section: string | null
+  suggestions: { id: number; name: string; reason: string }[]
+}
+
 export interface UploadResult {
   imported: { id: number; name: string }[]
   errors: { file: string; reason: string }[]
   conflicts: { file: string; name: string; existingId: number }[]
+  unresolved: UnresolvedTerm[]
+}
+
+export interface DefinitionProposal {
+  definition: string
+  sourceUrl: string
+  sourceTitle: string
+  provider: string
+}
+
+export interface LookupOutcome {
+  proposal: DefinitionProposal | null
+  errors: { provider: string; message: string }[]
+}
+
+export interface Placement {
+  section: string | null
+  category: string
+  confidence: number
 }
 
 export interface Term {
@@ -33,6 +60,7 @@ export interface TermEdit {
   definition?: string
   category?: string
   section?: string
+  sourceUrl?: string
 }
 
 export type Resolution = 'replace' | 'keep'
@@ -54,6 +82,14 @@ export const api = {
   upload: (files: { name: string; text: string }[], resolutions?: Record<string, Resolution>) =>
     send('POST', '/api/individuals/upload', { files, resolutions }).then((r) => json<UploadResult>(r)),
   rename: (id: number, name: string) => send('PATCH', `/api/individuals/${id}`, { name }).then((r) => json<unknown>(r)),
+  lookup: (term: string, kind: 'value' | 'skill', section: string | null) =>
+    send('POST', '/api/lookup', { term, kind, section }).then((r) => json<LookupOutcome>(r)),
+  /** Suggested category for a custom term. Resolves null when the embedding model is unavailable. */
+  placement: async (name: string, kind: 'value' | 'skill', definition: string | null) => {
+    const res = await send('POST', '/api/terms/placement', { name, kind, definition })
+    return res.ok ? ((await res.json()) as Placement) : null
+  },
+  addAlias: (termId: number, alias: string) => send('POST', `/api/terms/${termId}/aliases`, { alias }).then((r) => json<void>(r)),
   listTerms: (query: TermQuery = {}) => {
     const params = new URLSearchParams()
     for (const [k, v] of Object.entries(query)) if (v) params.set(k, v)

@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import { normaliseTerm } from '../shared/normalise'
 import { parseProfile, SECTIONS, type Profile } from '../shared/profile'
 import type { Db } from './db'
-import { findTerm, transaction } from './dictionary'
+import { findTerm, suggestMatches, transaction } from './dictionary'
 
 export interface UploadFile {
   name: string
@@ -16,6 +16,17 @@ export interface UploadResult {
   errors: { file: string; reason: string }[]
   /** Files whose name matches an existing individual and need a Replace / Keep-both decision. */
   conflicts: { file: string; name: string; existingId: number }[]
+  /** Custom terms from the imported files that the dictionary has no definition for, each listed once. */
+  unresolved: UnresolvedTerm[]
+}
+
+export interface UnresolvedTerm {
+  id: number
+  name: string
+  kind: 'value' | 'skill'
+  section: string | null
+  /** Likely spellings of established terms. Only ever suggestions; nothing is merged without the user. */
+  suggestions: { id: number; name: string; reason: string }[]
 }
 
 export const displayNameFromFile = (file: string) => file.replace(/\.json$/i, '').trim() || file
@@ -52,7 +63,7 @@ export function uploadProfiles(
   files: UploadFile[],
   resolutions: Record<string, Resolution> = {},
 ): UploadResult {
-  const result: UploadResult = { imported: [], errors: [], conflicts: [] }
+  const result: UploadResult = { imported: [], errors: [], conflicts: [], unresolved: [] }
 
   for (const file of files) {
     const parsed = parseProfile(file.text)
@@ -82,7 +93,31 @@ export function uploadProfiles(
     })
     result.imported.push({ id, name })
   }
+  result.unresolved = unresolvedFor(db, result.imported.map((i) => i.id))
   return result
+}
+
+function unresolvedFor(db: Db, individualIds: number[]): UnresolvedTerm[] {
+  if (individualIds.length === 0) return []
+  const rows = db
+    .prepare(
+      `SELECT DISTINCT t.id, t.canonical, t.kind, t.section
+       FROM term t JOIN individual_term it ON it.term_id = t.id
+       WHERE t.status = 'undefined' AND t.builtin = 0 AND it.individual_id IN (${individualIds.map(() => '?').join(',')})
+       ORDER BY t.canonical COLLATE NOCASE`,
+    )
+    .all(...individualIds) as unknown as { id: number; canonical: string; kind: 'value' | 'skill'; section: string | null }[]
+  return rows.map((r) => ({
+    id: r.id,
+    name: r.canonical,
+    kind: r.kind,
+    section: r.section,
+    suggestions: suggestMatches(db, r.kind, r.canonical).map((s) => ({
+      id: s.term.id,
+      name: s.term.canonical,
+      reason: s.reason,
+    })),
+  }))
 }
 
 export function listIndividuals(db: Db) {

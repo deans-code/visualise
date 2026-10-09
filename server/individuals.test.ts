@@ -105,3 +105,40 @@ describe('rename and delete', () => {
     expect(res.statusCode).toBe(400)
   })
 })
+
+describe('unresolved terms', () => {
+  const withSkills = (experience: string[], values: string[] = []) =>
+    JSON.stringify({ values, skills: { technical: { experience, desired: [] } } })
+
+  it('lists each unknown term once across a batch', async () => {
+    const body = (
+      await upload([
+        { name: 'a.json', text: withSkills(['Zig']) },
+        { name: 'b.json', text: withSkills(['Zig', 'React']) },
+        { name: 'c.json', text: withSkills(['zig']) },
+      ])
+    ).json()
+    const names = body.unresolved.map((t: { name: string }) => t.name)
+    expect(names.filter((n: string) => n.toLowerCase() === 'zig')).toHaveLength(1)
+    expect(body.unresolved.find((t: { name: string }) => t.name === 'Zig')).toMatchObject({ kind: 'skill', section: 'technical' })
+  })
+
+  it('leaves out built-in terms and ones already defined', async () => {
+    db.prepare("INSERT INTO term (canonical, norm, kind, section, category, definition, builtin) VALUES ('React', 'react', 'skill', 'technical', 'Web', 'UI', 1)").run()
+    db.prepare("INSERT INTO term (canonical, norm, kind, section, definition, status) VALUES ('Zig', 'zig', 'skill', 'technical', 'Mine', 'confirmed')").run()
+    const body = (await upload([{ name: 'a.json', text: withSkills(['React', 'Zig', 'Nim']) }])).json()
+    expect(body.unresolved.map((t: { name: string }) => t.name)).toEqual(['Nim'])
+  })
+
+  it('attaches near-duplicate suggestions', async () => {
+    db.prepare("INSERT INTO term (canonical, norm, kind, section, category, definition, builtin) VALUES ('PostgreSQL', 'postgresql', 'skill', 'technical', 'Data', 'A DB', 1)").run()
+    const body = (await upload([{ name: 'a.json', text: withSkills(['Postgres']) }])).json()
+    expect(body.unresolved[0].suggestions).toMatchObject([{ name: 'PostgreSQL', reason: 'abbreviation' }])
+  })
+
+  it('only reports terms from files imported in this request', async () => {
+    await upload([{ name: 'a.json', text: withSkills(['Zig']) }])
+    const body = (await upload([{ name: 'b.json', text: withSkills(['React']) }])).json()
+    expect(body.unresolved.map((t: { name: string }) => t.name)).toEqual(['React'])
+  })
+})

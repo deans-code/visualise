@@ -10,10 +10,13 @@ afterEach(cleanup)
 function fakeApi(over: Partial<Api> = {}): Api {
   return {
     listIndividuals: vi.fn().mockResolvedValue([] as Individual[]),
-    upload: vi.fn().mockResolvedValue({ imported: [], errors: [], conflicts: [] } as UploadResult),
+    upload: vi.fn().mockResolvedValue({ imported: [], errors: [], conflicts: [], unresolved: [] } as UploadResult),
     rename: vi.fn().mockResolvedValue({}),
     remove: vi.fn().mockResolvedValue(undefined),
     listTerms: vi.fn().mockResolvedValue([]),
+    lookup: vi.fn(),
+    placement: vi.fn(),
+    addAlias: vi.fn(),
     updateTerm: vi.fn(),
     removeTerm: vi.fn(),
     ...over,
@@ -32,6 +35,7 @@ describe('People', () => {
         ],
         errors: [{ file: 'c.json', reason: 'skills must be an object' }],
         conflicts: [],
+        unresolved: [],
       }),
     })
     render(<People api={api} />)
@@ -50,8 +54,9 @@ describe('People', () => {
         imported: [],
         errors: [],
         conflicts: [{ file: 'alex.json', name: 'alex', existingId: 1 }],
+        unresolved: [],
       })
-      .mockResolvedValueOnce({ imported: [{ id: 1, name: 'alex' }], errors: [], conflicts: [] })
+      .mockResolvedValueOnce({ imported: [{ id: 1, name: 'alex' }], errors: [], conflicts: [], unresolved: [] })
     render(<People api={fakeApi({ upload })} />)
     await userEvent.upload(screen.getByLabelText(/upload profile/i), file('alex.json'))
 

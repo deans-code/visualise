@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify'
+import { lookupDefinition } from './lookup'
 import { suggestPlacement } from './placement'
 import { addAlias, suggestMatches, TermNotFoundError, type TermKind, type TermRow } from './dictionary'
 
@@ -45,6 +46,19 @@ export function registerTermRoutes(app: FastifyInstance) {
     }))
   })
 
+  // Proposes a definition from the web. Read-only: nothing is saved until the user confirms via PATCH /api/terms/:id.
+  app.post('/api/lookup', async (req, reply) => {
+    const b = (req.body ?? {}) as { term?: unknown; kind?: unknown; section?: unknown }
+    if (typeof b.term !== 'string' || !b.term.trim() || (b.kind !== 'value' && b.kind !== 'skill')) {
+      return reply.code(400).send({ error: 'term and kind are required' })
+    }
+    return lookupDefinition(app.providers, {
+      term: b.term.trim(),
+      kind: b.kind,
+      section: typeof b.section === 'string' ? b.section : null,
+    })
+  })
+
   app.post('/api/terms/placement', async (req, reply) => {
     const b = (req.body ?? {}) as { name?: unknown; kind?: unknown; definition?: unknown }
     if (typeof b.name !== 'string' || !b.name.trim() || (b.kind !== 'value' && b.kind !== 'skill')) {
@@ -77,7 +91,12 @@ export function registerTermRoutes(app: FastifyInstance) {
     const definition = typeof b.definition === 'string' ? b.definition.trim() || null : row.definition
     const category = typeof b.category === 'string' ? b.category.trim() || null : row.category
     const section = typeof b.section === 'string' ? b.section.trim() || null : row.section
-    const source = typeof b.sourceUrl === 'string' ? b.sourceUrl.trim() || null : row.source_url
+    let source = row.source_url
+    if (typeof b.sourceUrl === 'string') {
+      source = b.sourceUrl.trim() || null
+      // The source is rendered as a link, so only web URLs are allowed (not javascript: and friends).
+      if (source && !/^https?:\/\//i.test(source)) return reply.code(400).send({ error: 'sourceUrl must be an http(s) URL' })
+    }
     db.prepare('UPDATE term SET definition = ?, category = ?, section = ?, source_url = ?, status = ?, embedding = NULL WHERE id = ?').run(
       definition,
       category,

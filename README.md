@@ -62,3 +62,22 @@ and keeps custom terms, aliases and definitions you have confirmed.
   first start, roughly 25 MB). If it cannot load, relatedness falls back to catalogue position alone. No profile
   data leaves the machine.
 - Custom terms get a suggested category from their nearest catalogue terms, which you confirm or change.
+
+## Looking up unknown terms
+
+Custom entries (anything not in the catalogue) go through a **Review new terms** step after upload. For each
+one the app searches online, shows the proposed definition and its source link, and saves nothing until you
+**Accept** it (you can edit the text first). **Reject** and **Skip** leave the term undefined; you can write a
+definition later from the Dictionary page. If a search finds nothing, you can type a definition yourself.
+
+- **Wikipedia** is always used. It needs no key.
+- **Brave Search** is added as a fallback when `BRAVE_API_KEY` is set (get a key at
+  [brave.com/search/api](https://brave.com/search/api/)):
+
+  ```bash
+  BRAVE_API_KEY=your-key npm run dev          # bash
+  $env:BRAVE_API_KEY = "your-key"; npm run dev  # PowerShell
+  ```
+
+Only the term itself (plus a hint such as "software") is sent to these services, never profile contents or names.
+Searches run server-side, one term at a time, and the key is never sent to the browser.

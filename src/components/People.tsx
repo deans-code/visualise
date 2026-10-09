@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Api, Individual, Resolution, UploadResult } from '../api'
+import { ReviewTerms } from './ReviewTerms'
 
 interface PendingFile {
   name: string
@@ -101,6 +102,10 @@ export function People({ api, onChange }: { api: Api; onChange?: () => void }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {result && result.unresolved.length > 0 && (
+        <ReviewTerms api={api} terms={result.unresolved} onChange={onChange} />
       )}
 
       {result && result.conflicts.length > 0 && (
