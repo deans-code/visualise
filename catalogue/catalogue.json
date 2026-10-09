@@ -1,0 +1,2721 @@
+{
+  "version": 1,
+  "terms": [
+    {
+      "name": "Integrity",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Acting in line with your principles, even when nobody is watching or it is inconvenient."
+    },
+    {
+      "name": "Honesty",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Telling the truth and being straightforward, including when the message is uncomfortable."
+    },
+    {
+      "name": "Courage",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Speaking up, taking risks and doing the right thing even when it is difficult."
+    },
+    {
+      "name": "Humility",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Recognising your limits, giving credit to others and staying open to being wrong."
+    },
+    {
+      "name": "Authenticity",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Being true to yourself and presenting yourself honestly to others."
+    },
+    {
+      "name": "Ethics",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Doing what is morally right and considering the wider effects of your actions."
+    },
+    {
+      "name": "Accountability",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Owning your commitments and results, including admitting when things go wrong."
+    },
+    {
+      "name": "Discipline",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Sticking to commitments and good habits even when motivation fades."
+    },
+    {
+      "name": "Patience",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Staying calm and giving things the time they need to develop."
+    },
+    {
+      "name": "Fairness",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Treating people equitably and making decisions without bias or favouritism."
+    },
+    {
+      "name": "Loyalty",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Staying faithful and committed to people, teams and causes, especially when it is not easy."
+    },
+    {
+      "name": "Responsibility",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Being dependable about your duties and the consequences of your choices."
+    },
+    {
+      "name": "Gratitude",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Noticing and appreciating what others do for you and what you have."
+    },
+    {
+      "name": "Dignity",
+      "kind": "value",
+      "section": null,
+      "category": "Character and integrity",
+      "definition": "Treating yourself and everyone else as worthy of respect, whatever the circumstances."
+    },
+    {
+      "name": "Respect",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Treating others with consideration and dignity, whatever their role or opinions."
+    },
+    {
+      "name": "Trust",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Relying on others and being reliable yourself, so people can depend on each other."
+    },
+    {
+      "name": "Empathy",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Understanding and caring about how other people feel and what they need."
+    },
+    {
+      "name": "Kindness",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Being considerate and generous in how you treat others."
+    },
+    {
+      "name": "Compassion",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Responding to other people’s difficulties with care and a wish to help."
+    },
+    {
+      "name": "Generosity",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Freely giving your time, knowledge and support to others."
+    },
+    {
+      "name": "Community",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Belonging to and contributing to a group of people with shared interests."
+    },
+    {
+      "name": "Service",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Helping others and putting their needs ahead of your own convenience."
+    },
+    {
+      "name": "Friendship",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Valuing close, supportive bonds built on mutual care and shared time."
+    },
+    {
+      "name": "Belonging",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Feeling accepted as part of a group, and helping others feel the same."
+    },
+    {
+      "name": "Family",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Putting importance on the people closest to you and the time you spend with them."
+    },
+    {
+      "name": "Forgiveness",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Letting go of resentment and giving people the chance to put things right."
+    },
+    {
+      "name": "Hospitality",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Welcoming people warmly and making them feel at home."
+    },
+    {
+      "name": "Tolerance",
+      "kind": "value",
+      "section": null,
+      "category": "Relationships and community",
+      "definition": "Accepting people and views that differ from your own without judgement."
+    },
+    {
+      "name": "Collaboration",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Working together toward shared goals, valuing what each person brings."
+    },
+    {
+      "name": "Teamwork",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Putting the success of the group ahead of individual credit."
+    },
+    {
+      "name": "Leadership",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Guiding, inspiring and enabling others toward a shared goal."
+    },
+    {
+      "name": "Mentorship",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Sharing your experience to help others learn and develop."
+    },
+    {
+      "name": "Inclusion",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Making sure everyone feels welcome, heard and able to contribute fully."
+    },
+    {
+      "name": "Diversity",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Valuing different backgrounds, perspectives and experiences, and the strength they bring."
+    },
+    {
+      "name": "Transparency",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Being open about decisions, information and reasoning so others can see what is happening."
+    },
+    {
+      "name": "Ownership",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Taking full responsibility for an outcome and seeing it through to the end."
+    },
+    {
+      "name": "Communication",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Sharing information and ideas clearly and listening well, so that people understand each other."
+    },
+    {
+      "name": "Cooperation",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Willingly working with others, compromising where needed, to get things done."
+    },
+    {
+      "name": "Vision",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Having a clear picture of a better future and inspiring others to work toward it."
+    },
+    {
+      "name": "Empowerment",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Giving people the trust, tools and authority to make decisions and act."
+    },
+    {
+      "name": "Shared success",
+      "kind": "value",
+      "section": null,
+      "category": "Collaboration and leadership",
+      "definition": "Celebrating and rewarding achievements as a group rather than only as individuals."
+    },
+    {
+      "name": "Learning",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Seeking new knowledge and skills, and treating mistakes as chances to improve."
+    },
+    {
+      "name": "Growth",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Continually developing as a person and professional, and helping others do the same."
+    },
+    {
+      "name": "Curiosity",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "A drive to ask questions, explore how things work and look beyond the obvious answer."
+    },
+    {
+      "name": "Openness",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Being receptive to new ideas, feedback and ways of working."
+    },
+    {
+      "name": "Continuous improvement",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Making small, steady improvements to how you and your team work, all the time."
+    },
+    {
+      "name": "Adaptability",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Adjusting readily to change and new circumstances."
+    },
+    {
+      "name": "Resilience",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Recovering well from setbacks and keeping going under pressure."
+    },
+    {
+      "name": "Perseverance",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Continuing to work toward a goal through setbacks and difficulty."
+    },
+    {
+      "name": "Wisdom",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Applying experience, judgement and perspective to make sound decisions."
+    },
+    {
+      "name": "Knowledge",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Valuing understanding and expertise, and the effort it takes to build it."
+    },
+    {
+      "name": "Self-awareness",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Understanding your own strengths, weaknesses, motives and effect on others."
+    },
+    {
+      "name": "Reflection",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Taking time to think back on what happened and what you can learn from it."
+    },
+    {
+      "name": "Exploration",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Seeking out new places, ideas and experiences with an open mind."
+    },
+    {
+      "name": "Experimentation",
+      "kind": "value",
+      "section": null,
+      "category": "Learning and growth",
+      "definition": "Trying things out, testing assumptions and learning from the results."
+    },
+    {
+      "name": "Quality",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Caring that the work is done well and meets a high standard, not just that it is done."
+    },
+    {
+      "name": "Craftsmanship",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Taking pride in the skill and care that goes into the things you build."
+    },
+    {
+      "name": "Reliability",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Being consistent and dependable, so that people can count on you to deliver."
+    },
+    {
+      "name": "Efficiency",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Achieving results with minimal waste of time, effort and resources."
+    },
+    {
+      "name": "Simplicity",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Preferring clear, uncomplicated solutions and removing what is not needed."
+    },
+    {
+      "name": "Pragmatism",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Focusing on what works in practice rather than on theory or perfection."
+    },
+    {
+      "name": "Customer focus",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Putting the needs and experience of the people you serve at the centre of decisions."
+    },
+    {
+      "name": "Excellence",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Striving for outstanding results and continually raising the bar."
+    },
+    {
+      "name": "Precision",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Being exact and accurate in what you do and say."
+    },
+    {
+      "name": "Thoroughness",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Doing a task completely and carefully, leaving nothing important out."
+    },
+    {
+      "name": "Elegance",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Favouring solutions that are simple, graceful and well proportioned."
+    },
+    {
+      "name": "Attention to detail",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Noticing the small things that make the difference between good and great work."
+    },
+    {
+      "name": "Professionalism",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Conducting yourself with competence, reliability and courtesy at work."
+    },
+    {
+      "name": "Mastery",
+      "kind": "value",
+      "section": null,
+      "category": "Craft and work",
+      "definition": "Striving for deep, lasting skill in your field through sustained practice."
+    },
+    {
+      "name": "Ambition",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "A strong desire to achieve, progress and take on bigger challenges."
+    },
+    {
+      "name": "Impact",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Wanting your work to make a real, meaningful difference."
+    },
+    {
+      "name": "Innovation",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Finding new ideas and better ways of doing things, then putting them into practice."
+    },
+    {
+      "name": "Creativity",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Imagining original approaches and expressing ideas in new ways."
+    },
+    {
+      "name": "Purpose",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Having a clear sense of why your work matters."
+    },
+    {
+      "name": "Recognition",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Valuing having your contribution, and that of others, acknowledged and appreciated."
+    },
+    {
+      "name": "Focus",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Concentrating on what matters most and avoiding distraction."
+    },
+    {
+      "name": "Determination",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Staying firmly resolved to reach a goal despite obstacles."
+    },
+    {
+      "name": "Initiative",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Acting on your own to start things and solve problems without waiting to be asked."
+    },
+    {
+      "name": "Results",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Focusing on achieving tangible outcomes rather than just activity."
+    },
+    {
+      "name": "Entrepreneurship",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Spotting opportunities and taking calculated risks to build something new."
+    },
+    {
+      "name": "Success",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Striving to achieve the goals you have set and to reach a high standard."
+    },
+    {
+      "name": "Boldness",
+      "kind": "value",
+      "section": null,
+      "category": "Drive and achievement",
+      "definition": "Being willing to take big steps and make daring choices."
+    },
+    {
+      "name": "Freedom",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Having the independence to choose your own path, methods and priorities."
+    },
+    {
+      "name": "Autonomy",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Having the freedom to decide how you work and to act on your own judgment."
+    },
+    {
+      "name": "Independence",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Standing on your own feet and making your own decisions."
+    },
+    {
+      "name": "Choice",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Having real options and the ability to decide among them."
+    },
+    {
+      "name": "Flexibility",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Being able to change how, when and where you work to suit circumstances."
+    },
+    {
+      "name": "Self-reliance",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Relying on your own abilities and resources rather than on others."
+    },
+    {
+      "name": "Individuality",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Expressing what makes you unique and valuing that in others."
+    },
+    {
+      "name": "Privacy",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Keeping control over your personal information and personal space."
+    },
+    {
+      "name": "Self-direction",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Setting your own goals and choosing the path to reach them."
+    },
+    {
+      "name": "Spontaneity",
+      "kind": "value",
+      "section": null,
+      "category": "Freedom and autonomy",
+      "definition": "Enjoying acting on impulse and being open to the unplanned."
+    },
+    {
+      "name": "Wellbeing",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Caring for physical, mental and emotional health, yours and others’."
+    },
+    {
+      "name": "Work-life balance",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Keeping a healthy balance between work and the rest of life."
+    },
+    {
+      "name": "Balance",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Weighing competing priorities sensibly instead of going to extremes."
+    },
+    {
+      "name": "Fun",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Enjoying the work and bringing lightness and humour to the team."
+    },
+    {
+      "name": "Security",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Valuing safety and protection, for people, data and livelihoods."
+    },
+    {
+      "name": "Stability",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Valuing steadiness and predictability in work and in the environment around you."
+    },
+    {
+      "name": "Health",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Looking after your physical and mental health as the basis for everything else."
+    },
+    {
+      "name": "Peace",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Valuing calm, harmony and the absence of conflict, within yourself and with others."
+    },
+    {
+      "name": "Joy",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Experiencing and spreading deep, lasting happiness."
+    },
+    {
+      "name": "Calm",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Staying composed and steady, even when things are busy or stressful."
+    },
+    {
+      "name": "Mindfulness",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Paying deliberate attention to the present moment without judgement."
+    },
+    {
+      "name": "Rest",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Recognising the need to pause and recover so you can do your best."
+    },
+    {
+      "name": "Comfort",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Valuing ease, familiarity and a pleasant environment."
+    },
+    {
+      "name": "Contentment",
+      "kind": "value",
+      "section": null,
+      "category": "Wellbeing and balance",
+      "definition": "Being satisfied with what you have, and who you are."
+    },
+    {
+      "name": "Sustainability",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Working in ways that last, caring for people, the environment and long-term health."
+    },
+    {
+      "name": "Open source",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Believing in sharing software and knowledge openly so that everyone can use and improve it."
+    },
+    {
+      "name": "Fairness in pay",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Believing people should be rewarded equitably for their work and contribution."
+    },
+    {
+      "name": "Justice",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Believing in fair treatment under fair rules, and standing up against wrongdoing."
+    },
+    {
+      "name": "Equality",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Believing everyone deserves the same rights and opportunities."
+    },
+    {
+      "name": "Environmental stewardship",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Taking care of the natural world and using resources responsibly."
+    },
+    {
+      "name": "Social responsibility",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Considering the effects of your actions on society and acting for the common good."
+    },
+    {
+      "name": "Human rights",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Defending the basic freedoms and protections every person is entitled to."
+    },
+    {
+      "name": "Education",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Believing in the value of learning and in helping others to access it."
+    },
+    {
+      "name": "Accessibility",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Making sure products, places and information can be used by everyone, including people with disabilities."
+    },
+    {
+      "name": "Philanthropy",
+      "kind": "value",
+      "section": null,
+      "category": "Society and the world",
+      "definition": "Giving time, money or skills to improve the lives of others."
+    },
+    {
+      "name": "JavaScript",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "The programming language of the web, used for interactive pages in browsers and, via Node.js, on servers."
+    },
+    {
+      "name": "TypeScript",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "JavaScript with static types, which catches many mistakes before the code runs."
+    },
+    {
+      "name": "Python",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A readable, general-purpose language widely used for scripting, web back ends, data analysis and machine learning."
+    },
+    {
+      "name": "Java",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A mature, strongly typed language for large server-side, enterprise and Android applications."
+    },
+    {
+      "name": "C#",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A modern, strongly typed language from Microsoft, used with .NET for web, desktop, cloud and game development."
+    },
+    {
+      "name": "Go",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A simple, fast, compiled language from Google, popular for cloud services and command-line tools."
+    },
+    {
+      "name": "Rust",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A systems language that delivers high performance and memory safety without a garbage collector."
+    },
+    {
+      "name": "C++",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A powerful, low-level language used where performance and hardware control matter, such as games and embedded systems."
+    },
+    {
+      "name": "Kotlin",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A concise, modern language that runs on the JVM and is the preferred language for Android development."
+    },
+    {
+      "name": "Swift",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "Apple’s language for building apps for iPhone, iPad, Mac and other Apple platforms."
+    },
+    {
+      "name": "PHP",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "A server-side scripting language that powers a large share of websites, including WordPress."
+    },
+    {
+      "name": "Ruby",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Languages",
+      "definition": "An expressive, developer-friendly language best known for the Ruby on Rails web framework."
+    },
+    {
+      "name": "HTML",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "The markup language that defines the structure and content of web pages."
+    },
+    {
+      "name": "CSS",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "The language that controls the look and layout of web pages."
+    },
+    {
+      "name": "React",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "A JavaScript library for building user interfaces from reusable components."
+    },
+    {
+      "name": "Angular",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "A full-featured TypeScript framework from Google for building large web applications."
+    },
+    {
+      "name": "Vue",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "A progressive JavaScript framework for building user interfaces, known for being approachable."
+    },
+    {
+      "name": "Web accessibility",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "Building sites and apps that people with disabilities can use, following standards such as WCAG."
+    },
+    {
+      "name": "Responsive design",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "Designing pages that adapt their layout to any screen size or device."
+    },
+    {
+      "name": "Web performance",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Web and frontend",
+      "definition": "Making web pages load and respond quickly, through techniques such as caching, compression and lean code."
+    },
+    {
+      "name": "Node.js",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "A JavaScript runtime for running code outside the browser, commonly used for web servers and tooling."
+    },
+    {
+      "name": ".NET",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "Microsoft’s cross-platform development platform for building web, cloud, desktop and mobile applications."
+    },
+    {
+      "name": "Spring Boot",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "A Java framework that makes it quick to build production-ready web services and applications."
+    },
+    {
+      "name": "Django",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "A batteries-included Python web framework that encourages rapid, clean development."
+    },
+    {
+      "name": "REST APIs",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "Designing and building web services that expose resources over HTTP using standard methods and status codes."
+    },
+    {
+      "name": "GraphQL",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "A query language for APIs that lets clients request exactly the data they need."
+    },
+    {
+      "name": "gRPC",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "A high-performance framework for service-to-service calls using Protocol Buffers over HTTP/2."
+    },
+    {
+      "name": "WebSockets",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Backend and APIs",
+      "definition": "A protocol for two-way, real-time communication between a browser and a server."
+    },
+    {
+      "name": "SQL",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "The standard language for querying and managing data in relational databases."
+    },
+    {
+      "name": "PostgreSQL",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "A powerful, open source relational database known for reliability and rich features."
+    },
+    {
+      "name": "MySQL",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "A widely used open source relational database, common in web applications."
+    },
+    {
+      "name": "SQL Server",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "Microsoft’s relational database management system."
+    },
+    {
+      "name": "MongoDB",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "A popular document database that stores flexible, JSON-like records."
+    },
+    {
+      "name": "Redis",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "An in-memory data store used for caching, queues and fast lookups."
+    },
+    {
+      "name": "Data modelling",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "Designing how data is structured and related, so it is accurate, efficient and easy to use."
+    },
+    {
+      "name": "Elasticsearch",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "A search and analytics engine for fast full-text search across large amounts of data."
+    },
+    {
+      "name": "Vector databases",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "Databases that store numeric embeddings and find the closest matches quickly, used for similarity search."
+    },
+    {
+      "name": "Data analysis",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data",
+      "definition": "Exploring and interpreting data to find patterns and answer questions, using tools such as Python or SQL."
+    },
+    {
+      "name": "NumPy and pandas",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "The core Python libraries for fast numeric arrays and for working with tables of data."
+    },
+    {
+      "name": "Jupyter notebooks",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "Interactive documents that mix code, results and notes, widely used for exploring data and experiments."
+    },
+    {
+      "name": "Data pipelines",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "Automated flows that collect, clean, transform and move data between systems."
+    },
+    {
+      "name": "Apache Airflow",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "A platform for scheduling and monitoring data workflows defined as code."
+    },
+    {
+      "name": "Apache Kafka",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "A distributed event-streaming platform for moving large volumes of data between systems in real time."
+    },
+    {
+      "name": "Message queues",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "Services that pass messages between applications asynchronously, such as RabbitMQ or SQS."
+    },
+    {
+      "name": "Apache Spark",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "An engine for processing very large datasets in parallel across many machines."
+    },
+    {
+      "name": "Parquet and data formats",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Data tooling and pipelines",
+      "definition": "Working with efficient storage formats such as Parquet, Avro and JSON Lines for analytics and pipelines."
+    },
+    {
+      "name": "Android",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Mobile",
+      "definition": "Building apps for Android devices, typically with Kotlin or Java."
+    },
+    {
+      "name": "iOS",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Mobile",
+      "definition": "Building apps for iPhone and iPad, typically with Swift."
+    },
+    {
+      "name": "React Native",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Mobile",
+      "definition": "A framework for building native mobile apps for iOS and Android using React and JavaScript."
+    },
+    {
+      "name": "Flutter",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Mobile",
+      "definition": "Google’s toolkit for building apps for mobile, web and desktop from one Dart codebase."
+    },
+    {
+      "name": "AWS",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "Amazon Web Services, the largest cloud platform, offering computing, storage, databases and much more."
+    },
+    {
+      "name": "Azure",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "Microsoft’s cloud platform for hosting applications, data and infrastructure."
+    },
+    {
+      "name": "Google Cloud",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "Google’s cloud platform for computing, storage, data analytics and machine learning."
+    },
+    {
+      "name": "Docker",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "A tool for packaging an application and its dependencies into portable containers."
+    },
+    {
+      "name": "Kubernetes",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "A system for automating the deployment, scaling and management of containerised applications."
+    },
+    {
+      "name": "Terraform",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "A tool for defining and managing cloud infrastructure as code."
+    },
+    {
+      "name": "CI/CD pipelines",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "Automated pipelines that build, test and deliver code changes continuously and reliably."
+    },
+    {
+      "name": "Linux",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "The open source operating system that runs most servers and cloud workloads."
+    },
+    {
+      "name": "Git",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "The standard distributed version control system for tracking changes to code and collaborating on it."
+    },
+    {
+      "name": "Shell scripting",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Cloud and DevOps",
+      "definition": "Automating tasks by writing scripts for command-line shells such as Bash or PowerShell."
+    },
+    {
+      "name": "GPU computing",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Compute and GPUs",
+      "definition": "Using graphics processors for highly parallel work such as numerical computing and model training or inference."
+    },
+    {
+      "name": "CUDA",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Compute and GPUs",
+      "definition": "NVIDIA’s platform and programming model for running general-purpose code on its GPUs."
+    },
+    {
+      "name": "Cloud GPU instances",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Compute and GPUs",
+      "definition": "Renting GPU-equipped virtual machines from a cloud provider for compute-heavy workloads."
+    },
+    {
+      "name": "Helm",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Compute and GPUs",
+      "definition": "A package manager for Kubernetes that installs and configures applications from reusable charts."
+    },
+    {
+      "name": "Serverless",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Compute and GPUs",
+      "definition": "Running code on managed platforms that scale automatically and charge only for usage, such as AWS Lambda."
+    },
+    {
+      "name": "Infrastructure as code",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Compute and GPUs",
+      "definition": "Defining servers, networks and services in version-controlled files so environments are repeatable."
+    },
+    {
+      "name": "Observability platforms",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Observability tooling",
+      "definition": "Tools that collect metrics, logs and traces so teams can see how systems behave in production."
+    },
+    {
+      "name": "Prometheus and Grafana",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Observability tooling",
+      "definition": "A popular open source pair for collecting metrics and building dashboards and alerts."
+    },
+    {
+      "name": "OpenTelemetry",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Observability tooling",
+      "definition": "An open standard and set of libraries for producing metrics, logs and traces from applications."
+    },
+    {
+      "name": "Log aggregation",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Observability tooling",
+      "definition": "Collecting logs from many services into one searchable place, for example with Loki or the ELK stack."
+    },
+    {
+      "name": "Distributed tracing",
+      "kind": "skill",
+      "section": "technical",
+      "category": "Observability tooling",
+      "definition": "Following a single request across many services to find where time is spent or errors occur."
+    },
+    {
+      "name": "System design",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Planning how the components of a system fit together to meet requirements for function, scale and reliability."
+    },
+    {
+      "name": "Domain-driven design",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Structuring software around the business domain, using a shared language between developers and experts."
+    },
+    {
+      "name": "Microservices architecture",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Building an application as a set of small, independently deployable services."
+    },
+    {
+      "name": "Event-driven architecture",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Designing systems whose components communicate by producing and reacting to events."
+    },
+    {
+      "name": "Design patterns",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Reusable, proven solutions to common problems in software design."
+    },
+    {
+      "name": "Clean code",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Writing code that is easy to read, understand and change."
+    },
+    {
+      "name": "API design",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Designing interfaces that are consistent, well documented and easy for other developers to use."
+    },
+    {
+      "name": "Data architecture",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Architecture and design",
+      "definition": "Deciding how data is stored, moved and governed across an organisation’s systems."
+    },
+    {
+      "name": "Unit testing",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Testing small pieces of code, such as functions or classes, in isolation."
+    },
+    {
+      "name": "Integration testing",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Testing that separate components or services work correctly together."
+    },
+    {
+      "name": "End-to-end testing",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Testing a complete user journey through the whole system as a real user would."
+    },
+    {
+      "name": "Test-driven development",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Writing a failing test first, then the code to pass it, then improving the design."
+    },
+    {
+      "name": "Code review",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Examining teammates’ changes to catch problems, share knowledge and maintain standards."
+    },
+    {
+      "name": "Static analysis",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Using tools that inspect code without running it to find bugs, vulnerabilities and style issues."
+    },
+    {
+      "name": "Performance testing",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Measuring how a system behaves under load to find slow spots and limits."
+    },
+    {
+      "name": "Exploratory testing",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Quality and testing",
+      "definition": "Investigating software freely, without a script, to uncover problems that planned tests miss."
+    },
+    {
+      "name": "Observability",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Instrumenting systems with logs, metrics and traces so you can understand what they are doing."
+    },
+    {
+      "name": "Monitoring and alerting",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Watching the health of systems and notifying the right people when something goes wrong."
+    },
+    {
+      "name": "Incident response",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Detecting, handling and learning from production problems quickly and calmly."
+    },
+    {
+      "name": "Debugging",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Systematically finding and fixing the cause of defects in software."
+    },
+    {
+      "name": "Capacity planning",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Predicting the resources a system will need so it keeps performing as demand grows."
+    },
+    {
+      "name": "Disaster recovery",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Planning and testing how to restore systems and data after a serious failure."
+    },
+    {
+      "name": "Site reliability engineering",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Reliability and operations",
+      "definition": "Applying software engineering to operations, with targets for reliability and automation of toil."
+    },
+    {
+      "name": "Threat modelling",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Security",
+      "definition": "Identifying how a system could be attacked and deciding how to defend against it."
+    },
+    {
+      "name": "Secure coding",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Security",
+      "definition": "Writing code that avoids common vulnerabilities such as injection and broken access control."
+    },
+    {
+      "name": "Authentication and authorisation",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Security",
+      "definition": "Verifying who a user is and controlling what they are allowed to do."
+    },
+    {
+      "name": "Vulnerability management",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Security",
+      "definition": "Finding, prioritising and fixing security weaknesses in software and infrastructure."
+    },
+    {
+      "name": "Compliance and governance",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Security",
+      "definition": "Ensuring systems follow laws, standards and internal policies, and can show that they do."
+    },
+    {
+      "name": "Algorithms and data structures",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Performance and scale",
+      "definition": "Choosing efficient ways to organise data and solve problems in code."
+    },
+    {
+      "name": "Performance optimisation",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Performance and scale",
+      "definition": "Measuring and improving how fast and efficiently software runs."
+    },
+    {
+      "name": "Scalability",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Performance and scale",
+      "definition": "Designing systems that keep working well as users, data and traffic grow."
+    },
+    {
+      "name": "Concurrency",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Performance and scale",
+      "definition": "Writing software that does several things at once safely, using threads, async or parallel processing."
+    },
+    {
+      "name": "Agile delivery",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Delivering software in small, frequent increments and adapting to feedback."
+    },
+    {
+      "name": "Scrum",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "An agile framework that organises work into fixed-length sprints with defined roles and ceremonies."
+    },
+    {
+      "name": "Kanban",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "A flow-based method that visualises work and limits work in progress."
+    },
+    {
+      "name": "Estimation",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Forecasting how much effort or time work will take, and being honest about uncertainty."
+    },
+    {
+      "name": "Requirements analysis",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Working out what users and the business actually need before building it."
+    },
+    {
+      "name": "Technical documentation",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Writing clear guides, references and decision records that help others use and maintain a system."
+    },
+    {
+      "name": "Release management",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Planning, coordinating and controlling how changes reach production."
+    },
+    {
+      "name": "Refactoring",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Improving the internal structure of code without changing what it does."
+    },
+    {
+      "name": "Technical debt management",
+      "kind": "skill",
+      "section": "engineering",
+      "category": "Delivery and process",
+      "definition": "Recognising shortcuts taken in code and planning to pay them down before they slow the team."
+    },
+    {
+      "name": "Written communication",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Expressing ideas clearly and concisely in emails, documents and messages."
+    },
+    {
+      "name": "Verbal communication",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Speaking clearly and persuasively in conversations and meetings."
+    },
+    {
+      "name": "Active listening",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Giving someone your full attention and checking that you have understood them."
+    },
+    {
+      "name": "Presentation skills",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Structuring and delivering talks that engage an audience and get the message across."
+    },
+    {
+      "name": "Storytelling",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Using narrative to make information memorable and persuasive."
+    },
+    {
+      "name": "Giving feedback",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Offering specific, kind and useful observations that help others improve."
+    },
+    {
+      "name": "Receiving feedback",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Listening openly to feedback and using it to grow rather than getting defensive."
+    },
+    {
+      "name": "Explaining technical concepts",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Communication",
+      "definition": "Making complex ideas understandable to people without a technical background."
+    },
+    {
+      "name": "Teamwork",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Contributing effectively as part of a group and supporting colleagues to reach shared goals."
+    },
+    {
+      "name": "Cross-functional collaboration",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Working productively with people from other disciplines, such as design, product and operations."
+    },
+    {
+      "name": "Conflict resolution",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Helping disagreements reach a fair outcome while keeping relationships intact."
+    },
+    {
+      "name": "Negotiation",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Reaching agreements that work for everyone involved through discussion and compromise."
+    },
+    {
+      "name": "Stakeholder management",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Understanding and balancing the needs of the people affected by or interested in your work."
+    },
+    {
+      "name": "Remote collaboration",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Working well with colleagues across locations and time zones using the right tools and habits."
+    },
+    {
+      "name": "Building trust",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Creating confidence in your reliability, honesty and good intent."
+    },
+    {
+      "name": "Empathy",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Collaboration",
+      "definition": "Understanding other people’s perspectives and feelings and responding with care."
+    },
+    {
+      "name": "Mentoring",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Guiding someone’s development by sharing experience and advice."
+    },
+    {
+      "name": "Coaching",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Helping people find their own solutions through questions and encouragement."
+    },
+    {
+      "name": "Delegation",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Handing over tasks and decisions with clear expectations and appropriate support."
+    },
+    {
+      "name": "Decision making",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Weighing the options and information available and committing to a sound choice."
+    },
+    {
+      "name": "Team leadership",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Guiding a group toward its goals, setting direction and creating an environment where people thrive."
+    },
+    {
+      "name": "Influencing",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Persuading others and shaping decisions without relying on formal authority."
+    },
+    {
+      "name": "Facilitation",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Running meetings and workshops so that everyone contributes and the group reaches an outcome."
+    },
+    {
+      "name": "Hiring and interviewing",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Leadership",
+      "definition": "Assessing candidates fairly and attracting the right people to the team."
+    },
+    {
+      "name": "Problem solving",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Thinking and problem solving",
+      "definition": "Breaking down difficult problems and working methodically to find solutions."
+    },
+    {
+      "name": "Critical thinking",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Thinking and problem solving",
+      "definition": "Questioning assumptions and evaluating evidence before reaching conclusions."
+    },
+    {
+      "name": "Creativity",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Thinking and problem solving",
+      "definition": "Generating original ideas and approaches to problems."
+    },
+    {
+      "name": "Analytical thinking",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Thinking and problem solving",
+      "definition": "Examining information in detail to find patterns, causes and insights."
+    },
+    {
+      "name": "Product thinking",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Thinking and problem solving",
+      "definition": "Focusing on the problem being solved for users and the value delivered, not just the features built."
+    },
+    {
+      "name": "Time management",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Planning your time so that important work gets done without constant rushing."
+    },
+    {
+      "name": "Prioritisation",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Deciding what matters most and focusing effort there."
+    },
+    {
+      "name": "Adaptability",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Adjusting quickly and positively to change and uncertainty."
+    },
+    {
+      "name": "Resilience",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Bouncing back from setbacks and staying effective under pressure."
+    },
+    {
+      "name": "Continuous learning",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Keeping your skills and knowledge up to date through ongoing study and practice."
+    },
+    {
+      "name": "Self-motivation",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Driving yourself to start and finish work without needing to be pushed."
+    },
+    {
+      "name": "Emotional intelligence",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Recognising and managing your own emotions and understanding those of others."
+    },
+    {
+      "name": "Accountability",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Personal effectiveness",
+      "definition": "Taking responsibility for your actions and commitments, and following through on them."
+    },
+    {
+      "name": "Customer focus",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Business awareness",
+      "definition": "Understanding what customers need and letting that guide your decisions."
+    },
+    {
+      "name": "Business acumen",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Business awareness",
+      "definition": "Understanding how the business makes money and how your work contributes to its goals."
+    },
+    {
+      "name": "Cultural awareness",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Business awareness",
+      "definition": "Understanding and respecting cultural differences when working with people."
+    },
+    {
+      "name": "Commercial awareness",
+      "kind": "skill",
+      "section": "interpersonal",
+      "category": "Business awareness",
+      "definition": "Appreciating market, cost and competitive factors that affect business decisions."
+    },
+    {
+      "name": "Vibe coding",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Describing what you want in natural language and letting an AI write the code, steering by results rather than reading every line."
+    },
+    {
+      "name": "Spec-driven development",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Writing a clear specification first, then having AI agents plan and implement against it, so intent stays reviewable."
+    },
+    {
+      "name": "Agentic coding",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Giving an AI agent a goal and letting it plan, edit files, run commands and iterate with limited supervision."
+    },
+    {
+      "name": "AI pair programming",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Working interactively with an AI assistant as a partner while you write and discuss code."
+    },
+    {
+      "name": "AI-assisted test-driven development",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Using AI to help write failing tests first and then the code that passes them, keeping tests as the guard rail."
+    },
+    {
+      "name": "Context engineering",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Deliberately choosing and structuring the information given to a model, such as files, instructions and memory, so it performs well."
+    },
+    {
+      "name": "Prompt engineering",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Writing and refining instructions to get reliable, useful output from language models."
+    },
+    {
+      "name": "Plan-then-execute workflows",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Asking an AI to produce and agree a plan before it changes any code, then carrying it out step by step."
+    },
+    {
+      "name": "Multi-agent workflows",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Splitting work across several AI agents with different roles, such as planner, implementer and reviewer."
+    },
+    {
+      "name": "Reviewing AI-generated code",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Checking code written by an AI for correctness, security and fit before accepting it."
+    },
+    {
+      "name": "AI-assisted refactoring",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Using AI to restructure existing code safely while keeping behavior the same."
+    },
+    {
+      "name": "AI-assisted debugging",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Approaches",
+      "definition": "Using AI to explain errors, form hypotheses and find the cause of bugs."
+    },
+    {
+      "name": "Superpowers",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "A skills-based workflow framework for coding agents that adds structured steps such as brainstorming, planning and test-driven implementation."
+    },
+    {
+      "name": "OpenSpec",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "A lightweight, open source spec-driven development framework where changes are proposed, specified and tasked before code is written."
+    },
+    {
+      "name": "GitHub Spec Kit",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "GitHub’s open source toolkit for spec-driven development with AI coding agents."
+    },
+    {
+      "name": "BMAD Method",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "An agile, agent-based development method that assigns AI agents roles such as analyst, architect and developer."
+    },
+    {
+      "name": "Agent OS",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "A system for giving coding agents consistent standards and specs so they build in the way your team does."
+    },
+    {
+      "name": "Memory Bank pattern",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "Keeping project notes in files that an AI agent rereads each session, so context persists between conversations."
+    },
+    {
+      "name": "Task Master",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "A tool that breaks a product requirements document into tasks that AI coding agents can work through."
+    },
+    {
+      "name": "Custom team workflows",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Frameworks and methodologies",
+      "definition": "Designing your own team conventions, prompts and checkpoints for working with AI coding tools."
+    },
+    {
+      "name": "Claude Code",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Terminal (TUI and CLI) tools",
+      "definition": "Anthropic’s terminal-based coding agent that reads, edits and runs code in your project."
+    },
+    {
+      "name": "Codex CLI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Terminal (TUI and CLI) tools",
+      "definition": "OpenAI’s command-line coding agent that works with your local repository."
+    },
+    {
+      "name": "Gemini CLI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Terminal (TUI and CLI) tools",
+      "definition": "Google’s open source command-line agent for working with Gemini models in your terminal."
+    },
+    {
+      "name": "GitHub Copilot CLI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Terminal (TUI and CLI) tools",
+      "definition": "GitHub’s command-line assistant for explaining commands and carrying out coding tasks from the terminal."
+    },
+    {
+      "name": "Amp",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Terminal (TUI and CLI) tools",
+      "definition": "A coding agent from Sourcegraph that works from the terminal and editor."
+    },
+    {
+      "name": "Qwen Code",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Terminal (TUI and CLI) tools",
+      "definition": "A command-line coding agent tuned for Alibaba’s Qwen models."
+    },
+    {
+      "name": "Cursor",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "An AI-first code editor, built on VS Code, with chat, inline edits and agents."
+    },
+    {
+      "name": "Windsurf",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "An AI-first code editor with an agent that works across your codebase."
+    },
+    {
+      "name": "Zed",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "A fast, collaborative code editor with built-in AI assistance and agent support."
+    },
+    {
+      "name": "Kiro",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "An AI-first development environment built around specs, tasks and agent hooks."
+    },
+    {
+      "name": "Google Antigravity",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "Google’s agent-first development environment where AI agents plan and carry out coding tasks."
+    },
+    {
+      "name": "Warp",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "A modern terminal application with built-in AI help and agents."
+    },
+    {
+      "name": "Claude desktop app",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "Anthropic’s desktop application for chatting with Claude, using tools and working with files."
+    },
+    {
+      "name": "ChatGPT desktop app",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Desktop apps and AI-first editors",
+      "definition": "OpenAI’s desktop application for chatting with models, including help with code."
+    },
+    {
+      "name": "GitHub Copilot",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "GitHub’s AI assistant, available as a plugin for VS Code, JetBrains IDEs and others, offering completions, chat and agents."
+    },
+    {
+      "name": "Cline",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "An open source VS Code extension that works as an autonomous coding agent with your approval."
+    },
+    {
+      "name": "Roo Code",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "An open source editor extension offering an AI coding agent with customisable modes."
+    },
+    {
+      "name": "Kilo Code",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "An open source editor extension that combines agent coding features with many model providers."
+    },
+    {
+      "name": "Continue",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "An open source assistant for VS Code and JetBrains that lets you connect your own models."
+    },
+    {
+      "name": "JetBrains AI Assistant",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "JetBrains’ built-in AI help for chat, code completion and explanations in its IDEs."
+    },
+    {
+      "name": "JetBrains Junie",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "JetBrains’ coding agent that carries out multi-step tasks inside its IDEs."
+    },
+    {
+      "name": "Amazon Q Developer",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "Amazon’s AI assistant for coding and AWS tasks, available in popular editors."
+    },
+    {
+      "name": "Gemini Code Assist",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "Google’s AI assistant for code completion, chat and generation inside editors."
+    },
+    {
+      "name": "Tabnine",
+      "kind": "skill",
+      "section": "ai",
+      "category": "IDE and code editor plugins",
+      "definition": "An AI code completion and chat assistant for many editors, with options for private deployment."
+    },
+    {
+      "name": "OpenCode",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-source coding tools",
+      "definition": "An open source, terminal-based AI coding agent that works with many model providers, including local models."
+    },
+    {
+      "name": "Aider",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-source coding tools",
+      "definition": "An open source command-line tool for pair programming with an AI that edits files in your git repository."
+    },
+    {
+      "name": "Goose",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-source coding tools",
+      "definition": "An open source, extensible AI agent that can run locally and automate engineering tasks."
+    },
+    {
+      "name": "Crush",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-source coding tools",
+      "definition": "An open source terminal coding agent with a rich text interface and support for many models."
+    },
+    {
+      "name": "OpenHands",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-source coding tools",
+      "definition": "An open source platform for AI software development agents that can write code and run commands."
+    },
+    {
+      "name": "Open Interpreter",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-source coding tools",
+      "definition": "An open source tool that lets a language model run code on your computer through a chat interface."
+    },
+    {
+      "name": "Anthropic",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Closed-model providers",
+      "definition": "The company behind the Claude family of models, available through its apps and API."
+    },
+    {
+      "name": "OpenAI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Closed-model providers",
+      "definition": "The company behind the GPT family of models and ChatGPT, available through its apps and API."
+    },
+    {
+      "name": "Google Gemini",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Closed-model providers",
+      "definition": "Google’s family of models, available through its apps, API and cloud platform."
+    },
+    {
+      "name": "xAI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Closed-model providers",
+      "definition": "The company behind the Grok family of models."
+    },
+    {
+      "name": "Mistral AI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Closed-model providers",
+      "definition": "A European AI company offering both hosted and open-weight models."
+    },
+    {
+      "name": "Cohere",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Closed-model providers",
+      "definition": "An AI company focused on enterprise language models, embeddings and search."
+    },
+    {
+      "name": "OpenRouter",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A single API and account that routes requests to hundreds of models from many providers."
+    },
+    {
+      "name": "Fireworks AI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A hosted inference platform for running open-weight models quickly, with fine-tuning options."
+    },
+    {
+      "name": "Together AI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A cloud platform for running and fine-tuning open-weight models through an API."
+    },
+    {
+      "name": "Groq",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A hosted inference service that runs models on custom chips for very fast responses."
+    },
+    {
+      "name": "Cerebras",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A hosted inference service running models on wafer-scale chips for very fast output."
+    },
+    {
+      "name": "Hugging Face Inference",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "Hosted access to many open models through Hugging Face’s inference services."
+    },
+    {
+      "name": "Replicate",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A platform for running machine learning models through a simple API."
+    },
+    {
+      "name": "Baseten",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A platform for deploying and serving models in production."
+    },
+    {
+      "name": "DeepInfra",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "A hosted service for running popular open-weight models through an API."
+    },
+    {
+      "name": "LiteLLM",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "An open source library and gateway that offers one interface to many model providers."
+    },
+    {
+      "name": "Amazon Bedrock",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "Amazon’s managed service for using models from several providers inside AWS."
+    },
+    {
+      "name": "Azure AI Foundry",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "Microsoft’s platform for building with and deploying models on Azure."
+    },
+    {
+      "name": "Google Vertex AI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Inference providers and gateways",
+      "definition": "Google Cloud’s platform for using, tuning and deploying models."
+    },
+    {
+      "name": "Llama",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "Meta’s family of open-weight language models, widely used and fine-tuned."
+    },
+    {
+      "name": "Qwen",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "Alibaba’s family of open-weight models, including strong coding variants."
+    },
+    {
+      "name": "DeepSeek",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "A family of open-weight models known for strong reasoning and coding at low cost."
+    },
+    {
+      "name": "Gemma",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "Google’s family of lightweight open-weight models suited to local use."
+    },
+    {
+      "name": "gpt-oss",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "OpenAI’s open-weight reasoning models that can run on your own hardware."
+    },
+    {
+      "name": "Mistral and Mixtral",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "Open-weight models from Mistral AI, including mixture-of-experts designs."
+    },
+    {
+      "name": "GLM",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "A family of open-weight models from Zhipu AI, with variants for coding and agents."
+    },
+    {
+      "name": "Kimi",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "A family of open-weight models from Moonshot AI, with long context and agent strengths."
+    },
+    {
+      "name": "Phi",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "Microsoft’s family of small open-weight models that perform well for their size."
+    },
+    {
+      "name": "Choosing an open-weight model",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Open-weight models",
+      "definition": "Comparing open models by size, licence, benchmarks and hardware needs to pick one that suits a task."
+    },
+    {
+      "name": "Ollama",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "A tool that downloads and runs open-weight models locally with a simple command line and API."
+    },
+    {
+      "name": "llama.cpp",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "A high-performance open source engine for running quantised models on everyday hardware."
+    },
+    {
+      "name": "LM Studio",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "A desktop app for discovering, downloading and chatting with local models, with a local API server."
+    },
+    {
+      "name": "vLLM",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "An open source, high-throughput engine for serving models on GPUs."
+    },
+    {
+      "name": "LocalAI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "An open source, self-hosted alternative to hosted model APIs that runs models locally."
+    },
+    {
+      "name": "Jan",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "An open source desktop app for running models offline on your own computer."
+    },
+    {
+      "name": "MLX",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "Apple’s machine learning framework for running and tuning models efficiently on Apple Silicon."
+    },
+    {
+      "name": "llamafile",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "A way to package a model and runtime into a single executable file that runs on many systems."
+    },
+    {
+      "name": "Open WebUI",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local runtimes and tools",
+      "definition": "A self-hosted web interface for chatting with local and remote models."
+    },
+    {
+      "name": "Running open-weight models on local hardware",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Running models on your own computer or server for privacy, cost control or offline use."
+    },
+    {
+      "name": "Apple Silicon unified memory",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Using the memory shared by the CPU and GPU in Apple chips to fit larger models locally."
+    },
+    {
+      "name": "NVIDIA consumer GPUs",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Running models on gaming graphics cards, where the amount of video memory limits model size."
+    },
+    {
+      "name": "CPU-only inference",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Running models without a GPU, which is slower but works on ordinary machines."
+    },
+    {
+      "name": "Quantisation",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Shrinking a model by storing its numbers at lower precision so it fits in less memory with a small loss in quality."
+    },
+    {
+      "name": "GGUF model format",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "A file format for quantised models used by llama.cpp and the tools built on it."
+    },
+    {
+      "name": "VRAM and memory sizing",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Estimating how much GPU or system memory a model and its context need before running it."
+    },
+    {
+      "name": "Context length tuning",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Choosing how much text a model keeps in view, balancing capability against memory and speed."
+    },
+    {
+      "name": "Multi-GPU and offloading",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Local hardware and optimisation",
+      "definition": "Splitting a model across several GPUs, or between GPU and system memory, to run larger models."
+    },
+    {
+      "name": "Model Context Protocol (MCP)",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "An open standard for connecting AI tools to data sources and services through servers."
+    },
+    {
+      "name": "Agent skills",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Packaged instructions and resources that an AI agent loads when a task needs them."
+    },
+    {
+      "name": "Sub-agents",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Specialised agents that a main agent hands tasks to, each with its own focus and context."
+    },
+    {
+      "name": "Hooks and automation",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Scripts that run automatically at set points in an agent’s work, for example before or after an edit."
+    },
+    {
+      "name": "Instruction files (AGENTS.md and CLAUDE.md)",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Files in a project that tell coding agents about its conventions, commands and rules."
+    },
+    {
+      "name": "Custom slash commands",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Reusable prompts you trigger by name inside an AI coding tool."
+    },
+    {
+      "name": "Plugins and marketplaces",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Bundles of commands, skills and tools that can be shared and installed for AI coding tools."
+    },
+    {
+      "name": "Tool and function calling",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Letting a model request that your code run a function and use the result."
+    },
+    {
+      "name": "Agent SDKs",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Agent extensibility",
+      "definition": "Libraries for building your own agents with tools, memory and control over their loop."
+    },
+    {
+      "name": "LLM application development",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Building software that uses large language models, for example chat, search and agents."
+    },
+    {
+      "name": "Retrieval-augmented generation (RAG)",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Fetching relevant documents and giving them to a model so its answers draw on your own data."
+    },
+    {
+      "name": "Embeddings",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Numeric representations of text or other content that capture meaning, used for search and similarity."
+    },
+    {
+      "name": "Evals",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Repeatable tests that measure how well a model or prompt performs on tasks that matter to you."
+    },
+    {
+      "name": "Fine-tuning",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Training an existing model further on your own examples to specialise its behavior."
+    },
+    {
+      "name": "Guardrails",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Checks and limits that keep model inputs and outputs safe, on-topic and in policy."
+    },
+    {
+      "name": "Structured outputs",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Getting model responses in a fixed format, such as JSON that matches a schema."
+    },
+    {
+      "name": "Agent frameworks",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Libraries such as LangGraph that help structure agents, tools and multi-step workflows."
+    },
+    {
+      "name": "Machine learning",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Building systems that learn patterns from data to make predictions or decisions."
+    },
+    {
+      "name": "LLM observability",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Tracing and monitoring model calls, costs, latency and quality in production."
+    },
+    {
+      "name": "Prompt caching",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Reusing the processed start of a prompt across requests to cut cost and delay."
+    },
+    {
+      "name": "AI safety and red teaming",
+      "kind": "skill",
+      "section": "ai",
+      "category": "Building AI applications",
+      "definition": "Testing AI systems for harmful, biased or exploitable behavior before and after release."
+    }
+  ]
+}

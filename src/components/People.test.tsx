@@ -13,6 +13,9 @@ function fakeApi(over: Partial<Api> = {}): Api {
     upload: vi.fn().mockResolvedValue({ imported: [], errors: [], conflicts: [] } as UploadResult),
     rename: vi.fn().mockResolvedValue({}),
     remove: vi.fn().mockResolvedValue(undefined),
+    listTerms: vi.fn().mockResolvedValue([]),
+    updateTerm: vi.fn(),
+    removeTerm: vi.fn(),
     ...over,
   }
 }

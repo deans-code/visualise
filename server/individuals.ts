@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import { normaliseTerm } from '../shared/normalise'
 import { parseProfile, SECTIONS, type Profile } from '../shared/profile'
 import type { Db } from './db'
+import { findTerm, transaction } from './dictionary'
 
 export interface UploadFile {
   name: string
@@ -31,34 +32,19 @@ function linksFor(profile: Profile): Link[] {
   return links
 }
 
-/** Find a term by kind and normalised name, creating an unresolved placeholder if unseen. */
+/** Find a term (by name or alias), creating an unresolved placeholder if unseen. */
 function termIdFor(db: Db, link: Link): number {
-  const norm = normaliseTerm(link.term)
-  const found = db.prepare('SELECT id FROM term WHERE kind = ? AND norm = ?').get(link.kind, norm) as
-    | { id: number }
-    | undefined
+  const found = findTerm(db, link.kind, link.term)
   if (found) return found.id
   const info = db
     .prepare("INSERT INTO term (canonical, norm, kind, section, status) VALUES (?, ?, ?, ?, 'undefined')")
-    .run(link.term, norm, link.kind, link.section)
+    .run(link.term, normaliseTerm(link.term), link.kind, link.section)
   return Number(info.lastInsertRowid)
 }
 
 function writeLinks(db: Db, individualId: number, profile: Profile) {
   const insert = db.prepare('INSERT OR IGNORE INTO individual_term (individual_id, term_id, role) VALUES (?, ?, ?)')
   for (const link of linksFor(profile)) insert.run(individualId, termIdFor(db, link), link.role)
-}
-
-function transaction<T>(db: Db, fn: () => T): T {
-  db.exec('BEGIN')
-  try {
-    const out = fn()
-    db.exec('COMMIT')
-    return out
-  } catch (e) {
-    db.exec('ROLLBACK')
-    throw e
-  }
 }
 
 export function uploadProfiles(

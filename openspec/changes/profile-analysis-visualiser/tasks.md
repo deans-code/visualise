@@ -13,13 +13,13 @@
 
 ## 3. Term dictionary
 
-- [ ] 3.1 Implement term normalisation and alias/exact matching; verify unit tests for case, whitespace and alias cases
-- [ ] 3.2 Implement fuzzy near-duplicate suggestions (never auto-merge); verify tests for "Postgres"/"PostgreSQL" suggestion and a non-match
-- [ ] 3.3 Write the catalogue import script (reads `VALUE_CATEGORIES`, `CATALOGS` and definition maps from a configurable path, default `C:\Dev\profile\src\data`, writes `catalogue.json`) and seed the dictionary idempotently; verify every built-in term loads with category, section and definition, re-import preserves custom terms, and uploading a profile of built-in terms triggers no lookups
-- [ ] 3.5 Implement hierarchy-based relatedness with reasons; verify tests that React/Vue outscores React/Kubernetes and that reasons name the shared category
-- [ ] 3.6 Add definition-embedding similarity with a local model, cached per term, blended with hierarchy score and a hierarchy-only fallback; verify tests with a stubbed embedder and a fallback test
-- [ ] 3.7 Suggest category placement for custom terms by nearest catalogue neighbours and persist the user-confirmed placement; verify a test that "Svelte" is suggested "Web and frontend"
-- [ ] 3.4 Build the dictionary browse/search/edit/delete page; verify an edited definition appears in other views (component test)
+- [x] 3.1 Implement term normalisation and alias/exact matching; verify unit tests for case, whitespace and alias cases
+- [x] 3.2 Implement fuzzy near-duplicate suggestions (never auto-merge); verify tests for "Postgres"/"PostgreSQL" suggestion and a non-match
+- [x] 3.3 Write the catalogue import script (reads `VALUE_CATEGORIES`, `CATALOGS` and definition maps from a configurable path, default `C:\Dev\profile\src\data`, writes `catalogue.json`) and seed the dictionary idempotently; verify every built-in term loads with category, section and definition, re-import preserves custom terms, and uploading a profile of built-in terms triggers no lookups
+- [x] 3.5 Implement hierarchy-based relatedness with reasons; verify tests that React/Vue outscores React/Kubernetes and that reasons name the shared category
+- [x] 3.6 Add definition-embedding similarity with a local model, cached per term, blended with hierarchy score and a hierarchy-only fallback; verify tests with a stubbed embedder and a fallback test
+- [x] 3.7 Suggest category placement for custom terms by nearest catalogue neighbours and persist the user-confirmed placement; verify a test that "Svelte" is suggested "Web and frontend"
+- [x] 3.4 Build the dictionary browse/search/edit/delete page; verify an edited definition appears in other views (component test)
 
 ## 4. Online definition lookup
 

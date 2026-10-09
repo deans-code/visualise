@@ -41,3 +41,24 @@ and do not affect the rest of the batch.
   Use **Rename** to change it.
 - Uploading a file whose name matches an existing person asks whether to **Replace existing** or **Keep both**.
 - **Delete** removes a person and their links to terms. The dictionary keeps the terms.
+
+## Dictionary and catalogue
+
+The dictionary is seeded from the profile app's catalogue (values, skills, their categories and definitions).
+`catalogue/catalogue.json` is a committed snapshot; refresh it after the profile app's lists change:
+
+```bash
+npm run import-catalogue                      # reads ../profile/src/data
+npm run import-catalogue -- C:\Dev\profile\src\data
+```
+
+The server seeds from the snapshot at startup. Re-seeding is safe: it adds new terms and refreshes built-in ones,
+and keeps custom terms, aliases and definitions you have confirmed.
+
+- Terms match case-insensitively and through aliases. Similar spellings ("Postgres" for "PostgreSQL") are only
+  suggested, never merged automatically.
+- **Relatedness** between terms combines catalogue position (same category, same section) with how similar their
+  definitions are. Definitions are embedded with a small local model (`Xenova/all-MiniLM-L6-v2`, downloaded on
+  first start, roughly 25 MB). If it cannot load, relatedness falls back to catalogue position alone. No profile
+  data leaves the machine.
+- Custom terms get a suggested category from their nearest catalogue terms, which you confirm or change.
