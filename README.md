@@ -81,3 +81,30 @@ definition later from the Dictionary page. If a search finds nothing, you can ty
 
 Only the term itself (plus a hint such as "software") is sent to these services, never profile contents or names.
 Searches run server-side, one term at a time, and the key is never sent to the browser.
+
+## Exploring relationships
+
+The **Explore** tab shows how the people relate. People rarely pick the identical term, so connections use
+*related* terms too: React and Vue are close because they share a catalogue category and have similar definitions.
+
+**Connect people by** chooses what builds a connection: shared values, experience, what people want to learn, or
+**Could help** (arrows from someone who has a skill to someone who wants it, marked *approximate* when the match is
+a related skill rather than the same one).
+
+- **Related terms count** sets how much related terms are worth, from exact matches only up to full strength.
+- **Hide weaker connections** raises the bar for showing a connection. Raising it also sharpens the groups.
+- **Skill areas** limit skills to the areas you care about (values are not skills, so this does not apply to them).
+- **Focus on a term** restricts the picture to specific terms.
+
+Views, all sharing the same filters:
+
+| View | Use it to |
+|---|---|
+| Network | See who is close to whom. Groups are shown by colour **and** shape, and every person is labelled. Select a person or a connection for the exact shared terms, the related pairs and why, and definitions. |
+| Matrix | Compare precisely. ● has it, ≈ has a related term. |
+| People and terms | See what the team has in common (terms shared by two or more people; tick the box to include one-person terms). |
+| By category | Compare people by catalogue category and section, so different picks from the same category still line up. |
+
+Every connection is also available as a table (under the network). Try it with the six fictional profiles in `samples/`.
+
+The theme follows your system setting; use the **Theme** menu to force light or dark.

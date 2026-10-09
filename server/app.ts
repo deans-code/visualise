@@ -2,6 +2,7 @@ import Fastify from 'fastify'
 import type { Db } from './db'
 import type { Embedder } from './embeddings'
 import { defaultProviders, type DefinitionProvider } from './lookup'
+import { registerGraphRoutes } from './graph'
 import { registerIndividualRoutes } from './individuals'
 import { registerTermRoutes } from './terms'
 
@@ -21,6 +22,7 @@ export function buildApp(db: Db, options: AppOptions = {}) {
   app.get('/api/health', async () => ({ ok: true }))
   registerIndividualRoutes(app)
   registerTermRoutes(app)
+  registerGraphRoutes(app)
 
   return app
 }

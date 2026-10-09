@@ -1,0 +1,66 @@
+{
+  "values": [
+    "Leadership",
+    "Mentorship",
+    "Integrity",
+    "Accountability",
+    "Growth"
+  ],
+  "skills": {
+    "technical": {
+      "experience": [
+        "C#",
+        ".NET",
+        "SQL Server",
+        "Azure",
+        "Docker",
+        "Git",
+        "REST APIs"
+      ],
+      "desired": [
+        "Kubernetes",
+        "Go"
+      ]
+    },
+    "engineering": {
+      "experience": [
+        "System design",
+        "Domain-driven design",
+        "Design patterns",
+        "Code review",
+        "Agile delivery",
+        "Scrum",
+        "Estimation",
+        "Release management"
+      ],
+      "desired": [
+        "Secure coding",
+        "Event-driven architecture"
+      ]
+    },
+    "interpersonal": {
+      "experience": [
+        "Team leadership",
+        "Coaching",
+        "Mentoring",
+        "Conflict resolution",
+        "Delegation",
+        "Facilitation",
+        "Giving feedback"
+      ],
+      "desired": [
+        "Influencing"
+      ]
+    },
+    "ai": {
+      "experience": [
+        "GitHub Copilot"
+      ],
+      "desired": [
+        "Spec-driven development",
+        "Context engineering",
+        "OpenSpec"
+      ]
+    }
+  }
+}

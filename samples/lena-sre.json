@@ -1,0 +1,69 @@
+{
+  "values": [
+    "Reliability",
+    "Wellbeing",
+    "Sustainability",
+    "Collaboration",
+    "Efficiency"
+  ],
+  "skills": {
+    "technical": {
+      "experience": [
+        "AWS",
+        "Terraform",
+        "Kubernetes",
+        "Helm",
+        "Docker",
+        "Prometheus and Grafana",
+        "OpenTelemetry",
+        "Log aggregation",
+        "Distributed tracing",
+        "Linux",
+        "Shell scripting",
+        "Python",
+        "Go",
+        "Zig"
+      ],
+      "desired": [
+        "Rust",
+        "GPU computing"
+      ]
+    },
+    "engineering": {
+      "experience": [
+        "Site reliability engineering",
+        "Observability",
+        "Incident response",
+        "Monitoring and alerting",
+        "Capacity planning",
+        "Disaster recovery",
+        "Debugging"
+      ],
+      "desired": [
+        "Secure coding",
+        "Performance optimisation"
+      ]
+    },
+    "interpersonal": {
+      "experience": [
+        "Resilience",
+        "Time management",
+        "Remote collaboration",
+        "Prioritisation"
+      ],
+      "desired": [
+        "Presentation skills",
+        "Negotiation"
+      ]
+    },
+    "ai": {
+      "experience": [
+        "Claude Code"
+      ],
+      "desired": [
+        "Agent skills",
+        "Hooks and automation"
+      ]
+    }
+  }
+}

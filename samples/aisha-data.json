@@ -1,0 +1,66 @@
+{
+  "values": [
+    "Curiosity",
+    "Impact",
+    "Honesty",
+    "Learning",
+    "Open source"
+  ],
+  "skills": {
+    "technical": {
+      "experience": [
+        "Python",
+        "SQL",
+        "NumPy and pandas",
+        "Jupyter notebooks",
+        "Apache Airflow",
+        "Apache Spark",
+        "Data pipelines",
+        "PostgreSQL",
+        "AWS"
+      ],
+      "desired": [
+        "Rust",
+        "Apache Kafka",
+        "GPU computing"
+      ]
+    },
+    "engineering": {
+      "experience": [
+        "Algorithms and data structures",
+        "Performance optimisation",
+        "Technical documentation"
+      ],
+      "desired": [
+        "Scalability",
+        "Test-driven development"
+      ]
+    },
+    "interpersonal": {
+      "experience": [
+        "Analytical thinking",
+        "Critical thinking",
+        "Presentation skills",
+        "Storytelling"
+      ],
+      "desired": [
+        "Influencing",
+        "Stakeholder management"
+      ]
+    },
+    "ai": {
+      "experience": [
+        "Embeddings",
+        "Retrieval-augmented generation (RAG)",
+        "Fine-tuning",
+        "Ollama",
+        "Llama"
+      ],
+      "desired": [
+        "Evals",
+        "Quantisation",
+        "vLLM"
+      ]
+    }
+  }
+}

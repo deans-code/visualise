@@ -1,0 +1,63 @@
+{
+  "values": [
+    "Reliability",
+    "Pragmatism",
+    "Ownership",
+    "Transparency",
+    "Simplicity"
+  ],
+  "skills": {
+    "technical": {
+      "experience": [
+        "Go",
+        "Python",
+        "PostgreSQL",
+        "Redis",
+        "REST APIs",
+        "gRPC",
+        "Docker",
+        "Kubernetes",
+        "CI/CD pipelines",
+        "Linux"
+      ],
+      "desired": [
+        "Rust",
+        "Terraform",
+        "Temporal.io"
+      ]
+    },
+    "engineering": {
+      "experience": [
+        "API design",
+        "Microservices architecture",
+        "Integration testing",
+        "Monitoring and alerting",
+        "Incident response"
+      ],
+      "desired": [
+        "Event-driven architecture",
+        "Site reliability engineering"
+      ]
+    },
+    "interpersonal": {
+      "experience": [
+        "Decision making",
+        "Stakeholder management",
+        "Mentoring"
+      ],
+      "desired": [
+        "Coaching"
+      ]
+    },
+    "ai": {
+      "experience": [
+        "Claude Code",
+        "Prompt engineering"
+      ],
+      "desired": [
+        "Sub-agents",
+        "Evals"
+      ]
+    }
+  }
+}

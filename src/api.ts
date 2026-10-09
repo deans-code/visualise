@@ -1,3 +1,7 @@
+import type { GraphData } from '../shared/graph'
+
+export type { GraphData }
+
 export interface Individual {
   id: number
   name: string
@@ -82,6 +86,7 @@ export const api = {
   upload: (files: { name: string; text: string }[], resolutions?: Record<string, Resolution>) =>
     send('POST', '/api/individuals/upload', { files, resolutions }).then((r) => json<UploadResult>(r)),
   rename: (id: number, name: string) => send('PATCH', `/api/individuals/${id}`, { name }).then((r) => json<unknown>(r)),
+  graph: () => fetch('/api/graph').then((r) => json<GraphData>(r)),
   lookup: (term: string, kind: 'value' | 'skill', section: string | null) =>
     send('POST', '/api/lookup', { term, kind, section }).then((r) => json<LookupOutcome>(r)),
   /** Suggested category for a custom term. Resolves null when the embedding model is unavailable. */

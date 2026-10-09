@@ -2,26 +2,12 @@
 import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { Api, Individual, UploadResult } from '../api'
+import { makeApi } from '../test-utils'
 import { People } from './People'
 
 afterEach(cleanup)
 
-function fakeApi(over: Partial<Api> = {}): Api {
-  return {
-    listIndividuals: vi.fn().mockResolvedValue([] as Individual[]),
-    upload: vi.fn().mockResolvedValue({ imported: [], errors: [], conflicts: [], unresolved: [] } as UploadResult),
-    rename: vi.fn().mockResolvedValue({}),
-    remove: vi.fn().mockResolvedValue(undefined),
-    listTerms: vi.fn().mockResolvedValue([]),
-    lookup: vi.fn(),
-    placement: vi.fn(),
-    addAlias: vi.fn(),
-    updateTerm: vi.fn(),
-    removeTerm: vi.fn(),
-    ...over,
-  }
-}
+const fakeApi = makeApi
 
 const file = (name: string, body = '{}') => new File([body], name, { type: 'application/json' })
 

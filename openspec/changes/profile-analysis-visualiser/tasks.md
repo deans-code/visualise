@@ -30,12 +30,12 @@
 
 ## 5. Relationship visualisation
 
-- [ ] 5.1 Implement soft-overlap person similarity using term relatedness (with adjacency factor) and complementary links (experience→desired, exact or approximate) with unit tests on a fixture of 4 people, including React/Vue adjacency and exact-only mode
-- [ ] 5.2 Render the network view with basis, domain, threshold and adjacency filters; verify component tests that a strong pair is connected, an adjacent-only pair is connected more weakly (and not at exact-only), and an unrelated person is isolated
-- [ ] 5.6 Add the category-level comparison view (people vs catalogue categories and sections); verify a component test where two people with different Languages terms both show weight in Languages
-- [ ] 5.3 Add node/edge details panel showing exact shared terms and related pairs with reasons and on-demand definitions; verify via component test
-- [ ] 5.4 Add person × term matrix view sharing the same filters; verify switching views preserves filters
-- [ ] 5.5 Add bipartite view, community colouring with non-colour cues, and light/dark themes; verify a legend test and manual contrast check
+- [x] 5.1 Implement soft-overlap person similarity using term relatedness (with adjacency factor) and complementary links (experience→desired, exact or approximate) with unit tests on a fixture of 4 people, including React/Vue adjacency and exact-only mode
+- [x] 5.2 Render the network view with basis, domain, threshold and adjacency filters; verify component tests that a strong pair is connected, an adjacent-only pair is connected more weakly (and not at exact-only), and an unrelated person is isolated
+- [x] 5.6 Add the category-level comparison view (people vs catalogue categories and sections); verify a component test where two people with different Languages terms both show weight in Languages
+- [x] 5.3 Add node/edge details panel showing exact shared terms and related pairs with reasons and on-demand definitions; verify via component test
+- [x] 5.4 Add person × term matrix view sharing the same filters; verify switching views preserves filters
+- [x] 5.5 Add bipartite view, community colouring with non-colour cues, and light/dark themes; verify a legend test and manual contrast check
 
 ## 6. Integration
 

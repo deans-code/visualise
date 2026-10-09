@@ -1,6 +1,13 @@
 export const SECTIONS = ['technical', 'engineering', 'interpersonal', 'ai'] as const
 export type Section = (typeof SECTIONS)[number]
 
+export const SECTION_LABELS: Record<Section, string> = {
+  technical: 'Technical development',
+  engineering: 'Engineering',
+  interpersonal: 'Interpersonal',
+  ai: 'AI engineering',
+}
+
 export interface SectionSkills {
   experience: string[]
   desired: string[]

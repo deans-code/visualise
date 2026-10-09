@@ -1,0 +1,63 @@
+{
+  "values": [
+    "Craftsmanship",
+    "Curiosity",
+    "Collaboration",
+    "Inclusion",
+    "Quality"
+  ],
+  "skills": {
+    "technical": {
+      "experience": [
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "HTML",
+        "CSS",
+        "Web accessibility",
+        "Responsive design",
+        "Web performance",
+        "Git"
+      ],
+      "desired": [
+        "Vue",
+        "Svelte",
+        "Rust"
+      ]
+    },
+    "engineering": {
+      "experience": [
+        "Unit testing",
+        "End-to-end testing",
+        "Clean code",
+        "Code review"
+      ],
+      "desired": [
+        "System design",
+        "Performance optimisation"
+      ]
+    },
+    "interpersonal": {
+      "experience": [
+        "Written communication",
+        "Giving feedback",
+        "Teamwork"
+      ],
+      "desired": [
+        "Mentoring",
+        "Presentation skills"
+      ]
+    },
+    "ai": {
+      "experience": [
+        "GitHub Copilot",
+        "Cursor",
+        "Prompt engineering"
+      ],
+      "desired": [
+        "Agentic coding",
+        "Model Context Protocol (MCP)"
+      ]
+    }
+  }
+}

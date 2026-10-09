@@ -1,0 +1,70 @@
+{
+  "values": [
+    "Innovation",
+    "Creativity",
+    "Freedom",
+    "Autonomy",
+    "Open source",
+    "Stewardship"
+  ],
+  "skills": {
+    "technical": {
+      "experience": [
+        "TypeScript",
+        "Python",
+        "Node.js",
+        "React",
+        "Docker",
+        "Git"
+      ],
+      "desired": [
+        "Rust",
+        "Vector databases"
+      ]
+    },
+    "engineering": {
+      "experience": [
+        "Unit testing",
+        "Technical documentation"
+      ],
+      "desired": [
+        "Test-driven development"
+      ]
+    },
+    "interpersonal": {
+      "experience": [
+        "Creativity",
+        "Problem solving",
+        "Self-motivation",
+        "Storytelling"
+      ],
+      "desired": [
+        "Mentoring"
+      ]
+    },
+    "ai": {
+      "experience": [
+        "Claude Code",
+        "Cursor",
+        "Agentic coding",
+        "Vibe coding",
+        "Spec-driven development",
+        "OpenSpec",
+        "Model Context Protocol (MCP)",
+        "Agent skills",
+        "Sub-agents",
+        "Context engineering",
+        "Ollama",
+        "Llama",
+        "Qwen",
+        "LM Studio",
+        "Evals"
+      ],
+      "desired": [
+        "Fine-tuning",
+        "Quantisation",
+        "Hooks and automation"
+      ]
+    }
+  }
+}

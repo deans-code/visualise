@@ -1,0 +1,316 @@
+/*
+ * Design tokens. The categorical colours are the first three slots of the validated reference palette
+ * (they pass the all-pairs colour-blind checks in both modes); groups beyond three use --other and are told
+ * apart by shape and label. The dark values are stepped for the dark surface, not an automatic flip.
+ */
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --focus: #2a78d6;
+
+  --group-1: #2a78d6;
+  --group-2: #eb6834;
+  --group-3: #1baf7a;
+  --group-other: #898781;
+
+  --edge: #898781;
+  --help: #52514e;
+
+  /* one-hue sequential ramp, low to high */
+  --seq-0: #f0efec;
+  --seq-1: #cde2fb;
+  --seq-2: #86b6ef;
+  --seq-3: #3987e5;
+  --seq-4: #256abf;
+  --seq-5: #104281;
+  --seq-ink-0: #0b0b0b;
+  --seq-ink-1: #0b0b0b;
+  --seq-ink-2: #0b0b0b;
+  --seq-ink-3: #0b0b0b;
+  --seq-ink-4: #ffffff;
+  --seq-ink-5: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface-1: #1a1a19;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --focus: #6da7ec;
+
+    --group-1: #3987e5;
+    --group-2: #d95926;
+    --group-3: #199e70;
+
+    --edge: #898781;
+    --help: #c3c2b7;
+
+    --seq-0: #383835;
+    --seq-1: #1c3a5e;
+    --seq-2: #1c5cab;
+    --seq-3: #3987e5;
+    --seq-4: #86b6ef;
+    --seq-5: #cde2fb;
+    --seq-ink-0: #ffffff;
+    --seq-ink-1: #ffffff;
+    --seq-ink-2: #ffffff;
+    --seq-ink-3: #0b0b0b;
+    --seq-ink-4: #0b0b0b;
+    --seq-ink-5: #0b0b0b;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface-1: #1a1a19;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --grid: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --focus: #6da7ec;
+
+  --group-1: #3987e5;
+  --group-2: #d95926;
+  --group-3: #199e70;
+
+  --edge: #898781;
+  --help: #c3c2b7;
+
+  --seq-0: #383835;
+  --seq-1: #1c3a5e;
+  --seq-2: #1c5cab;
+  --seq-3: #3987e5;
+  --seq-4: #86b6ef;
+  --seq-5: #cde2fb;
+  --seq-ink-0: #ffffff;
+  --seq-ink-1: #ffffff;
+  --seq-ink-2: #ffffff;
+  --seq-ink-3: #0b0b0b;
+  --seq-ink-4: #0b0b0b;
+  --seq-ink-5: #0b0b0b;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.45;
+}
+
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+a {
+  color: var(--focus);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---- Explore: filters ---- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: end;
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.filters fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.filters legend {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding: 0;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+.chip {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--baseline);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+/* ---- Visualisation ---- */
+.viz {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: 1rem;
+}
+@media (max-width: 48rem) {
+  .viz {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.viz-canvas {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: auto;
+}
+.viz-canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.viz-side {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.node-shape {
+  stroke: var(--surface-1);
+  stroke-width: 2;
+}
+.node[data-selected='true'] .node-shape {
+  stroke: var(--text-primary);
+}
+.node-label {
+  fill: var(--text-primary);
+  font-size: 12px;
+  paint-order: stroke;
+  stroke: var(--surface-1);
+  stroke-width: 3px;
+}
+.edge {
+  stroke: var(--edge);
+  fill: none;
+}
+.edge[data-selected='true'] {
+  stroke: var(--text-primary);
+}
+.edge-hit {
+  stroke: transparent;
+  stroke-width: 12;
+  fill: none;
+  cursor: pointer;
+}
+.help-edge {
+  stroke: var(--help);
+  stroke-dasharray: 5 4;
+  fill: none;
+}
+.help-arrow {
+  fill: var(--help);
+}
+.group-1 {
+  fill: var(--group-1);
+}
+.group-2 {
+  fill: var(--group-2);
+}
+.group-3 {
+  fill: var(--group-3);
+}
+.group-other {
+  fill: var(--group-other);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+.legend svg {
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}
+
+/* ---- Matrix ---- */
+.matrix {
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-size: 0.8rem;
+}
+.matrix th {
+  font-weight: normal;
+  color: var(--text-secondary);
+  text-align: left;
+  padding: 0 0.25rem;
+}
+.matrix thead th {
+  vertical-align: bottom;
+}
+.matrix .col-head {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+.matrix td {
+  width: 1.4rem;
+  height: 1.4rem;
+  min-width: 1.4rem;
+  text-align: center;
+  border-radius: 4px;
+  background: var(--seq-0);
+  color: var(--seq-ink-0);
+}
+.matrix td[data-level='1'] {
+  background: var(--seq-1);
+  color: var(--seq-ink-1);
+}
+.matrix td[data-level='2'] {
+  background: var(--seq-2);
+  color: var(--seq-ink-2);
+}
+.matrix td[data-level='3'] {
+  background: var(--seq-3);
+  color: var(--seq-ink-3);
+}
+.matrix td[data-level='4'] {
+  background: var(--seq-4);
+  color: var(--seq-ink-4);
+}
+.matrix td[data-level='5'] {
+  background: var(--seq-5);
+  color: var(--seq-ink-5);
+}
+.matrix .domain-row th {
+  color: var(--text-primary);
+  font-weight: 600;
+  border-top: 1px solid var(--baseline);
+}
