@@ -2,14 +2,14 @@
 
 ## 1. Project scaffold
 
-- [ ] 1.1 Create Vite + React + TypeScript app and a Fastify server workspace with Vitest configured; verify `npm run dev` serves both and `npm test` runs an empty suite
-- [ ] 1.2 Add SQLite and the schema/migrations (individual, term, term_alias, individual_term); verify a test creates the DB and the tables exist
+- [x] 1.1 Create Vite + React + TypeScript app and a Fastify server workspace with Vitest configured; verify `npm run dev` serves both and `npm test` runs an empty suite
+- [x] 1.2 Add SQLite and the schema/migrations (individual, term, term_alias, individual_term); verify a test creates the DB and the tables exist
 
 ## 2. Profile ingestion
 
-- [ ] 2.1 Implement the profile JSON schema validator with unit tests for valid, missing-field, wrong-type and non-JSON input
-- [ ] 2.2 Implement multi-file upload UI and API storing individuals with default names from file names; verify a test uploading 3 files (one invalid) imports 2 and reports 1 error
-- [ ] 2.3 Add rename, delete, and duplicate-name Replace/Keep-both handling; verify with tests and README notes on the profile format and how to upload
+- [x] 2.1 Implement the profile JSON schema validator with unit tests for valid, missing-field, wrong-type and non-JSON input
+- [x] 2.2 Implement multi-file upload UI and API storing individuals with default names from file names; verify a test uploading 3 files (one invalid) imports 2 and reports 1 error
+- [x] 2.3 Add rename, delete, and duplicate-name Replace/Keep-both handling; verify with tests and README notes on the profile format and how to upload
 
 ## 3. Term dictionary
 

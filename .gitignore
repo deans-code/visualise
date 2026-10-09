@@ -55,3 +55,11 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Node / profile visualiser
+node_modules/
+dist/
+data/*.db
+data/*.db-*
+*.tsbuildinfo
+.env
