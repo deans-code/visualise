@@ -218,11 +218,11 @@ A term shows its definition. Press `Escape`, use **Close** or click elsewhere to
 
 ### Help panels
 
-Each page opens with a **How to use** panel that says what to do and how to read the page. Use **Hide help** to collapse it; it stays collapsed for the browser session. Explore also describes the selected view, and the key filters have a short hint beside them.
+Each page opens with a **How to use** panel that says what to do and how to read the page. Use **Hide help** to collapse it; it stays collapsed for the browser session. Explore also describes the selected view, and the key filters have a short hint beside them. A **Getting started** strip on every page shows the three steps (upload, review, explore), which are done, and a button to the next one. Explore has a **Try this** panel with things to change and what to expect, and an **About groups** panel beside the legend: groups are people connected more strongly to each other than to the rest, found automatically from the lines drawn, and you can click a group in the legend to highlight it.
 
 ### Look and layout
 
-The interface follows the profile tool's look: the same buttons, rounded cards, tinted help panels and per-section accent colours (values blue, technical teal, engineering amber, interpersonal purple, AI rose), in light and dark. It fills the browser width up to 120rem, so the network, filters and cards use a wide screen rather than a narrow column, and stack on a phone.
+The interface follows the profile tool's look: the same buttons, rounded cards, tinted help panels and per-section accent colours (values blue, technical teal, engineering amber, interpersonal purple, AI rose), in light and dark. Each page (People blue, Explore teal, Dictionary amber) and each Explore view (Network blue, Matrix teal, People and terms amber, By category purple) has its own accent, shown on its button, heading and help panel. It fills the browser width up to 120rem, so the network, filters and cards use a wide screen rather than a narrow column, and stack on a phone.
 
 ### Privacy and your data
 

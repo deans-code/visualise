@@ -53,7 +53,8 @@ describe('ReviewTerms layout', () => {
     render(<ReviewTerms api={fakeApi()} terms={[zig]} />)
     const c = await card('Zig')
     expect(c).toHaveClass('review-card')
-    expect(await within(c).findByLabelText('Definition for Zig')).toHaveValue('Zig is a systems language.')
+    await within(c).findByLabelText('Definition for Zig')
+    await waitFor(() => expect(within(c).getByLabelText('Definition for Zig')).toHaveValue('Zig is a systems language.'))
     expect(within(c).getByLabelText('Definition for Zig').closest('label')).toHaveClass('field')
     expect(within(c).getByLabelText('Category').closest('label')).toHaveClass('field')
     const actions = within(c).getByRole('button', { name: 'Accept' }).parentElement!

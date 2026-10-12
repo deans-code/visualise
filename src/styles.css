@@ -720,3 +720,187 @@ input[type='file'] {
   gap: 0.5rem;
   margin-top: 0.25rem;
 }
+
+/* Page and view accents: the profile tool's palette, so each page and view has its own colour. */
+[data-page='people'] {
+  --accent: #1d4ed8;
+  --accent-text: #ffffff;
+  --tint: #e8efff;
+}
+[data-page='explore'] {
+  --accent: #0f766e;
+  --accent-text: #ffffff;
+  --tint: #dcf5f1;
+}
+[data-page='dictionary'] {
+  --accent: #b45309;
+  --accent-text: #ffffff;
+  --tint: #fdf0dc;
+}
+[data-view='network'] {
+  --accent: #1d4ed8;
+  --accent-text: #ffffff;
+  --tint: #e8efff;
+}
+[data-view='matrix'] {
+  --accent: #0f766e;
+  --accent-text: #ffffff;
+  --tint: #dcf5f1;
+}
+[data-view='bipartite'] {
+  --accent: #b45309;
+  --accent-text: #ffffff;
+  --tint: #fdf0dc;
+}
+[data-view='categories'] {
+  --accent: #7e22ce;
+  --accent-text: #ffffff;
+  --tint: #f3e8ff;
+}
+:root[data-theme='dark'] [data-page='people'] {
+  --accent: #8fb0ff;
+  --accent-text: #0b1020;
+  --tint: #1f2f58;
+}
+:root[data-theme='dark'] [data-page='explore'] {
+  --accent: #4dd4c6;
+  --accent-text: #0b1020;
+  --tint: #14403d;
+}
+:root[data-theme='dark'] [data-page='dictionary'] {
+  --accent: #f5b04c;
+  --accent-text: #0b1020;
+  --tint: #4a3510;
+}
+:root[data-theme='dark'] [data-view='network'] {
+  --accent: #8fb0ff;
+  --accent-text: #0b1020;
+  --tint: #1f2f58;
+}
+:root[data-theme='dark'] [data-view='matrix'] {
+  --accent: #4dd4c6;
+  --accent-text: #0b1020;
+  --tint: #14403d;
+}
+:root[data-theme='dark'] [data-view='bipartite'] {
+  --accent: #f5b04c;
+  --accent-text: #0b1020;
+  --tint: #4a3510;
+}
+:root[data-theme='dark'] [data-view='categories'] {
+  --accent: #c9a0ff;
+  --accent-text: #0b1020;
+  --tint: #3a2760;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) [data-page='people'] {
+    --accent: #8fb0ff;
+    --accent-text: #0b1020;
+    --tint: #1f2f58;
+  }
+  :root:where(:not([data-theme='light'])) [data-page='explore'] {
+    --accent: #4dd4c6;
+    --accent-text: #0b1020;
+    --tint: #14403d;
+  }
+  :root:where(:not([data-theme='light'])) [data-page='dictionary'] {
+    --accent: #f5b04c;
+    --accent-text: #0b1020;
+    --tint: #4a3510;
+  }
+  :root:where(:not([data-theme='light'])) [data-view='network'] {
+    --accent: #8fb0ff;
+    --accent-text: #0b1020;
+    --tint: #1f2f58;
+  }
+  :root:where(:not([data-theme='light'])) [data-view='matrix'] {
+    --accent: #4dd4c6;
+    --accent-text: #0b1020;
+    --tint: #14403d;
+  }
+  :root:where(:not([data-theme='light'])) [data-view='bipartite'] {
+    --accent: #f5b04c;
+    --accent-text: #0b1020;
+    --tint: #4a3510;
+  }
+  :root:where(:not([data-theme='light'])) [data-view='categories'] {
+    --accent: #c9a0ff;
+    --accent-text: #0b1020;
+    --tint: #3a2760;
+  }
+}
+
+/* Getting started */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--gap);
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+.step {
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--baseline);
+  border-radius: var(--radius);
+}
+.step[data-state='done'] {
+  border-left-color: var(--accent);
+}
+.step[data-state='current'] {
+  border-color: var(--accent);
+  border-left-width: 4px;
+}
+.step[data-state='waiting'] {
+  color: var(--text-secondary);
+}
+.step-state {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+.step .hint {
+  margin: 0;
+}
+
+/* Filter descriptions and suggestions */
+.filter-hint {
+  display: block;
+  max-width: 22rem;
+}
+.try-this {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.try-this li {
+  margin: 0.25rem 0;
+}
+
+/* Group legend entries are toggle buttons that highlight a group */
+.legend-item,
+.legend-item[aria-pressed='false'] {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  background: var(--surface-1);
+  border-color: var(--baseline);
+}
+.legend-item:hover {
+  border-color: var(--accent);
+}
+.legend-item[aria-pressed='true'] {
+  background: var(--tint);
+  border: 2px solid var(--accent);
+  padding: calc(0.25rem - 1px) calc(0.75rem - 1px);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+[data-dimmed='true'] {
+  opacity: 0.2;
+}

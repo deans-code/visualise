@@ -84,6 +84,31 @@ describe.each(['values', 'technical', 'engineering', 'interpersonal', 'ai'])('se
   })
 })
 
+describe.each([
+  ['data-page', ['people', 'explore', 'dictionary']],
+  ['data-view', ['network', 'matrix', 'bipartite', 'categories']],
+] as const)('%s accents', (attr, names) => {
+  describe.each(names)('%s', (name) => {
+    const sel = `[${attr}='${name}']`
+    const lightVars = vars(block(`${sel} {`))
+    const darkVars = vars(block(`:root[data-theme='dark'] ${sel} {`))
+    const darkMediaVars = vars(block(`  :root:where(:not([data-theme='light'])) ${sel} {`))
+
+    it.each([
+      ['light', lightVars, light],
+      ['dark', darkVars, dark],
+    ])('is readable in %s mode', (_mode, accent, base) => {
+      expect(contrast(accent['accent-text'], accent.accent)).toBeGreaterThanOrEqual(4.5)
+      expect(contrast(accent.accent, base['surface-1'])).toBeGreaterThanOrEqual(4.5)
+      expect(contrast(base['text-primary'], accent.tint)).toBeGreaterThanOrEqual(7)
+    })
+
+    it('is declared identically for the OS setting and the manual toggle', () => {
+      expect(darkMediaVars).toEqual(darkVars)
+    })
+  })
+})
+
 describe('default accent', () => {
   it.each([
     ['light', light],

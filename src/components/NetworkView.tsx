@@ -6,12 +6,14 @@ import { sameSelection, type Selection } from '../graph/selection'
 import { groupClass, ShapeMark } from '../graph/Shape'
 import {
   edgeExplanation,
+  GROUPS_GUIDE,
   groupExplanation,
   helpEdgeExplanation,
   nodeExplanation,
   ungroupedExplanation,
 } from '../explanations'
 import { useExplain, type ExplainProps } from '../explain'
+import { HelpPanel } from './HelpPanel'
 
 const DEFAULT_W = 800
 const H = 520
@@ -80,6 +82,8 @@ export function NetworkView({
   const active = useRef<{ id: number; pointer: number; startX: number; startY: number; from: Point; scale: number; moving: boolean } | null>(null)
   const justDragged = useRef(false)
   const [draggingId, setDraggingId] = useState<number | null>(null)
+  // A highlighted group belongs to the grouping it was chosen in: a filter change starts afresh.
+  const [highlighted, setHighlighted] = useState<{ grouping: unknown; index: number } | null>(null)
 
   const model = useMemo(() => {
     const sim = complementary ? [] : similarityEdges(index, filters)
@@ -109,6 +113,9 @@ export function NetworkView({
   }, [index, filters, complementary, people, W])
 
   const { sim, help, maxHelp, layout, grouping, connected } = model
+  const lit = highlighted?.grouping === grouping ? grouping.groups.find((g) => g.index === highlighted.index) : undefined
+  const inLit = (id: number) => !!lit && lit.members.includes(id)
+  const dimmed = (...ids: number[]) => !!lit && !ids.every(inLit)
   const name = (id: number) => index.person.get(id)?.name ?? String(id)
   const moved = dragged?.model === model ? dragged.pos : EMPTY
   const pos = (id: number): Point => moved.get(id) ?? layout.get(id)!
@@ -215,6 +222,7 @@ export function NetworkView({
                 tabIndex={0}
                 aria-label={label}
                 aria-pressed={selected}
+                data-dimmed={dimmed(e.a, e.b)}
                 onClick={() => onSelect({ kind: 'edge', a: e.a, b: e.b })}
                 {...ex}
               >
@@ -253,6 +261,7 @@ export function NetworkView({
                 tabIndex={0}
                 aria-label={`${name(h.from)} could help ${name(h.to)} with ${h.items.length} ${h.items.length === 1 ? 'skill' : 'skills'}`}
                 aria-pressed={selected}
+                data-dimmed={dimmed(h.from, h.to)}
                 onClick={() => onSelect({ kind: 'help', from: h.from, to: h.to })}
                 {...xp}
               >
@@ -291,6 +300,7 @@ export function NetworkView({
                 data-group={group?.index ?? ''}
                 data-connected={connected.has(p.id)}
                 data-selected={selected}
+                data-dimmed={dimmed(p.id)}
                 transform={`translate(${x},${y})`}
                 role="button"
                 tabIndex={0}
@@ -326,38 +336,75 @@ export function NetworkView({
         </svg>
       </div>
 
-      <Legend groups={grouping.groups} ungrouped={people.filter((p) => !grouping.of.has(p.id)).length} index={index} />
+      <HelpPanel id="groups" title={GROUPS_GUIDE.title} gestures={false}>
+        {(grouping.groups.length > 0 ? GROUPS_GUIDE.withGroups : GROUPS_GUIDE.noGroups).map((t) => (
+          <p key={t}>{t}</p>
+        ))}
+      </HelpPanel>
+      <Legend
+        groups={grouping.groups}
+        ungrouped={people.filter((p) => !grouping.of.has(p.id)).length}
+        index={index}
+        highlighted={lit?.index ?? null}
+        onHighlight={(i) => setHighlighted(i === null ? null : { grouping, index: i })}
+      />
       <TableView index={index} sim={sim} help={help} complementary={complementary} grouping={grouping.groups} />
     </div>
   )
 }
 
-function Legend({ groups, ungrouped, index }: { groups: Group[]; ungrouped: number; index: GraphIndex }) {
+function Legend({
+  groups,
+  ungrouped,
+  index,
+  highlighted,
+  onHighlight,
+}: {
+  groups: Group[]
+  ungrouped: number
+  index: GraphIndex
+  highlighted: number | null
+  onHighlight: (index: number | null) => void
+}) {
   const explain = useExplain()
+  const names = (g: Group) => g.members.map((m) => index.person.get(m)?.name ?? String(m))
+  const lit = groups.find((g) => g.index === highlighted)
   return (
-    <ul className="legend" aria-label="Groups">
-      {groups.map((g) => (
-        <li
-          key={g.index}
-          data-group={g.index}
-          tabIndex={0}
-          {...explain.props(groupExplanation(g.label, g.members.map((m) => index.person.get(m)?.name ?? String(m))))}
-        >
-          <svg width="20" height="20" viewBox="-12 -12 24 24" aria-hidden="true">
-            <ShapeMark shape={g.shape} r={9} className={`node-shape ${groupClass(g.slot)}`} />
-          </svg>
-          {g.label} ({g.members.map((m) => index.person.get(m)?.name).join(', ')})
-        </li>
-      ))}
-      {ungrouped > 0 && (
-        <li tabIndex={0} {...explain.props(ungroupedExplanation(ungrouped))}>
-          <svg width="20" height="20" viewBox="-12 -12 24 24" aria-hidden="true">
-            <circle r={9} className="node-shape group-other" />
-          </svg>
-          Not connected under these filters ({ungrouped})
-        </li>
+    <>
+      <ul className="legend" aria-label="Groups">
+        {groups.map((g) => (
+          <li key={g.index} data-group={g.index} {...explain.props(groupExplanation(g.label, names(g)))}>
+            <button
+              type="button"
+              className="legend-item"
+              aria-pressed={g.index === highlighted}
+              onClick={() => onHighlight(g.index === highlighted ? null : g.index)}
+            >
+              <svg width="20" height="20" viewBox="-12 -12 24 24" aria-hidden="true">
+                <ShapeMark shape={g.shape} r={9} className={`node-shape ${groupClass(g.slot)}`} />
+              </svg>
+              {g.label} ({names(g).join(', ')})
+            </button>
+          </li>
+        ))}
+        {ungrouped > 0 && (
+          <li tabIndex={0} {...explain.props(ungroupedExplanation(ungrouped))}>
+            <svg width="20" height="20" viewBox="-12 -12 24 24" aria-hidden="true">
+              <circle r={9} className="node-shape group-other" />
+            </svg>
+            Not connected under these filters ({ungrouped})
+          </li>
+        )}
+      </ul>
+      {lit && (
+        <p role="status" className="hint">
+          Highlighting {lit.label}: {names(lit).join(', ')}.{' '}
+          <button type="button" className="secondary" onClick={() => onHighlight(null)}>
+            Clear highlight
+          </button>
+        </p>
       )}
-    </ul>
+    </>
   )
 }
 

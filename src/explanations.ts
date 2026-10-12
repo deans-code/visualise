@@ -44,6 +44,39 @@ export const VIEW_GUIDE: Record<ViewId, { label: string; summary: string; howToR
   },
 }
 
+/** A line under each Explore filter saying what it does, visible without opening anything. */
+export const FILTER_HINTS = {
+  basis: 'Decides what a connection means: what people share, what they want to learn, or who could help whom.',
+  sections: 'Only skills in the ticked areas count. Values are not skills, so this is not used for shared values.',
+  adjacency: 'How far a related term counts as a match.',
+  threshold: 'Drop lines weaker than this.',
+  focus: 'Keep only connections that involve a term you pick, such as everyone who shares it.',
+}
+
+/** Things to try in Explore: which control to change, to what, and what to expect. */
+export const TRY_THIS: { control: string; action: string; effect: string }[] = [
+  {
+    control: 'Connect people by',
+    action: 'Choose Could help.',
+    effect: 'Arrows appear from someone who has a skill to someone who wants to learn it, so you can see who could mentor whom.',
+  },
+  {
+    control: 'Related terms count',
+    action: 'Slide it from exact only up to about 50%.',
+    effect: 'People who chose related terms, such as React and Vue, are drawn closer, with a weaker line than an identical match.',
+  },
+  {
+    control: 'Hide weaker connections',
+    action: 'Raise it to 50% or more.',
+    effect: 'Only the strongest relationships remain, which makes the groups easier to see. Lower it again to see everything.',
+  },
+  {
+    control: 'Focus on a term',
+    action: 'Type a skill or value someone has chosen and pick it from the list.',
+    effect: 'Only connections that involve that term remain, so you can see who shares it.',
+  },
+]
+
 // ---- Explanations: views, controls, status, legends ---------------------------------------------------------
 
 export const viewExplanation = (v: ViewId): Explanation => ({
@@ -168,6 +201,20 @@ export const helpEdgeExplanation = (from: string, to: string, skills: number): E
   kicker: 'Arrow',
   body: `${from} has ${plural(skills, 'skill')} that ${to} wants to learn. The arrow points from the person with the skill to the person who wants it.`,
 })
+
+/** What groups are, why they exist and how to look at them, shown beside the network legend. */
+export const GROUPS_GUIDE = {
+  title: 'About groups',
+  withGroups: [
+    'Groups show who clusters together: people connected more strongly to each other than to the rest. They are found automatically from the lines currently drawn, so they can change when you change a filter.',
+    'Each group has its own colour and shape, so you can tell them apart without relying on colour. People with no connection under the filters are not in a group.',
+    'To look at one group, click its entry below to highlight its people and the lines between them (click it again to clear). Or open “Show connections as a table”, which has a Group column.',
+  ],
+  noGroups: [
+    'There are no groups yet: a group needs at least one connection between people.',
+    'Lower “Hide weaker connections”, or raise “Related terms count”, to bring connections back. Groups are found automatically from the lines drawn, so they appear as soon as there are some.',
+  ],
+}
 
 export const groupExplanation = (label: string, members: string[]): Explanation => ({
   title: label,

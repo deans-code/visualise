@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api, start } from './api'
 import { Dictionary } from './components/Dictionary'
 import { Explore } from './components/Explore'
+import { GettingStarted } from './components/GettingStarted'
 import { People } from './components/People'
 import { StorageNotice } from './components/StorageNotice'
 import { ThemeToggle } from './components/ThemeToggle'
@@ -52,20 +53,23 @@ export function App() {
         </header>
         <StorageNotice />
         <nav aria-label="Sections">
-          <button aria-pressed={tab === 'people'} onClick={() => setTab('people')}>
+          <button data-page="people" aria-pressed={tab === 'people'} onClick={() => setTab('people')}>
             People
           </button>
-          <button aria-pressed={tab === 'explore'} onClick={() => setTab('explore')}>
+          <button data-page="explore" aria-pressed={tab === 'explore'} onClick={() => setTab('explore')}>
             Explore
           </button>
-          <button aria-pressed={tab === 'dictionary'} onClick={() => setTab('dictionary')}>
+          <button data-page="dictionary" aria-pressed={tab === 'dictionary'} onClick={() => setTab('dictionary')}>
             Dictionary
           </button>
         </nav>
         <Boot>
-          {tab === 'people' && <People api={api} refreshKey={version} onChange={() => setVersion((v) => v + 1)} />}
-          {tab === 'explore' && <Explore api={api} refreshKey={version} onGoToPeople={() => setTab('people')} />}
-          {tab === 'dictionary' && <Dictionary api={api} refreshKey={version} />}
+          <GettingStarted api={api} page={tab} refreshKey={version} onGo={setTab} />
+          <div data-page={tab}>
+            {tab === 'people' && <People api={api} refreshKey={version} onChange={() => setVersion((v) => v + 1)} />}
+            {tab === 'explore' && <Explore api={api} refreshKey={version} onGoToPeople={() => setTab('people')} />}
+            {tab === 'dictionary' && <Dictionary api={api} refreshKey={version} />}
+          </div>
         </Boot>
       </main>
     </ExplainProvider>

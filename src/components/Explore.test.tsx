@@ -2,6 +2,7 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { ExplainProvider } from '../explain'
 import { FIXTURE } from '../graph/fixture'
 import { makeApi } from '../test-utils'
 import { Explore } from './Explore'
@@ -415,5 +416,119 @@ describe('Explore category view', () => {
     await userEvent.click(screen.getByRole('checkbox', { name: 'Technical development' }))
     expect(container.querySelector('tr[data-category$=":Languages"]')).toBeNull()
     expect(container.querySelector('tr[data-category="interpersonal:Leadership"]')).toBeTruthy()
+  })
+})
+
+describe('Explore filter guidance', () => {
+  it('describes every filter in visible text', async () => {
+    await open()
+    const filters = screen.getByRole('form', { name: 'Filters' })
+    for (const text of [
+      /decides what a connection means/i,
+      /only skills in the ticked areas count/i,
+      /how far a related term counts as a match/i,
+      /drop lines weaker than this/i,
+      /keep only connections that involve a term you pick/i,
+    ])
+      expect(within(filters).getByText(text)).toBeVisible()
+  })
+
+  it.each(['Network', 'Matrix', 'People and terms', 'By category'])(
+    'offers concrete things to try, each naming a control, with the %s view open',
+    async (view) => {
+      await open()
+      await userEvent.click(screen.getByRole('button', { name: view }))
+      const panel = screen.getByRole('complementary', { name: /how to use: try this/i })
+      const items = within(within(panel).getByRole('list', { name: 'Things to try' })).getAllByRole('listitem')
+      expect(items.length).toBeGreaterThanOrEqual(3)
+      expect(items[0]).toHaveTextContent(/Connect people by: Choose Could help\. Arrows appear/)
+      expect(panel).not.toHaveTextContent(/right-click/i)
+    },
+  )
+})
+
+describe('Explore group guidance and highlight', () => {
+  const term = (id: number, name: string) => ({ id, name, kind: 'skill' as const, section: 'technical', category: 'X', definition: null })
+  const links = (p: number, t: number) => ({ person: p, term: t, role: 'experience' as const })
+  const twoPairs = {
+    people: [1, 2, 3, 4].map((id) => ({ id, name: `P${id}` })),
+    terms: [term(1, 'Go'), term(2, 'Mentoring')],
+    links: [links(1, 1), links(2, 1), links(3, 2), links(4, 2)],
+    related: [],
+  }
+  const openPairs = async () => {
+    const view = render(<Explore api={makeApi({ graph: vi.fn().mockResolvedValue(twoPairs) })} />)
+    await screen.findByTestId('network')
+    return view
+  }
+  const entry = (name: RegExp) => within(screen.getByRole('list', { name: 'Groups' })).getByRole('button', { name })
+  const dimmedIds = (c: HTMLElement) =>
+    [...c.querySelectorAll('[data-person][data-dimmed="true"]')].map((n) => n.getAttribute('data-person'))
+
+  it('explains why groups exist, that they change with filters, and how to view them', async () => {
+    await openPairs()
+    const panel = screen.getByRole('complementary', { name: /how to use: about groups/i })
+    expect(panel).toHaveTextContent(/connected more strongly to each other than to the rest/)
+    expect(panel).toHaveTextContent(/can change when you change a filter/)
+    expect(panel).toHaveTextContent(/colour and shape/)
+    expect(panel).toHaveTextContent(/click its entry below/)
+    expect(panel).toHaveTextContent(/Group column/)
+  })
+
+  it('says groups need a connection, and how to get one, when there are none', async () => {
+    await open()
+    setSlider(/hide weaker/i, 1)
+    const panel = screen.getByRole('complementary', { name: /how to use: about groups/i })
+    expect(panel).toHaveTextContent(/no groups yet: a group needs at least one connection/i)
+    expect(panel).toHaveTextContent(/Lower .Hide weaker connections./)
+  })
+
+  it('highlights a group from its legend entry, dims the rest, and clears on a second click', async () => {
+    const { container } = await openPairs()
+    const g2 = entry(/Group 2/)
+    expect(g2).toHaveAttribute('aria-pressed', 'false')
+    await userEvent.click(g2)
+    expect(g2).toHaveAttribute('aria-pressed', 'true')
+    expect(dimmedIds(container).sort()).toEqual(['1', '2'])
+    expect(edge(container, 1, 2)).toBeTruthy()
+    expect(edge(container, 1, 2)!.closest('g')).toHaveAttribute('data-dimmed', 'true')
+    expect(edge(container, 3, 4)!.closest('g')).toHaveAttribute('data-dimmed', 'false')
+    expect(screen.getByText(/Highlighting Group 2: P3, P4/)).toBeInTheDocument()
+    // Shapes and labels stay, so the members are still told apart without colour.
+    expect(node(container, 3).querySelector('text')).toHaveTextContent('P3')
+
+    await userEvent.click(g2)
+    expect(g2).toHaveAttribute('aria-pressed', 'false')
+    expect(dimmedIds(container)).toEqual([])
+    expect(screen.queryByText(/Highlighting Group/)).toBeNull()
+  })
+
+  it('works from the keyboard and clears with Clear highlight', async () => {
+    const { container } = await openPairs()
+    entry(/Group 1/).focus()
+    await userEvent.keyboard('{Enter}')
+    expect(dimmedIds(container).sort()).toEqual(['3', '4'])
+    await userEvent.click(screen.getByRole('button', { name: 'Clear highlight' }))
+    expect(dimmedIds(container)).toEqual([])
+  })
+
+  it('clears the highlight when a filter change regroups people', async () => {
+    const { container } = await openPairs()
+    await userEvent.click(entry(/Group 1/))
+    expect(dimmedIds(container).length).toBeGreaterThan(0)
+    setSlider(/hide weaker/i, 1)
+    expect(dimmedIds(container)).toEqual([])
+    expect(screen.queryByText(/Highlighting Group/)).toBeNull()
+  })
+
+  it('still opens the group explanation on right-click', async () => {
+    render(
+      <ExplainProvider>
+        <Explore api={makeApi({ graph: vi.fn().mockResolvedValue(twoPairs) })} />
+      </ExplainProvider>,
+    )
+    await screen.findByTestId('network')
+    fireEvent.contextMenu(entry(/Group 1/))
+    expect(screen.getByRole('dialog')).toHaveTextContent(/connected more strongly to each other/)
   })
 })

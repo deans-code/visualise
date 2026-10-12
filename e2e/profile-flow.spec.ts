@@ -146,7 +146,7 @@ test('upload, review a custom term, find it in the dictionary, and explore the g
   await page.getByRole('button', { name: 'Matrix' }).click()
   await expect(page.getByRole('table', { name: 'People by term' })).toBeVisible()
   await page.getByRole('button', { name: 'Network' }).click()
-  await page.getByText('Show connections as a table').click()
+  await page.getByText('Show connections as a table', { exact: true }).click()
   await expect(page.getByRole('table').filter({ hasText: 'Similarity' })).toContainText('priya-frontend')
 
   // --- Nothing went to an application API, and nothing about the people left the browser -----------------
@@ -244,6 +244,26 @@ test('a first-time visitor can load the sample profiles and explore them', async
   await expect(network.locator('g.node')).toHaveCount(6)
   await page.getByLabel(/hide weaker/i).fill('0')
   expect(await network.locator('[data-edge]').count()).toBeGreaterThan(0)
+})
+
+test('the getting-started strip moves on, and a group can be highlighted from the legend', async ({ page, baseURL }) => {
+  await stubOutsideWorld(page, baseURL!)
+  await page.goto('./')
+  const steps = page.getByRole('list', { name: 'Steps' }).getByRole('listitem')
+  await expect(steps.first()).toHaveAttribute('data-state', 'current')
+
+  await page.getByRole('button', { name: 'Load sample profiles' }).click()
+  await expect(page.getByRole('list', { name: 'Individuals' }).getByRole('listitem')).toHaveCount(6)
+  await expect(steps.first()).toHaveAttribute('data-state', 'done')
+
+  await page.getByRole('navigation', { name: 'Sections' }).getByRole('button', { name: 'Explore' }).click()
+  await expect(page.getByRole('complementary', { name: /how to use: about groups/i })).toContainText('connected more strongly')
+  const entry = page.getByRole('list', { name: 'Groups' }).getByRole('button').first()
+  await entry.click()
+  await expect(entry).toHaveAttribute('aria-pressed', 'true')
+  expect(await page.locator('[data-person][data-dimmed="true"]').count()).toBeGreaterThan(0)
+  await page.getByRole('button', { name: 'Clear highlight' }).click()
+  await expect(page.locator('[data-person][data-dimmed="true"]')).toHaveCount(0)
 })
 
 test('people with only built-in terms are related at once, and the language model is never requested', async ({ page, baseURL }) => {

@@ -30,7 +30,18 @@ export function GestureHint() {
 }
 
 /** A collapsible "how to use this page" panel; its state is remembered for the browser session. */
-export function HelpPanel({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+export function HelpPanel({
+  id,
+  title,
+  children,
+  gestures = true,
+}: {
+  id: string
+  title: string
+  children: ReactNode
+  /** Whether to end with how to open explanations; the Getting started strip has no explainable elements. */
+  gestures?: boolean
+}) {
   const [collapsed, setCollapsed] = useState(() => readCollapsed(id))
   const toggle = () => {
     writeCollapsed(id, !collapsed)
@@ -47,7 +58,7 @@ export function HelpPanel({ id, title, children }: { id: string; title: string; 
       </div>
       <div id={bodyId} hidden={collapsed}>
         {children}
-        <GestureHint />
+        {gestures && <GestureHint />}
       </div>
     </aside>
   )

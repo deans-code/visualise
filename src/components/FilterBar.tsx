@@ -5,6 +5,7 @@ import {
   adjacencyExplanation,
   basisExplanation,
   basisGroupExplanation,
+  FILTER_HINTS,
   focusExplanation,
   sectionsExplanation,
   thresholdExplanation,
@@ -63,6 +64,7 @@ export function FilterBar({
             </label>
           ))}
         </div>
+        <span className="hint filter-hint">{FILTER_HINTS.basis}</span>
       </fieldset>
 
       <fieldset disabled={valuesBasis} {...explain.props(sectionsExplanation)}>
@@ -75,6 +77,7 @@ export function FilterBar({
             </label>
           ))}
         </div>
+        <span className="hint filter-hint">{FILTER_HINTS.sections}</span>
       </fieldset>
 
       <label {...explain.props(adjacencyExplanation)}>
@@ -89,9 +92,7 @@ export function FilterBar({
           onChange={(e) => set({ adjacency: Number(e.target.value) })}
         />{' '}
         <output>{filters.adjacency === 0 ? 'exact only' : `${Math.round(filters.adjacency * 100)}%`}</output>
-        <span className="hint" style={{ display: 'block' }}>
-          How far a related term counts as a match.
-        </span>
+        <span className="hint filter-hint">{FILTER_HINTS.adjacency}</span>
       </label>
 
       <label {...explain.props(thresholdExplanation)}>
@@ -105,9 +106,7 @@ export function FilterBar({
           onChange={(e) => set({ threshold: Number(e.target.value) })}
         />{' '}
         <output>{`below ${Math.round(filters.threshold * 100)}%`}</output>
-        <span className="hint" style={{ display: 'block' }}>
-          Drop lines weaker than this.
-        </span>
+        <span className="hint filter-hint">{FILTER_HINTS.threshold}</span>
       </label>
 
       <div {...explain.props(focusExplanation)}>
@@ -120,6 +119,7 @@ export function FilterBar({
             onChange={(e) => addFocus(e.target.value)}
           />
         </label>
+        <span className="hint filter-hint">{FILTER_HINTS.focus}</span>
         <datalist id={`${id}-terms`}>
           {index.data.terms.map((t) => (
             <option key={t.id} value={t.name} />

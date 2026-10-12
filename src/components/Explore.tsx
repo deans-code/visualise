@@ -9,7 +9,7 @@ import { FilterBar } from './FilterBar'
 import { MatrixView } from './MatrixView'
 import { NetworkView } from './NetworkView'
 import { HelpPanel } from './HelpPanel'
-import { switcherExplanation, VIEW_GUIDE, viewExplanation } from '../explanations'
+import { switcherExplanation, TRY_THIS, VIEW_GUIDE, viewExplanation } from '../explanations'
 import { useExplain } from '../explain'
 
 export type View = 'network' | 'matrix' | 'bipartite' | 'categories'
@@ -84,6 +84,7 @@ export function Explore({ api, refreshKey = 0, onGoToPeople }: { api: Api; refre
         {VIEWS.map((v) => (
           <button
             key={v.value}
+            data-view={v.value}
             aria-pressed={view === v.value}
             onClick={() => setView(v.value)}
             {...explain.props(viewExplanation(v.value))}
@@ -92,13 +93,22 @@ export function Explore({ api, refreshKey = 0, onGoToPeople }: { api: Api; refre
           </button>
         ))}
       </div>
-      <div className="help" data-testid="view-guide">
+      <div className="help" data-view={view} data-testid="view-guide">
         <p>
           <strong>{VIEW_GUIDE[view].label}:</strong> {VIEW_GUIDE[view].summary}
         </p>
         <p className="help-alt">{VIEW_GUIDE[view].howToRead}</p>
       </div>
       <FilterBar index={index} filters={filters} onChange={setFilters} />
+      <HelpPanel id="try-this" title="Try this" gestures={false}>
+        <ul className="try-this" aria-label="Things to try">
+          {TRY_THIS.map((t) => (
+            <li key={t.control}>
+              <strong>{t.control}:</strong> {t.action} {t.effect}
+            </li>
+          ))}
+        </ul>
+      </HelpPanel>
       {view === 'network' && (
         <div className="viz">
           <NetworkView index={index} filters={filters} selection={selection} onSelect={setSelection} />
