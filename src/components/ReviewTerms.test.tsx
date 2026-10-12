@@ -48,6 +48,29 @@ describe('ReviewTerms privacy', () => {
   })
 })
 
+describe('ReviewTerms layout', () => {
+  it('lays each term out as a card with stacked fields and one action row, Accept primary', async () => {
+    render(<ReviewTerms api={fakeApi()} terms={[zig]} />)
+    const c = await card('Zig')
+    expect(c).toHaveClass('review-card')
+    expect(await within(c).findByLabelText('Definition for Zig')).toHaveValue('Zig is a systems language.')
+    expect(within(c).getByLabelText('Definition for Zig').closest('label')).toHaveClass('field')
+    expect(within(c).getByLabelText('Category').closest('label')).toHaveClass('field')
+    const actions = within(c).getByRole('button', { name: 'Accept' }).parentElement!
+    expect(actions).toHaveClass('card-actions')
+    expect(within(actions).getAllByRole('button').map((b) => b.textContent)).toEqual(['Accept', 'Reject', 'Skip'])
+    expect(within(c).getByRole('button', { name: 'Accept' })).not.toHaveClass('secondary')
+  })
+
+  it('keeps Accept disabled when no definition was found', async () => {
+    const api = fakeApi({ lookup: vi.fn().mockResolvedValue({ proposal: null, errors: [] }) })
+    render(<ReviewTerms api={api} terms={[zig]} />)
+    const c = await card('Zig')
+    await within(c).findByLabelText('Definition for Zig')
+    expect(within(c).getByRole('button', { name: 'Accept' })).toBeDisabled()
+  })
+})
+
 describe('ReviewTerms while the language model loads', () => {
   const later = <T,>() => {
     let resolve!: (v: T) => void

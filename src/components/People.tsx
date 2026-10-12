@@ -180,29 +180,35 @@ export function People({ api, onChange, refreshKey = 0 }: { api: Api; onChange?:
           {people.map((p) => (
             <li key={p.id} tabIndex={0} {...explain.props(personListExplanation(p.name, p.termCount))}>
               {editing === p.id ? (
-                <>
-                  <input aria-label="Display name" value={draft} onChange={(e) => setDraft(e.target.value)} />{' '}
-                  <button onClick={() => void saveName(p.id)}>Save</button>{' '}
-                  <button className="secondary" onClick={() => setEditing(null)}>
-                    Cancel
-                  </button>
-                </>
+                <div className="person-row">
+                  <input aria-label="Display name" value={draft} onChange={(e) => setDraft(e.target.value)} />
+                  <div className="person-actions">
+                    <button onClick={() => void saveName(p.id)}>Save</button>
+                    <button className="secondary" onClick={() => setEditing(null)}>
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               ) : (
-                <>
-                  <span>{p.name}</span> <small>({p.termCount} terms)</small>{' '}
-                  <button
-                    className="secondary"
-                    onClick={() => {
-                      setEditing(p.id)
-                      setDraft(p.name)
-                    }}
-                  >
-                    Rename
-                  </button>{' '}
-                  <button className="secondary" onClick={() => void remove(p)}>
-                    Delete
-                  </button>
-                </>
+                <div className="person-row">
+                  <span className="person-name">
+                    {p.name} <small>({p.termCount} terms)</small>
+                  </span>
+                  <div className="person-actions">
+                    <button
+                      className="secondary"
+                      onClick={() => {
+                        setEditing(p.id)
+                        setDraft(p.name)
+                      }}
+                    >
+                      Rename
+                    </button>
+                    <button className="secondary" onClick={() => void remove(p)}>
+                      Delete
+                    </button>
+                  </div>
+                </div>
               )}
             </li>
           ))}

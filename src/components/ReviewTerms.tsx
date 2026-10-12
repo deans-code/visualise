@@ -161,7 +161,7 @@ function TermCard({
   }
 
   return (
-    <article aria-label={term.name}>
+    <article aria-label={term.name} className="review-card">
       <h4>
         {term.name} <small>{sectionLabel(term)}</small>
       </h4>
@@ -196,11 +196,11 @@ function TermCard({
               You can write one yourself.
             </p>
           )}
-          <label>
+          <label className="field">
             Definition for {term.name}
             <textarea value={definition} onChange={(e) => setDefinition(e.target.value)} rows={3} />
           </label>
-          <label>
+          <label className="field">
             Category
             <input
               value={category}
@@ -211,23 +211,23 @@ function TermCard({
             />
           </label>
           {ready.placement === 'pending' && (
-            <small role="status">Looking for a category suggestion… the first time, this loads a language model.</small>
+            <small className="field-note" role="status">Looking for a category suggestion… the first time, this loads a language model.</small>
           )}
-          {suggestion && <small>Suggested from similar terms.</small>}
+          {suggestion && <small className="field-note">Suggested from similar terms.</small>}
           {ready.placement === null && (
-            <small>No category suggestion is available (the language model could not be loaded). Type a category if you like.</small>
+            <small className="field-note">No category suggestion is available (the language model could not be loaded). Type a category if you like.</small>
           )}
         </>
       )}
 
       {error && <p role="alert">{error}</p>}
-      <div>
+      <div className="card-actions">
         <button onClick={() => void accept()} disabled={!ready || !definition.trim()}>
           Accept
-        </button>{' '}
+        </button>
         <button className="secondary" onClick={() => onDecide('rejected')}>
           Reject
-        </button>{' '}
+        </button>
         <button className="secondary" onClick={() => onDecide('skipped')}>
           Skip
         </button>

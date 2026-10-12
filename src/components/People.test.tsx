@@ -51,6 +51,16 @@ describe('People', () => {
     expect(upload.mock.calls[1][1]).toEqual({ 'alex.json': 'replace' })
   })
 
+  it('groups Rename and Delete together at the end of the person row', async () => {
+    const api = fakeApi({ listIndividuals: vi.fn().mockResolvedValue([{ id: 7, name: 'alex-smith', termCount: 3 }]) })
+    render(<People api={api} />)
+    const rename = await screen.findByRole('button', { name: 'Rename' })
+    const actions = rename.parentElement!
+    expect(actions).toHaveClass('person-actions')
+    expect(actions.parentElement).toHaveClass('person-row')
+    expect(Array.from(actions.querySelectorAll('button')).map((b) => b.textContent)).toEqual(['Rename', 'Delete'])
+  })
+
   it('renames an individual', async () => {
     const api = fakeApi({ listIndividuals: vi.fn().mockResolvedValue([{ id: 7, name: 'alex-smith', termCount: 3 }]) })
     render(<People api={api} />)
